@@ -27,19 +27,19 @@ public:
     KeyMap(irr::EKEY_CODE forward = irr::KEY_KEY_Z, irr::EKEY_CODE backward = irr::KEY_KEY_S, irr::EKEY_CODE left = irr::KEY_KEY_Q, irr::EKEY_CODE right = irr::KEY_KEY_D, irr::EKEY_CODE action = irr::KEY_SPACE);
     ~KeyMap();
 
-    const irr::EKEY_CODE getForward() const;
+    irr::EKEY_CODE getForward() const;
     void setForward(irr::EKEY_CODE);
 
-    const irr::EKEY_CODE getBackward() const;
+    irr::EKEY_CODE getBackward() const;
     void setBackward(irr::EKEY_CODE);
 
-    const irr::EKEY_CODE getLeft() const;
+    irr::EKEY_CODE getLeft() const;
     void setLeft(irr::EKEY_CODE);
 
-    const irr::EKEY_CODE getRight() const;
+    irr::EKEY_CODE getRight() const;
     void setRight(irr::EKEY_CODE);
 
-    const irr::EKEY_CODE getAction() const;
+    irr::EKEY_CODE getAction() const;
     void setAction(irr::EKEY_CODE);
 };
 

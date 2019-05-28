@@ -7,11 +7,11 @@
 
 #include "Wall.hpp"
 
-Wall::Wall(std::string& texture, bool isBreakable = true) : _isBreakable(isBreakable), _life(1)
+Wall::Wall(std::string& texture, bool isBreakable) : _isBreakable(isBreakable), _life(1)
 {
     this->getDisplayInfo().setMesh(NULL, GraphicalElements::meshType_t::CUBE, texture);
 }
 
-Wall::Wall(bool isBreakable = true) : _isBreakable(isBreakable), _life(1)
+Wall::Wall(bool isBreakable) : _isBreakable(isBreakable), _life(1)
 {
 }

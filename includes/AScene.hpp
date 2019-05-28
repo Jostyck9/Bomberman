@@ -22,7 +22,7 @@ protected:
     MyEventReceiver _events;
 
 public:
-    AScene::AScene(irr::IrrlichtDevice* device);
+    AScene(irr::IrrlichtDevice* device);
     AScene(irr::IrrlichtDevice* device, Camera &camera);
     const Camera &getCamera();
     void setCamera(Camera &camera);

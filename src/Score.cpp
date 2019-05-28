@@ -15,7 +15,7 @@ Score::~Score()
 {
 }
 
-const irr::s16 Score::getScore() const
+irr::s16 Score::getScore() const
 {
     return (_score);
 }

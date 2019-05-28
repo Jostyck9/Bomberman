@@ -38,5 +38,6 @@ GraphicalElements &PlayerController::getDisplayInfo()
 void PlayerController::action(MyEventReceiver &events)
 {
     //TODO action
+    (void)events;
     throw "Not implemented yet";
 }
