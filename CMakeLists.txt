@@ -7,7 +7,7 @@ enable_testing()
 
 # sources et include
 file(GLOB_RECURSE SOURCE_FILES "*.cpp" "*.hpp")
-include_directories(GLOB_RECURSE include)
+include_directories(GLOB_RECURSE includes)
 
 if(MSVC)
 	# Force to always compile with W4

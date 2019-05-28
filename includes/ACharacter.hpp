@@ -8,27 +8,26 @@
 #ifndef ACHARACTER_HPP
 #define ACHARACTER_HPP
 
+#include <irrlicht/irrlicht.h>
+#include <Bomb.hpp>
+#include <GraphicalElements.hpp>
+#include <CharacterStats.hpp>
+
 class ACharacter
 {
 
 private:
-    boolean _alive;
+    bool _alive;
     GraphicalElements _displayInfo;
     CharacterStats _stats;
 
 public:
     Bomb* putBomb(irr::IrrlichtDevice* device);
-
-    boolean virtual_action();
-
-    boolean move(int irr::core::vector3df);
-
-    boolean isAlive();
-
-    void setAlive(boolean _alive);
-
+    bool virtual_action();
+    bool move(int irr::core::vector3df);
+    bool isAlive();
+    void setAlive(bool _alive);
     GraphicalElements& getDisplayInfo();
-
     CharacterStats& getStats();
 };
 
