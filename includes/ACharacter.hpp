@@ -9,21 +9,21 @@
 #define ACHARACTER_HPP
 
 #include "PrintableObject.hpp"
+#include "PlayerController.hpp"
+#include "CharacterStats.hpp"
+#include "Score.hpp"
+#include "Life.hpp"
 
 class ACharacter : public PrintableObject
 {
 private:
-    GraphicalElements _displayInfo;
     CharacterStats _stats;
+    Score _score;
+    Life _life;
+    PlayerController _controller;
 
 public:
-    Bomb* putBomb(irr::IrrlichtDevice* device);
-    bool virtual_action();
-    bool move(int irr::core::vector3df);
-    bool isAlive();
-    void setAlive(bool _alive);
-    GraphicalElements& getDisplayInfo();
-    CharacterStats& getStats();
+    ACharacter();
 };
 
 #endif

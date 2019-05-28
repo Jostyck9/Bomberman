@@ -1,17 +1,27 @@
+/*
+** EPITECH PROJECT, 2018
+** Bomberman
+** File description:
+** Wall.hpp
+*/
+
 #ifndef WALL_HPP
 #define WALL_HPP
 
-class Wall
-{
+#include "PrintableObject.hpp"
+#include "Life.hpp"
 
+class Wall : public PrintableObject
+{
 private:
     bool _isBreakable;
-    GraphicalElements _info_display;
+    Life _life;
 
 public:
-    IItem* createRandomItem();
+    // IItem* createRandomItem();
 
-    Wall(std::string& texture);
+    Wall(bool isBreakable = true);
+    Wall(std::string& texture, bool isBreakable = true);
 };
 
 #endif

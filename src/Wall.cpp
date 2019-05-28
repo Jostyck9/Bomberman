@@ -1,19 +1,17 @@
-#include "../../../.config/VisualParadigm/ws/teamwork_client/projects/Bomberman/Wall.h"
+/*
+** EPITECH PROJECT, 2018
+** Bomberman
+** File description:
+** Wall.cpp
+*/
 
-Wall::Wall(std::string& texture)
+#include "Wall.hpp"
+
+Wall::Wall(std::string& texture, bool isBreakable = true) : _isBreakable(isBreakable), _life(1)
 {
-    // TODO - implement Wall::Wall
-    throw "Not yet implemented";
+    this->getDisplayInfo().setMesh(NULL, GraphicalElements::meshType_t::CUBE, texture);
 }
 
-IItem* Wall::createRandomItem()
+Wall::Wall(bool isBreakable = true) : _isBreakable(isBreakable), _life(1)
 {
-    // TODO - implement Wall::createRandomItem
-    throw "Not yet implemented";
-}
-
-Wall::Wall(std::string& texture)
-{
-    // TODO - implement Wall::Wall
-    throw "Not yet implemented";
 }
