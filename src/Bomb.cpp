@@ -25,7 +25,7 @@ ACharacter& Bomb::getParentCharacter()
     return (_parentCharacter);
 }
 
-void Bomb::setParentCharacter(ACharacter& character)
-{
-    _parentCharacter = character;
-}
+// void Bomb::setParentCharacter(ACharacter& character)
+// {
+//     _parentCharacter = character;
+// }

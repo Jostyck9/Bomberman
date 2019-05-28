@@ -25,7 +25,7 @@ public:
     void update();
 
     ACharacter& getParentCharacter();
-    void setParentCharacter(ACharacter& _parentCharacter);
+    // void setParentCharacter(ACharacter& _parentCharacter);
 };
 
 #endif

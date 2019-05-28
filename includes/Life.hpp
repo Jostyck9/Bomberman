@@ -23,7 +23,7 @@ public:
     Life(irr::s16 = 3);
     ~Life();
 
-    const irr::s16 getLife() const;
+    irr::s16 getLife() const;
     void setLife(irr::s16 life);
 };
 

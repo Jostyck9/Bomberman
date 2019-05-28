@@ -15,7 +15,7 @@ KeyMap::~KeyMap()
 {
 }
 
-const irr::EKEY_CODE KeyMap::getForward() const
+irr::EKEY_CODE KeyMap::getForward() const
 {
     return (_forward);
 }
@@ -25,7 +25,7 @@ void KeyMap::setForward(irr::EKEY_CODE forward)
     _forward = forward;
 }
 
-const irr::EKEY_CODE KeyMap::getBackward() const
+irr::EKEY_CODE KeyMap::getBackward() const
 {
     return (_backward);
 }
@@ -35,7 +35,7 @@ void KeyMap::setBackward(irr::EKEY_CODE backward)
     _backward = backward;
 }
 
-const irr::EKEY_CODE KeyMap::getLeft() const
+irr::EKEY_CODE KeyMap::getLeft() const
 {
     return (_left);
 }
@@ -45,7 +45,7 @@ void KeyMap::setLeft(irr::EKEY_CODE left)
     _left = left;
 }
 
-const irr::EKEY_CODE KeyMap::getRight() const
+irr::EKEY_CODE KeyMap::getRight() const
 {
     return (_right);
 }
@@ -55,7 +55,7 @@ void KeyMap::setRight(irr::EKEY_CODE right)
     _right = right;
 }
 
-const irr::EKEY_CODE KeyMap::getAction() const
+irr::EKEY_CODE KeyMap::getAction() const
 {
     return (_action);
 }

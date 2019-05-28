@@ -15,7 +15,7 @@ Life::~Life()
 {
 }
 
-const irr::s16 Life::getLife() const
+irr::s16 Life::getLife() const
 {
     return (_life);
 }

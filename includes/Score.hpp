@@ -23,7 +23,7 @@ public:
     Score();
     ~Score();
 
-    const irr::s16 getScore() const;
+    irr::s16 getScore() const;
     void setScore(irr::s16);
 };
 

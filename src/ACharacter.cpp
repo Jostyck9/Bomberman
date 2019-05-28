@@ -10,3 +10,23 @@
 ACharacter::ACharacter() : _stats(), _score(), _life(), _controller(this->getDisplayInfo())
 {
 }
+
+CharacterStats &ACharacter::getStats()
+{
+    return (_stats);
+}
+
+Score &ACharacter::getScore()
+{
+    return (_score);
+}
+
+Life &ACharacter::getLife()
+{
+    return (_life);
+}
+
+PlayerController &ACharacter::getPlayerController()
+{
+    return (_controller);
+}
