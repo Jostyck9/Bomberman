@@ -1,75 +1,48 @@
-#include "../../../.config/VisualParadigm/ws/teamwork_client/projects/Bomberman/CharacterStats.h"
+/*
+** EPITECH PROJECT, 2018
+** Bomberman
+** File description:
+** CharacterStats.cpp
+*/
 
-void CharacterStats::set_bombRadius(irr::u16 _bombRadius)
-{
-    // TODO - implement CharacterStats::set_bombRadius
-    throw "Not yet implemented";
-}
+#include "CharacterStats.hpp"
 
-void CharacterStats::set_nbrBomb(irr::u16 _nbrBomb)
-{
-    // TODO - implement CharacterStats::set_nbrBomb
-    throw "Not yet implemented";
-}
-
-void CharacterStats::set_speed(irr::f32 _speed)
-{
-    // TODO - implement CharacterStats::set_speed
-    throw "Not yet implemented";
-}
-
-void CharacterStats::set_score(irr::s16 _score)
-{
-    // TODO - implement CharacterStats::set_score
-    throw "Not yet implemented";
-}
-
-boolean CharacterStats::get_passThrough()
+bool CharacterStats::getPassThrough()
 {
     return this->_passThrough;
 }
 
-void CharacterStats::set_passThrough(boolean _passThrough)
+void CharacterStats::setPassThrough(bool _passThrough)
 {
     this->_passThrough = _passThrough;
 }
 
-irr::u16 CharacterStats::get_bombRadius()
+irr::u16 CharacterStats::getBombRadius()
 {
     return this->_bombRadius;
 }
 
-void CharacterStats::set_bombRadius(irr::u16 _bombRadius)
+void CharacterStats::setBombRadius(irr::u16 _bombRadius)
 {
     this->_bombRadius = _bombRadius;
 }
 
-irr::u16 CharacterStats::get_nbrBomb()
+irr::u16 CharacterStats::getNbrBomb()
 {
     return this->_nbrBomb;
 }
 
-void CharacterStats::set_nbrBomb(irr::u16 _nbrBomb)
+void CharacterStats::setNbrBomb(irr::u16 _nbrBomb)
 {
     this->_nbrBomb = _nbrBomb;
 }
 
-irr::f32 CharacterStats::get_speed()
+irr::f32 CharacterStats::getSpeed()
 {
     return this->_speed;
 }
 
-void CharacterStats::set_speed(irr::f32 _speed)
+void CharacterStats::setSpeed(irr::f32 _speed)
 {
     this->_speed = _speed;
-}
-
-irr::s16 CharacterStats::get_score()
-{
-    return this->_score;
-}
-
-void CharacterStats::set_score(irr::s16 _score)
-{
-    this->_score = _score;
 }

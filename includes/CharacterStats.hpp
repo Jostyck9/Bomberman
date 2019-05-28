@@ -8,36 +8,32 @@
 #ifndef CHARACTERSTATS_HPP
 #define CHARACTERSTATS_HPP
 
+#ifdef _WIN64
+#include <irrlicht.h>
+#else
+#include <irrlicht/irrlicht.h>
+#endif
+
 class CharacterStats
 {
-
 private:
-    boolean _passThrough;
+    bool _passThrough;
     irr::u16 _bombRadius;
     irr::u16 _nbrBomb;
     irr::f32 _speed;
-    irr::s16 _score;
 
 public:
-    boolean get_passThrough();
+    bool getPassThrough();
+    void setPassThrough(bool passThrough);
 
-    void set_passThrough(boolean _passThrough);
+    irr::u16 getBombRadius();
+    void setBombRadius(irr::u16 bombRadius);
 
-    irr::u16 get_bombRadius();
+    irr::u16 getNbrBomb();
+    void setNbrBomb(irr::u16 nbrBomb);
 
-    void set_bombRadius(irr::u16 _bombRadius);
-
-    irr::u16 get_nbrBomb();
-
-    void set_nbrBomb(irr::u16 _nbrBomb);
-
-    irr::f32 get_speed();
-
-    void set_speed(irr::f32 _speed);
-
-    irr::s16 get_score();
-
-    void set_score(irr::s16 _score);
+    irr::f32 getSpeed();
+    void setSpeed(irr::f32 speed);
 };
 
 #endif
