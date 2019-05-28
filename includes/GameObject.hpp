@@ -11,6 +11,7 @@
 class GameObject {
 public:
     enum objectType_s {
+        PRINTABLE_OBJ,
         UNKNOWN
     };
     typedef objectType_s objecType_t;

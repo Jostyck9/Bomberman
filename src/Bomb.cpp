@@ -1,21 +1,17 @@
 #include "Bomb.hpp"
 
-Bomb::Bomb(ACharacter& character, irr::u16 radius)
+Bomb::Bomb(ACharacter& character, irr::u16 radius) : _radius(radius), _parentCharacter(character)
 {
-    // TODO - implement Bomb::Bomb
-    throw "Not yet implemented";
 }
 
-void Bomb::setRadius(irr::u16 _radius)
+irr::u16 Bomb::getRadius()
 {
-    // TODO - implement Bomb::setRadius
-    throw "Not yet implemented";
+    return (_radius);
 }
 
-Bomb::Bomb(ACharacter& character, irr::u16 radius)
+void Bomb::setRadius(irr::u16 radius)
 {
-    // TODO - implement Bomb::Bomb
-    throw "Not yet implemented";
+    _radius = radius;
 }
 
 void Bomb::update()
@@ -24,32 +20,12 @@ void Bomb::update()
     throw "Not yet implemented";
 }
 
-GraphicalElements& Bomb::getDisplayInfo()
-{
-    // TODO - implement Bomb::getDisplayInfo
-    throw "Not yet implemented";
-}
-
-irr::u16 Bomb::getRadius()
-{
-    // TODO - implement Bomb::getRadius
-    throw "Not yet implemented";
-}
-
-void Bomb::setRadius(irr::u16 _radius)
-{
-    // TODO - implement Bomb::setRadius
-    throw "Not yet implemented";
-}
-
 ACharacter& Bomb::getParentCharacter()
 {
-    // TODO - implement Bomb::getParentCharacter
-    throw "Not yet implemented";
+    return (_parentCharacter);
 }
 
-void Bomb::setParentCharacter(ACharacter& _parentCharacter)
+void Bomb::setParentCharacter(ACharacter& character)
 {
-    // TODO - implement Bomb::setParentCharacter
-    throw "Not yet implemented";
+    _parentCharacter = character;
 }

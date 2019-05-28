@@ -8,16 +8,11 @@
 #ifndef ACHARACTER_HPP
 #define ACHARACTER_HPP
 
-#include <irrlicht/irrlicht.h>
-#include <Bomb.hpp>
-#include <GraphicalElements.hpp>
-#include <CharacterStats.hpp>
+#include "PrintableObject.hpp"
 
-class ACharacter
+class ACharacter : public PrintableObject
 {
-
 private:
-    bool _alive;
     GraphicalElements _displayInfo;
     CharacterStats _stats;
 
