@@ -40,16 +40,17 @@ const irr::scene::IAnimatedMesh* GraphicalElements::getMesh() const
     return (_mesh);
 }
 
-void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, std::string &meshPath, std::string texture)
+void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::vector<std::string> texture, std::string &meshPath)
 {
-    this->_mesh = smgr->getMesh(meshPath);
-    irr::scene::IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(this->_mesh);
-    if (node) {
-        node->setScale(irr::core::vector3df(1,1,1));
-        node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        node->setMD2Animation(irr::scene::EMAT_STAND);
-        node->setMaterialTexture(0, driver->getTexture(texture.data()));
-        node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
+    this->_mesh = smgr->getMesh(meshPath.data());
+    _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
+    if (_node) {
+        _node->setScale(irr::core::vector3df(1,1,1));
+        _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        _node->setMD2Animation(irr::scene::EMAT_STAND);
+        for (irr::u16 i; i < texture.size(); i++)
+            _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
+        _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
     }
 }
 
@@ -57,13 +58,13 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
 {
     if (type == CUBE) {
         this->_mesh = smgr->getMesh("./assets/meshs/cube.obj");
-        irr::scene::IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(this->_mesh);
-        if (node) {
-            node->setScale(irr::core::vector3df(1,1,1));
-            node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-            node->setMD2Animation(irr::scene::EMAT_STAND);
-            node->setMaterialTexture(0, driver->getTexture(texture.data()));
-            node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
+        _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
+        if (_node) {
+            _node->setScale(irr::core::vector3df(1,1,1));
+            _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+            _node->setMD2Animation(irr::scene::EMAT_STAND);
+            _node->setMaterialTexture(0, driver->getTexture(texture.data()));
+            _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
         }
     }
 }
