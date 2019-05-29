@@ -10,7 +10,7 @@
 
 Menu::Menu(irr::IrrlichtDevice* device) : AScene(device), _map(device, 10)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(0, 0, 150), irr::core::vector3df(0, 0, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(-5, 90, 100), irr::core::vector3df(-5, 100, 0));
 
     this->setCamera(camera);
 }
