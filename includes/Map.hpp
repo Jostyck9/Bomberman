@@ -20,13 +20,14 @@
 class Map
 {
 private:
+    irr::IrrlichtDevice *_device;
     boost::multi_array<std::vector<GameObject*>, 2> _map;
     std::vector<std::string> _mapGen;
     irr::u16 _width;
     irr::u16 _heigh;
 
 public:
-    Map(irr::u16 size);
+    Map(irr::IrrlichtDevice *_device, irr::u16 size);
     ~Map();
 
     void genMap(irr::u16 size);

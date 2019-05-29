@@ -5,11 +5,16 @@
 ** Wall.cpp
 */
 
+#include <iostream>
 #include "Wall.hpp"
 
-Wall::Wall(std::string& texture, bool irr::u16 x, irr::u16 y, isBreakable) : _isBreakable(isBreakable), _life(1)
+Wall::Wall(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::string texture, irr::u16 x, irr::u16 y, bool isBreakable) : _isBreakable(isBreakable), _life(1)
 {
-    this->getDisplayInfo().setMesh(NULL, GraphicalElements::meshType_t::CUBE, texture);
+    irr::core::vector3df pos(x * 10, y * 10, 0);
+
+    std::cout << "x : " << pos.X << " y : " << pos.Y << std::endl;
+    this->getDisplayInfo().setPosition(pos);
+    this->getDisplayInfo().setMesh(smgr, driver, GraphicalElements::meshType_t::CUBE, texture);
 }
 
 Wall::Wall(irr::u16 x, irr::u16 y, bool isBreakable) : _isBreakable(isBreakable), _life(1)

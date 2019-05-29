@@ -49,17 +49,17 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, std::string &me
     throw "Not yet implemented";
 }
 
-void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, meshType_t type, std::string &texture)
+void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &texture)
 {
     if (type == CUBE) {
-        this->_mesh = irr::scene::getMesh("./assets/meshs/cube.obj");
-        IAnimatedMeshSceneNode* node = smgr->irr::scene::addAnimatedMeshSceneNode(this->_mesh);
+        this->_mesh = smgr->getMesh("./assets/meshs/cube.obj");
+        irr::scene::IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(this->_mesh);
         if (node) {
-            node->irr::scene::setScale(irr::core::vector3df(1,1,1));
-            node->irr::scene::setMaterialFlag(EMF_LIGHTING, false);
-            node->irr::scene::setMD2Animation(scene::EMAT_STAND);
-            node->irr::scene::setMaterialTexture( 0, driver-> irr::video::getTexture(texture));
-            node->irr::scene::setPosition(irr::core::vector3df(x,0,y));
+            node->setScale(irr::core::vector3df(1,1,1));
+            node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+            node->setMD2Animation(irr::scene::EMAT_STAND);
+            node->setMaterialTexture(0, driver->getTexture(texture.data()));
+            node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
         }
     }
 }
@@ -97,5 +97,4 @@ void GraphicalElements::setPosition(irr::core::vector3df& position)
 {
     _position = position;
     // TODO - implement GraphicalElements::setPosition
-    throw "Not yet implemented";
 }

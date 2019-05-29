@@ -5,6 +5,7 @@
 ** AScene.cpp
 */
 
+#include <iostream>
 #include "AScene.hpp"
 
 AScene::AScene(irr::IrrlichtDevice* device, Camera &camera) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(camera)
@@ -34,12 +35,13 @@ void AScene::setCamera(Camera &camera)
     _camera = camera;
     if (_sceneManager) {
         current = _sceneManager->getActiveCamera();
-        if (!current)
+        if (!current) {
             _sceneManager->addCameraSceneNode(0, _camera.getCameraPosition(), _camera.getCameraMirePoint());
-        else
-        {
+        } else {
             current->setPosition(_camera.getCameraPosition());
             current->setTarget(_camera.getCameraMirePoint());
+            // irr::core::vector3df position = current->getTarget();
+            // std::cout << "x : " << position.X << " y : " << position.Y << " z : " << position.Z << std::endl;
         }
     }
 }

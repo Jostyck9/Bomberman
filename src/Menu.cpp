@@ -8,9 +8,9 @@
 #include <iostream>
 #include "Menu.hpp"
 
-Menu::Menu(irr::IrrlichtDevice* device) : AScene(device), _map(10)
+Menu::Menu(irr::IrrlichtDevice* device) : AScene(device), _map(device, 10)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(0, 30, 30), irr::core::vector3df(0, 0, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(0, 0, 150), irr::core::vector3df(0, 0, 0));
 
     this->setCamera(camera);
 }
@@ -21,7 +21,6 @@ IScene* Menu::update()
         delete this;
         return (nullptr);
     }
-    std::cout << "x : " << this->getCamera().getCameraPosition().X << " y : " << this->getCamera().getCameraPosition().X << std::endl;
     return (this);
 }
 
