@@ -19,7 +19,7 @@ AScene::AScene(irr::IrrlichtDevice* device, Camera &camera) : _device(device), _
     }
 }
 
-AScene::AScene(irr::IrrlichtDevice* device) : _device(device), _sceneManager(nullptr), _driver(nullptr)
+AScene::AScene(irr::IrrlichtDevice* device) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(_device->getSceneManager())
 {
     if (_device) {
         _sceneManager = _device->getSceneManager();
