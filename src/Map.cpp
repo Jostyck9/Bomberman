@@ -41,27 +41,33 @@ void Map::genMap(irr::u16 size)
     }*/
     for (irr::u16 i = 0; i < (size * size) - size; i++)
         _mapGen.at(std::rand() % size).at(std::rand() % size) = 'O';
-    for (irr::u16 i = 1; i < size; i = i + 2) {
-        for (irr::u16 j = 1; j < size; j = j + 2) {
+    for (irr::u16 i = 2; i < size; i = i + 2) {
+        for (irr::u16 j = 2; j < size; j = j + 2) {
             _mapGen.at(i).at(j) = 'X';
         }
     }
-    _mapGen.at(0).at(0) = '_';
-    _mapGen.at(1).at(0) = '_';
-    _mapGen.at(0).at(1) = '_';
-    _mapGen.at(1).at(1) = 'X';
-    _mapGen.at(size - 1).at(0) = '_';
-    _mapGen.at(size - 1).at(1) = '_';
-    _mapGen.at(size - 2).at(0) = '_';
-    _mapGen.at(size - 2).at(1) = 'X';
-    _mapGen.at(0).at(size - 1) = '_';
-    _mapGen.at(1).at(size - 1) = '_';
-    _mapGen.at(0).at(size - 2) = '_';
-    _mapGen.at(1).at(size - 2) = 'X';
-    _mapGen.at(size - 1).at(size - 1) = '_';
-    _mapGen.at(size - 2).at(size - 1) = '_';
-    _mapGen.at(size - 1).at(size - 2) = '_';
-    _mapGen.at(size - 2).at(size - 2) = 'X';
+    for (irr::u16 i = 0; i < size; i++) {
+        for (irr::u16 j = 0; j < size; j++) {
+            if (i == 0 || i == size - 1 || j = 0 || j = size - 1)
+                _mapGen.at(i).at(j) = 'X';
+        }
+    }
+    _mapGen.at(1).at(1) = '_';
+    _mapGen.at(2).at(1) = '_';
+    _mapGen.at(1).at(2) = '_';
+    _mapGen.at(2).at(2) = 'X';
+    _mapGen.at(size - 2).at(1) = '_';
+    _mapGen.at(size - 2).at(2) = '_';
+    _mapGen.at(size - 3).at(1) = '_';
+    _mapGen.at(size - 3).at(2) = 'X';
+    _mapGen.at(1).at(size - 2) = '_';
+    _mapGen.at(2).at(size - 2) = '_';
+    _mapGen.at(1).at(size - 3) = '_';
+    _mapGen.at(2).at(size - 3) = 'X';
+    _mapGen.at(size - 2).at(size - 2) = '_';
+    _mapGen.at(size - 3).at(size - 2) = '_';
+    _mapGen.at(size - 2).at(size - 3) = '_';
+    _mapGen.at(size - 3).at(size - 3) = 'X';
 }
 
 void Map::setMap()
