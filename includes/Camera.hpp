@@ -20,8 +20,8 @@ private:
 
 public:
     Camera(irr::scene::ISceneManager *smgr, irr::core::vector3df _cameraPosition = irr::core::vector3df(0, 0, 0), irr::core::vector3df _cameraPointMire = irr::core::vector3df(0, 0, 0));
-    const irr::core::vector3df& getCameraPosition();
-    const irr::core::vector3df& getCameraMirePoint();
+    const irr::core::vector3df& getCameraPosition() const;
+    const irr::core::vector3df& getCameraMirePoint() const;
     void setCameraPosition(irr::core::vector3df &);
     void setCameraMirePoint(irr::core::vector3df &);
 };

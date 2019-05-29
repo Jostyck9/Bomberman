@@ -13,12 +13,12 @@ Camera::Camera(irr::scene::ISceneManager *smgr, irr::core::vector3df cameraPosit
     _camera = smgr->getActiveCamera();
 }
 
-const irr::core::vector3df &Camera::getCameraPosition()
+const irr::core::vector3df &Camera::getCameraPosition() const
 {
     return (this->_cameraPosition);
 }
 
-const irr::core::vector3df &Camera::getCameraMirePoint()
+const irr::core::vector3df &Camera::getCameraMirePoint() const
 {
     return (this->_cameraPointMire);
 }

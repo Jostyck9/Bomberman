@@ -60,9 +60,3 @@ std::vector<std::string> mapGen(int size)
         std::cout << map.at(i) << std::endl;
     return map;
 }
-
-int main(int ac, char **av)
-{
-    std::srand(std::time(0));
-    mapGen(atoi(av[1]));
-}

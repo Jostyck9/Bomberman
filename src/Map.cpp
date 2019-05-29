@@ -11,6 +11,7 @@
 Map::Map(irr::u16 size) : _map(boost::extents[size][size]), _width(size), _heigh(size)
 {
     genMap(size);
+    setMap();
 }
 
 Map::~Map()
@@ -68,12 +69,12 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall newWall(false, i, j);
-                addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
+                Wall *newWall = new Wall(false, i, j);
+                addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'o') {
-                Wall newWall(true, i, j);
-                addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
+                Wall *newWall = new Wall(true, i, j);
+                addToMap(i, j, newWall);
             }
         }
     }
