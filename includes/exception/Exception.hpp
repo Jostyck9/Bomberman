@@ -11,14 +11,14 @@
 #include <exception>
 #include <string>
 
-class Exception : public std::exception
+class bomberException : public std::exception
 {
 private:
     std::string message;
     std::string part;
 
 public:
-    Exception(std::string const &message, std::string const &part = "Unknown");
+    bomberException(std::string const &message, std::string const &part = "Unknown");
 
     std::string const &getComponent() const;
     const char *what() const noexcept override;
