@@ -5,9 +5,11 @@
 ** GraphicalElements.cpp
 */
 
-#include <GraphicalElements.hpp>
+#include "GraphicalElements.hpp"
 
 GraphicalElements::GraphicalElements(const irr::core::vector3df &position, const irr::core::vector3df &rotation, irr::f32 scale, bool collide) :
+                                    _mesh(nullptr),
+                                    _node(nullptr),
                                     _scale(scale),
                                     _position(position),
                                     _rotation(rotation),
@@ -21,8 +23,9 @@ const irr::core::vector3df &GraphicalElements::getRotation() const
 
 void GraphicalElements::setRotation(const irr::core::vector3df &rotation)
 {
-    // TODO - set on the mesh the rotation
     _rotation = rotation;
+    if (_node)
+        _node->setRotation(rotation);
 }
 
 bool GraphicalElements::isCollide() const
@@ -88,9 +91,9 @@ irr::f32 GraphicalElements::getScale()
 
 void GraphicalElements::setScale(irr::f32 scale)
 {
+    //TODO chage scale into a vector3f
     _scale = scale;
-    // TODO  set scale on the mesh
-    throw "Not yet implemented";
+    // _node->setScale(scale);
 }
 
 const irr::core::vector3df& GraphicalElements::getPosition()
@@ -101,5 +104,6 @@ const irr::core::vector3df& GraphicalElements::getPosition()
 void GraphicalElements::setPosition(irr::core::vector3df& position)
 {
     _position = position;
-    // TODO - implement GraphicalElements::setPosition
+    if (_node)
+        _node->setPosition(position);
 }

@@ -18,6 +18,9 @@ private:
     KeyMap _keyMap;
     GraphicalElements &_displayInfo;
 
+    void setRotation(irr::EKEY_ACTION action);
+    void move(irr::EKEY_ACTION action, irr::u16 speed);
+
 public:
     PlayerController(GraphicalElements &displayInfos);
     PlayerController(KeyMap keyMap, GraphicalElements &displayInfos);
@@ -28,7 +31,7 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(MyEventReceiver &events);
+    void action(MyEventReceiver &events, irr::u16 speed = 1);
 };
 
 #endif // !PLAYER_CONTROLLER_HPP
