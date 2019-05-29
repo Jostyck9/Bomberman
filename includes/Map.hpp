@@ -28,6 +28,7 @@ public:
     Map(irr::u16 width, irr::u16 heigh);
     ~Map();
 
+    void setMap(std::vector<std::string> map);
     void addToMap(irr::u16 x, irr::u16 y, GameObject *obj);
 };
 

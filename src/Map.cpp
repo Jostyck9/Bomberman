@@ -6,6 +6,7 @@
 */
 
 #include "Map.hpp"
+#include "Wall.hpp"
 
 Map::Map(irr::u16 width, irr::u16 heigh) : _map(boost::extents[width][heigh]), _width(width), _heigh(heigh)
 {
@@ -13,6 +14,22 @@ Map::Map(irr::u16 width, irr::u16 heigh) : _map(boost::extents[width][heigh]), _
 
 Map::~Map()
 {
+}
+
+void Map::setMap(std::vector<std::string> map)
+{
+    for (size_t i = 0; i < map.size(); i++) {
+        for (size_t j = 0; j < map.size(); j++) {
+            if (map.at(i).at(j) == 'X') {
+                Wall newWall(false);
+                addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
+            }
+            if (map.at(i).at(j) == 'o') {
+                Wall newWall(true);
+                addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
+            }
+        }
+    }
 }
 
 void Map::addToMap(irr::u16 x, irr::u16 y, GameObject *obj)
