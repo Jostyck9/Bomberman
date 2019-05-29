@@ -51,11 +51,17 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, std::string &me
 
 void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, meshType_t type, std::string &texture)
 {
-    (void)smgr;
-    (void)type;
-    (void)texture;
-    // TODO - implement GraphicalElements::setMesh
-    throw "Not yet implemented";
+    if (type == CUBE) {
+        this->_mesh = irr::scene::getMesh("./assets/meshs/cube.obj");
+        IAnimatedMeshSceneNode* node = smgr->irr::scene::addAnimatedMeshSceneNode(this->_mesh);
+        if (node) {
+            node->irr::scene::setScale(irr::core::vector3df(1,1,1));
+            node->irr::scene::setMaterialFlag(EMF_LIGHTING, false);
+            node->irr::scene::setMD2Animation(scene::EMAT_STAND);
+            node->irr::scene::setMaterialTexture( 0, driver->getTexture(texture));
+            node->irr::scene::setPosition(irr::core::vector3df(x,0,y));
+        }
+    }
 }
 
 const std::string &GraphicalElements::getMeshPath() const

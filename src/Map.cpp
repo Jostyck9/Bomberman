@@ -68,11 +68,11 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall newWall(false, i, j);
+                Wall newWall("./assets/textures/bricks.jpg", i, j, false);
                 addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
             }
             if (_mapGen.at(i).at(j) == 'o') {
-                Wall newWall(true, i, j);
+                Wall newWall(i, j, true);
                 addToMap(i, j, dynamic_cast<GameObject*>(&newWall));
             }
         }
