@@ -13,12 +13,12 @@
 class Camera
 {
 private:
+    irr::scene::ISceneManager *_smgr;
     irr::core::vector3df _cameraPosition;
     irr::core::vector3df _cameraPointMire;
 
 public:
-    Camera();
-    Camera(irr::core::vector3df _cameraPosition, irr::core::vector3df _cameraPointMire);
+    Camera(irr::scene::ISceneManager *smgr, irr::core::vector3df _cameraPosition, irr::core::vector3df _cameraPointMire);
     const irr::core::vector3df& getCameraPosition();
     const irr::core::vector3df& getCameraMirePoint();
 };

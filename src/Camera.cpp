@@ -7,12 +7,9 @@
 
 #include "Camera.hpp"
 
-Camera::Camera(void)
+Camera::Camera(irr::scene::ISceneManager *smgr, irr::core::vector3df cameraPosition, irr::core::vector3df cameraPointMire) : _smgr(smgr), _cameraPosition(cameraPosition), _cameraPointMire(cameraPointMire)
 {
-}
-
-Camera::Camera(irr::core::vector3df cameraPosition, irr::core::vector3df cameraPointMire) : _cameraPosition(cameraPosition), _cameraPointMire(cameraPointMire)
-{
+    smgr->addCameraSceneNode(0, cameraPosition, cameraPointMire);
 }
 
 const irr::core::vector3df& Camera::getCameraPosition()
