@@ -78,8 +78,8 @@ void Map::setMap()
                 Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/bricks.jpg", i, j, false);
                 addToMap(i, j, newWall);
             }
-            if (_mapGen.at(i).at(j) == 'o') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/bricks.jpg", i, j, true);
+            if (_mapGen.at(i).at(j) == 'O') {
+                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/Brick_Block.png", i, j, true);
                 addToMap(i, j, newWall);
             }
         }
