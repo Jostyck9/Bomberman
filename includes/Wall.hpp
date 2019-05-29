@@ -20,8 +20,8 @@ private:
 public:
     // IItem* createRandomItem();
 
-    Wall(bool isBreakable = true);
-    Wall(std::string& texture, bool isBreakable = true);
+    Wall(irr::u16 x, irr::u16 y, bool isBreakable = true);
+    Wall(std::string& texture, irr::u16 x, irr::u16 y, bool isBreakable = true);
 };
 
 #endif

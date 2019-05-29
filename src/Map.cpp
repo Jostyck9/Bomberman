@@ -69,11 +69,11 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall *newWall = new Wall(false, i, j);
+                Wall *newWall = new Wall("./assets/textures/bricks.jpg", i, j, false);
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'o') {
-                Wall *newWall = new Wall(true, i, j);
+                Wall *newWall = new Wall("./assets/textures/bricks.jpg", i, j, true);
                 addToMap(i, j, newWall);
             }
         }
