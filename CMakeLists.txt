@@ -6,7 +6,7 @@ include(CTest)
 enable_testing()
 
 # sources et include
-file(GLOB_RECURSE SOURCE_FILES "*.cpp" "*.hpp")
+file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "*.hpp")
 include_directories(GLOB_RECURSE includes)
 
 if(MSVC)
