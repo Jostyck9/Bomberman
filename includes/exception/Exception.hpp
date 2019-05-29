@@ -20,7 +20,7 @@ private:
 public:
     bomberException(std::string const &message, std::string const &part = "Unknown");
 
-    std::string const &getComponent() const;
+    std::string const &getPart() const;
     const char *what() const noexcept override;
 };
 

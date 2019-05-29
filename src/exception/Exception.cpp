@@ -18,7 +18,7 @@ const char *bomberException::what() const noexcept
     return (this->message.data());
 }
 
-std::string const &bomberException::getComponent() const
+std::string const &bomberException::getPart() const
 {
     return (this->part);
 }
