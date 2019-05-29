@@ -10,6 +10,5 @@
 
 void Player::update(MyEventReceiver event)
 {
-    (void)event;
-    //TODO with input
+    this->getPlayerController().action(event);
 }
