@@ -9,7 +9,6 @@ enable_testing()
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "includes/*.hpp")
 include_directories(includes "includes/exception")
 
-
 if(MSVC)
 	# Force to always compile with W4
 	if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
