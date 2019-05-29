@@ -40,8 +40,6 @@ void AScene::setCamera(Camera &camera)
         } else {
             current->setPosition(_camera.getCameraPosition());
             current->setTarget(_camera.getCameraMirePoint());
-            // irr::core::vector3df position = current->getTarget();
-            // std::cout << "x : " << position.X << " y : " << position.Y << " z : " << position.Z << std::endl;
         }
     }
 }

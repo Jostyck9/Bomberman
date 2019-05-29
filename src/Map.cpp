@@ -5,11 +5,13 @@
 ** Map.cpp
 */
 
+#include <time.h>
 #include "Map.hpp"
 #include "Wall.hpp"
 
 Map::Map(irr::IrrlichtDevice *device, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _width(size), _heigh(size)
 {
+    srand(time(NULL));
     genMap(size);
     setMap();
 }
