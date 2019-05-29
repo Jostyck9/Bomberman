@@ -12,11 +12,14 @@ class GameObject {
 public:
     enum objectType_s {
         PRINTABLE_OBJ,
+        PLAYER,
         UNKNOWN
     };
     typedef objectType_s objecType_t;
 
-    objecType_t getType();
+    virtual objecType_t getType();
+
+    virtual ~GameObject() = default;
 };
 
 #endif //BOMBERMAN_GAMEOBJECT_HPP

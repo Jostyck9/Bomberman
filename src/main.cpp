@@ -15,7 +15,7 @@ int main(void)
     IrrlichtDevice *device = createDevice(video::EDT_SOFTWARE, core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
     if (!device)
         return (84);
-    IScene *scene = new Game(device);
+    IScene *scene = new Game(device, receiver);
     if (!scene) {
         device->drop();
         return (84);

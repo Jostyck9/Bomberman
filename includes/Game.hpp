@@ -17,9 +17,10 @@ class Game : public AScene
 {
 private:
     Map _map;
+    void updateObj(GameObject *obj);
 
 public:
-    Game(irr::IrrlichtDevice* device);
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
     IScene* update() override;
     IScene* handleEvent() override;
     void display() override;

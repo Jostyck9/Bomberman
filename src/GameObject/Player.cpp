@@ -5,7 +5,6 @@
 ** Player.cpp
 */
 
-
 #include "Player.hpp"
 
 Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::u16 pos_x, irr::u16 pos_y)

@@ -24,12 +24,15 @@ private:
 
 public:
     ACharacter();
+    virtual ~ACharacter() = default;
 
     CharacterStats &getStats();
     Score &getScore();
     Life &getLife();
     PlayerController &getPlayerController();
     virtual void update(MyEventReceiver event = MyEventReceiver()) = 0;
+
+    GameObject::objecType_t getType();
 };
 
 #endif

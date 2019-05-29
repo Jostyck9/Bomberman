@@ -19,11 +19,11 @@ protected:
     irr::scene::ISceneManager* _sceneManager;
     irr::video::IVideoDriver* _driver;
     Camera _camera;
-    MyEventReceiver _events;
+    MyEventReceiver &_events;
 
 public:
-    AScene(irr::IrrlichtDevice* device);
-    AScene(irr::IrrlichtDevice* device, Camera &camera);
+    AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events);
+    AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events, Camera &camera);
     const Camera &getCamera();
     void setCamera(Camera &camera);
 };

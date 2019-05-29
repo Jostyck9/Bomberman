@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Game.hpp"
 
-Game::Game(irr::IrrlichtDevice* device) : AScene(device), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(-5, 90, 100), irr::core::vector3df(-5, 100, 0));
     std::vector<std::string> textures;
@@ -16,20 +16,21 @@ Game::Game(irr::IrrlichtDevice* device) : AScene(device), _map(device, 10)//, _p
     irr::u16 valx = 10;
     irr::u16 valy = 40;
 
-    // textures.push_back("./assets/meshs/Mario/body.png");
-    // textures.push_back("./assets/meshs/Mario/eye1.png");
-    // // textures.pushback("./assets/meshs/Mario/eye2.png");
-    // // textures.pushback("./assets/meshs/Mario/eye3.png");
-    // // textures.pushback("./assets/meshs/Mario/eye4.png");
-    // textures.push_back("./assets/meshs/Mario/face.png");
-    // textures.push_back("./assets/meshs/Mario/fire.png");
-    // textures.push_back("./assets/meshs/Mario/glove.png");
-    // textures.push_back("./assets/meshs/Mario/hair.png");
-    // textures.push_back("./assets/meshs/Mario/hat.png");
-    // textures.push_back("./assets/meshs/Mario/pupil.png");
     Player *p1 = new Player(device, textures, path, valx, valy);
     _map.addToMap(0, 0, p1);
     this->setCamera(camera);
+}
+
+void Game::updateObj(GameObject *obj)
+{
+    Player *current = nullptr;
+
+    if (!obj)
+        return;
+    if (obj->getType() == GameObject::PLAYER) {
+        current = dynamic_cast<Player *>(obj);
+        current->update(_events);
+    }
 }
 
 IScene* Game::update()
@@ -37,6 +38,14 @@ IScene* Game::update()
     if (!_device->run()) {
         delete this;
         return (nullptr);
+    }
+    boost::multi_array<std::vector<GameObject*>, 2> &map = _map.getMap();
+    for (irr::u16 x = 0; x < _map.getWidth(); x++) {
+        for (irr::u16 y = 0; y < _map.getHeigh(); y++) {
+            for (auto &it : map[x][y]) {
+                updateObj(it);
+            }
+        }
     }
     return (this);
 }

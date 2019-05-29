@@ -18,10 +18,9 @@ private:
 
 public:
     PrintableObject(irr::core::vector3df position = irr::core::vector3df(0, 0, 0));
+    virtual ~PrintableObject() = default;
 
-    ~PrintableObject();
-
-    GameObject::objecType_t getType();
+    virtual GameObject::objecType_t getType();
 
 protected:
     GraphicalElements &getDisplayInfo();

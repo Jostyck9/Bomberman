@@ -94,3 +94,18 @@ void Map::addToMap(irr::u16 x, irr::u16 y, GameObject *obj)
         return;
     _map[x][y].push_back(obj);
 }
+
+boost::multi_array<std::vector<GameObject*>, 2> &Map::getMap()
+{
+    return (_map);
+}
+
+irr::u16 Map::getWidth() const
+{
+    return (_width);
+}
+
+irr::u16 Map::getHeigh() const
+{
+    return (_heigh);
+}

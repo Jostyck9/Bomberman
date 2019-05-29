@@ -5,6 +5,7 @@
 ** PlayerController.cpp
 */
 
+#include <iostream>
 #include "PlayerController.hpp"
 
 PlayerController::PlayerController(GraphicalElements &displayInfos) : _displayInfo(displayInfos)
@@ -57,24 +58,24 @@ void PlayerController::action(MyEventReceiver &events, irr::u16 speed)
 
 void PlayerController::setRotation(irr::EKEY_ACTION action)
 {
-    irr::core::vector3df rotation;
+    irr::core::vector3df rotation = _displayInfo.getRotation();
 
     switch (action)
     {
     case irr::EKA_MOVE_BACKWARD:
-        rotation = irr::core::vector3df(0, 0, 90);
+        rotation.Z = 0;
         break;
     
     case irr::EKA_MOVE_FORWARD:
-        rotation = irr::core::vector3df(0, 0, -90);
+        rotation.Z = -180;
         break;
     
     case irr::EKA_STRAFE_LEFT:
-        rotation = irr::core::vector3df(0, 0, 180);
+        rotation.Z = 90;
         break;
 
     case irr::EKA_STRAFE_RIGHT:
-        rotation = irr::core::vector3df(0, 0, 0);
+        rotation.Z = -90;
         break;
     default:
         return;
@@ -85,7 +86,7 @@ void PlayerController::setRotation(irr::EKEY_ACTION action)
 void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
 {
     irr::core::vector3df position = _displayInfo.getPosition();
-    irr::s16 offset = 10;
+    irr::s16 offset = 1;
 
     switch (action)
     {
@@ -98,11 +99,11 @@ void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
         break;
     
     case irr::EKA_STRAFE_LEFT:
-        position.X -= offset * speed;
+        position.X += offset * speed;
         break;
 
     case irr::EKA_STRAFE_RIGHT:
-        position.X += offset * speed;
+        position.X -= offset * speed;
         break;
     default:
         return;

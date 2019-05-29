@@ -51,7 +51,7 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
         _node->setScale(irr::core::vector3df(1,1,1));
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
         _node->setMD2Animation(irr::scene::EMAT_STAND);
-        for (irr::u16 i; i < texture.size(); i++)
+        for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
         _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
     }

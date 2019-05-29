@@ -12,10 +12,6 @@ PrintableObject::PrintableObject(irr::core::vector3df position)
     _displayInfo.setPosition(position);
 }
 
-PrintableObject::~PrintableObject()
-{
-}
-
 GameObject::objecType_t PrintableObject::getType()
 {
     return (PRINTABLE_OBJ);

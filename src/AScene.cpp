@@ -8,7 +8,7 @@
 #include <iostream>
 #include "AScene.hpp"
 
-AScene::AScene(irr::IrrlichtDevice* device, Camera &camera) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(camera)
+AScene::AScene(irr::IrrlichtDevice* device, MyEventReceiver &events, Camera &camera) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(camera), _events(events)
 {
     if (_device) {
         _sceneManager = _device->getSceneManager();
@@ -20,7 +20,7 @@ AScene::AScene(irr::IrrlichtDevice* device, Camera &camera) : _device(device), _
     }
 }
 
-AScene::AScene(irr::IrrlichtDevice* device) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(_device->getSceneManager())
+AScene::AScene(irr::IrrlichtDevice* device,MyEventReceiver &events) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(_device->getSceneManager()), _events(events)
 {
     if (_device) {
         _sceneManager = _device->getSceneManager();

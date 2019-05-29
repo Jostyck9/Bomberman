@@ -30,3 +30,8 @@ PlayerController &ACharacter::getPlayerController()
 {
     return (_controller);
 }
+
+GameObject::objecType_t ACharacter::getType()
+{
+    return (GameObject::PLAYER);
+}
