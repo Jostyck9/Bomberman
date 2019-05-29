@@ -48,7 +48,7 @@ void Map::genMap(irr::u16 size)
     }
     for (irr::u16 i = 0; i < size; i++) {
         for (irr::u16 j = 0; j < size; j++) {
-            if (i == 0 || i == size - 1 || j = 0 || j = size - 1)
+            if (i == 0 || i == size - 1 || j == 0 || j == size - 1)
                 _mapGen.at(i).at(j) = 'X';
         }
     }
