@@ -6,8 +6,8 @@ include(CTest)
 enable_testing()
 
 # sources et include
-file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "*.hpp")
-include_directories(GLOB_RECURSE includes)
+file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "includes/*.hpp")
+include_directories(includes "includes/exception")
 
 if(MSVC)
 	# Force to always compile with W4
