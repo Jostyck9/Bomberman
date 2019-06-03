@@ -23,6 +23,9 @@ private:
     irr::f32 _speed;
 
 public:
+    CharacterStats();
+    ~CharacterStats() = default;
+
     bool getPassThrough();
     void setPassThrough(bool passThrough);
 

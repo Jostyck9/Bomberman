@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "Save.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
@@ -18,6 +19,8 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
 
     Player *p1 = new Player(device, textures, path, valx, valy);
     _map.addToMap(0, 0, p1);
+    Save toto;
+    toto.saveGame(_map);
     this->setCamera(camera);
 }
 
@@ -40,8 +43,8 @@ IScene* Game::update()
         return (nullptr);
     }
     boost::multi_array<std::vector<GameObject*>, 2> &map = _map.getMap();
-    for (irr::u16 x = 0; x < _map.getWidth(); x++) {
-        for (irr::u16 y = 0; y < _map.getHeigh(); y++) {
+    for (irr::u16 x = 0; x < _map.getSize(); x++) {
+        for (irr::u16 y = 0; y < _map.getSize(); y++) {
             for (auto &it : map[x][y]) {
                 updateObj(it);
             }

@@ -7,7 +7,7 @@
 
 #include "Player.hpp"
 
-Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::u16 pos_x, irr::u16 pos_y)
+Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::u16 pos_x, irr::u16 pos_y) : ACharacter()
 {
     _device = device;
     irr::core::vector3df pos(pos_x, pos_y, 0);
