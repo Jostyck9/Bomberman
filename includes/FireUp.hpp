@@ -8,8 +8,14 @@
 #ifndef FIREUP_HPP
 #define FIREUP_HPP
 
-class FireUp
+#include "AItem.hpp"
+
+class FireUp : public AItem
 {
+    FireUp() = default;
+    ~FireUp() = default;
+    bool applyEffect(ACharacter& player) override;
+    GameObject::objecType_t getType() override;
 };
 
 #endif

@@ -8,11 +8,12 @@
 #ifndef AITEM_HPP
 #define AITEM_HPP
 
-class AItem
-{
+#include <ACharacter.hpp>
 
-private:
-    GraphicalElements _display_info;
+class AItem : public PrintableObject
+{
+public:
+    virtual bool applyEffect(ACharacter& player) = 0;
 };
 
 #endif

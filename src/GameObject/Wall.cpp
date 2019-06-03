@@ -21,3 +21,13 @@ Wall::Wall(irr::u16 x, irr::u16 y, bool isBreakable) : _isBreakable(isBreakable)
 {
 
 }
+
+bool Wall::isBreakable()
+{
+    return _isBreakable;
+}
+
+GameObject::objecType_t Wall::getType()
+{
+    return WALL;
+}

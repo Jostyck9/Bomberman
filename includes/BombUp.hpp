@@ -8,8 +8,14 @@
 #ifndef BOMBUP_HPP
 #define BOMBUP_HPP
 
-class BombUp
+#include "AItem.hpp"
+
+class BombUp : public AItem
 {
+    BombUp() = default;
+    ~BombUp() = default;
+    bool applyEffect(ACharacter& player) override;
+    GameObject::objecType_t getType() override;
 };
 
 #endif

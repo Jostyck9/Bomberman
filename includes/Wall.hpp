@@ -22,6 +22,8 @@ public:
 
     Wall(irr::u16 x, irr::u16 y, bool isBreakable = true);
     Wall(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::string texture, irr::u16 x, irr::u16 y, bool isBreakable = true);
+    bool isBreakable();
+    objecType_t getType() override;
 };
 
 #endif

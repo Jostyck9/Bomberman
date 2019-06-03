@@ -1,8 +1,14 @@
 #ifndef WALLPASS_HPP
 #define WALLPASS_HPP
 
-class WallPass
+#include "AItem.hpp"
+
+class WallPass : public AItem
 {
+    WallPass() = default;
+    ~WallPass() = default;
+    bool applyEffect(ACharacter& player) override;
+    GameObject::objecType_t getType() override;
 };
 
 #endif

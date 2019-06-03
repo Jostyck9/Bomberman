@@ -9,7 +9,7 @@
 #include "Map.hpp"
 #include "Wall.hpp"
 
-Map::Map(irr::IrrlichtDevice *device, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _width(size), _heigh(size)
+Map::Map(irr::IrrlichtDevice *device, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _size(size)
 {
     srand(time(NULL));
     genMap(size);
@@ -90,7 +90,7 @@ void Map::setMap()
 
 void Map::addToMap(irr::u16 x, irr::u16 y, GameObject *obj)
 {
-    if (x >= _width || y >= _heigh || obj == nullptr)
+    if (x >= _size || y >= _size || obj == nullptr)
         return;
     _map[x][y].push_back(obj);
 }
@@ -100,12 +100,7 @@ boost::multi_array<std::vector<GameObject*>, 2> &Map::getMap()
     return (_map);
 }
 
-irr::u16 Map::getWidth() const
+irr::u16 Map::getSize() const
 {
-    return (_width);
-}
-
-irr::u16 Map::getHeigh() const
-{
-    return (_heigh);
+    return _size;
 }

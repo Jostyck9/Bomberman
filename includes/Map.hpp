@@ -23,8 +23,7 @@ private:
     irr::IrrlichtDevice *_device;
     boost::multi_array<std::vector<GameObject*>, 2> _map;
     std::vector<std::string> _mapGen;
-    irr::u16 _width;
-    irr::u16 _heigh;
+    irr::u16 _size;
 
 public:
     Map(irr::IrrlichtDevice *_device, irr::u16 size);
@@ -34,8 +33,7 @@ public:
     void setMap();
     void addToMap(irr::u16 x, irr::u16 y, GameObject *obj);
     boost::multi_array<std::vector<GameObject*>, 2> &getMap();
-    irr::u16 getWidth() const;
-    irr::u16 getHeigh() const;
+    irr::u16 getSize() const;
 };
 
 #endif // !MAP_HPP_

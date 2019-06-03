@@ -23,7 +23,7 @@ public:
     irr::u16 getRadius();
     void setRadius(irr::u16 _radius);
     void update();
-
+    objecType_t getType() override;
     ACharacter& getParentCharacter();
     // void setParentCharacter(ACharacter& _parentCharacter);
 };
