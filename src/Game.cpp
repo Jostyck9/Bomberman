@@ -10,12 +10,14 @@
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(-5, 90, 100), irr::core::vector3df(-5, 100, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, 100), irr::core::vector3df(50, 50, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-    irr::u16 valx = 10;
-    irr::u16 valy = 40;
+    std::string path = "./assets/meshs/Bomb/model.obj";
+    irr::u16 valx = 37;
+    irr::u16 valy = 143;
 
+    textures.push_back("./assets/meshs/Bomb/modeMM00.png");
+    textures.push_back("./assets/meshs/Bomb/modeSS02.png");
     Player *p1 = new Player(device, textures, path, valx, valy);
     _map.addToMap(0, 0, p1);
     this->setCamera(camera);

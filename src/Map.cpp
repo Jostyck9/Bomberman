@@ -74,14 +74,19 @@ void Map::genMap(irr::u16 size)
 
 void Map::setMap()
 {
+    std::vector<std::string> brkwall;
+    std::vector<std::string> wall;
+
+    brkwall.push_back("./assets/meshs/Brick_block/brick.png");
+    wall.push_back("./assets/meshs/Strong_block/block.png");
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/bricks.jpg", i, j, false);
+                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/Brick_Block.png", i, j, true);
+                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
                 addToMap(i, j, newWall);
             }
         }

@@ -21,7 +21,7 @@ public:
     // IItem* createRandomItem();
 
     Wall(irr::u16 x, irr::u16 y, bool isBreakable = true);
-    Wall(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::string texture, irr::u16 x, irr::u16 y, bool isBreakable = true);
+    Wall(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::string mesh, std::vector<std::string> text, irr::u16 x, irr::u16 y, bool isBreakable = true);
 };
 
 #endif

@@ -46,7 +46,7 @@ public:
 
     const irr::scene::IAnimatedMesh* getMesh() const;
     void setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::vector<std::string>, std::string &meshPath);
-    void setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &texture);
+    void setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &texture, std::vector<std::string>);
 
     const std::string &getMeshPath() const;
     void setMeshPath(const std::string &meshPath);
