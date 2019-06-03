@@ -25,7 +25,7 @@ public:
     AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events);
     AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events, Camera &camera);
     const Camera &getCamera();
-    void setCamera(Camera &camera);
+    void setCamera(Camera &camera); 
 };
 
 #endif

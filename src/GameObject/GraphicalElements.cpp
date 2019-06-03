@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include "GraphicalElements.hpp"
+#include <string>
+#include <iostream>
 
 irr::scene::IMetaTriangleSelector *GraphicalElements::_allSelectors = nullptr;
 
@@ -53,8 +55,8 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
     this->_mesh = smgr->getMesh(meshPath.data());
     _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (_node) {
-        _node->setScale(irr::core::vector3df(1,1,1));
-        _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        _node->setScale(irr::core::vector3df(5,5,5));
+        _node->setMaterialFlag(irr::video::EMF_WIREFRAME, false);
         _node->setMD2Animation(irr::scene::EMAT_STAND);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
@@ -62,16 +64,18 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
     }
 }
 
-void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &texture)
+void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &mesh, std::vector<std::string> texture)
 {
     if (type == CUBE) {
-        this->_mesh = smgr->getMesh("./assets/meshs/cube.obj");
+        std::cout << mesh << std::endl;
+        this->_mesh = smgr->getMesh(mesh.data());
         _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
         if (_node) {
-            _node->setScale(irr::core::vector3df(1,1,1));
+            _node->setScale(irr::core::vector3df(0.068,0.068,0.068));
             _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
             _node->setMD2Animation(irr::scene::EMAT_STAND);
-            _node->setMaterialTexture(0, driver->getTexture(texture.data()));
+            for (irr::u16 i = 0; i < texture.size(); i++)
+                _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
             _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
         }
     }

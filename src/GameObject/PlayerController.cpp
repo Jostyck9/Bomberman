@@ -108,5 +108,6 @@ void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
     default:
         return;
     }
+    std::cout << "x: " << position.X << "Y: " << position.Y << std::endl;
     _displayInfo.setPosition(position);
 }
