@@ -21,3 +21,8 @@ GraphicalElements &PrintableObject::getDisplayInfo()
 {
     return (_displayInfo);
 }
+
+void PrintableObject::updateColision(irr::scene::ISceneManager* smgr)
+{
+    getDisplayInfo().updateColision(smgr);
+}

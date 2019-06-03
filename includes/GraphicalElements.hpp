@@ -28,6 +28,15 @@ private:
     irr::core::vector3df _rotation;
     bool _collide;
 
+    irr::scene::ITriangleSelector *_selector;
+    irr::scene::IMetaTriangleSelector *_selectorWorld;
+    static irr::scene::IMetaTriangleSelector *_allSelectors;
+
+    irr::core::vector3df _boxColision;
+    irr::core::vector3df _translationColision;
+
+    bool createSelectorWorld(irr::scene::ISceneManager* smgr);
+
 public:
 
     enum meshType_e {
@@ -56,6 +65,9 @@ public:
 
     const irr::core::vector3df& getPosition();
     void setPosition(irr::core::vector3df& _position);
+
+    bool addColision(irr::scene::ISceneManager* smgr, irr::core::vector3df sphere, irr::core::vector3df translation = irr::core::vector3df(0, 0, 0));
+    bool updateColision(irr::scene::ISceneManager* smgr);
 };
 
 #endif

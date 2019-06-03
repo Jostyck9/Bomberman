@@ -21,6 +21,7 @@ public:
     virtual ~PrintableObject() = default;
 
     virtual GameObject::objecType_t getType();
+    void updateColision(irr::scene::ISceneManager* smgr);
 
 protected:
     GraphicalElements &getDisplayInfo();
