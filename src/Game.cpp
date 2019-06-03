@@ -12,12 +12,10 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, 100), irr::core::vector3df(50, 50, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Bomb/model.obj";
-    irr::u16 valx = 37;
-    irr::u16 valy = 143;
+    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
+    irr::s16 valx = 17;
+    irr::s16 valy = 15;
 
-    textures.push_back("./assets/meshs/Bomb/modeMM00.png");
-    textures.push_back("./assets/meshs/Bomb/modeSS02.png");
     Player *p1 = new Player(device, textures, path, valx, valy);
     _map.addToMap(0, 0, p1);
     _map.updateColision();

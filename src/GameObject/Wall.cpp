@@ -16,6 +16,7 @@ Wall::Wall(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, st
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(smgr, driver, GraphicalElements::meshType_t::CUBE, mesh, texture);
     this->getDisplayInfo().addColision(smgr, irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.068));
 }
 
 Wall::Wall(irr::u16 x, irr::u16 y, bool isBreakable) : _isBreakable(isBreakable), _life(1)

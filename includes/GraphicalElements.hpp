@@ -23,7 +23,7 @@ private:
     irr::scene::IAnimatedMesh* _mesh;
     irr::scene::IAnimatedMeshSceneNode *_node;
     std::string _meshPath;
-    irr::f32 _scale;
+    irr::core::vector3df _scale;
     irr::core::vector3df _position;
     irr::core::vector3df _rotation;
     bool _collide;
@@ -60,8 +60,8 @@ public:
     const std::string &getMeshPath() const;
     void setMeshPath(const std::string &meshPath);
 
-    irr::f32 getScale();
-    void setScale(irr::f32 _scale);
+    irr::core::vector3df getScale();
+    void setScale(irr::core::vector3df _scale);
 
     const irr::core::vector3df& getPosition();
     void setPosition(irr::core::vector3df& _position);

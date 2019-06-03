@@ -55,11 +55,12 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
     this->_mesh = smgr->getMesh(meshPath.data());
     _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (_node) {
-        _node->setScale(irr::core::vector3df(5,5,5));
-        _node->setMaterialFlag(irr::video::EMF_WIREFRAME, false);
+        // _node->setScale(irr::core::vector3df(5,5,5));
+        _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
         _node->setMD2Animation(irr::scene::EMAT_STAND);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
+        std::cout << "posX : " << _position.X << "posY : " << _position.Y << std::endl;
         _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
     }
 }
@@ -71,7 +72,6 @@ void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVi
         this->_mesh = smgr->getMesh(mesh.data());
         _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
         if (_node) {
-            _node->setScale(irr::core::vector3df(0.068,0.068,0.068));
             _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
             _node->setMD2Animation(irr::scene::EMAT_STAND);
             for (irr::u16 i = 0; i < texture.size(); i++)
@@ -93,16 +93,16 @@ void GraphicalElements::setMeshPath(const std::string &meshPath)
     throw "Not yet implemented";
 }
 
-irr::f32 GraphicalElements::getScale()
+irr::core::vector3df GraphicalElements::getScale()
 {
     return (_scale);
 }
 
-void GraphicalElements::setScale(irr::f32 scale)
+void GraphicalElements::setScale(irr::core::vector3df scale)
 {
     //TODO chage scale into a vector3f
     _scale = scale;
-    // _node->setScale(scale);
+    _node->setScale(scale);
 }
 
 const irr::core::vector3df& GraphicalElements::getPosition()
@@ -163,8 +163,8 @@ bool GraphicalElements::addColision(irr::scene::ISceneManager* smgr, irr::core::
     if (!createSelectorWorld(smgr))
         return (false);
     anim = smgr->createCollisionResponseAnimator(
-            _selectorWorld, _node, irr::core::vector3df(8,8,8),
-            irr::core::vector3df(0, 0, 0), irr::core::vector3df(0,0,0));
+            _selectorWorld, _node, sphere,
+            irr::core::vector3df(0, 0, 0), translation);
     if (!anim)
         return (false);
     _node->addAnimator(anim);
@@ -181,8 +181,8 @@ bool GraphicalElements::updateColision(irr::scene::ISceneManager* smgr)
     if (!createSelectorWorld(smgr))
         return (false);
     anim = smgr->createCollisionResponseAnimator(
-            _selectorWorld, _node, irr::core::vector3df(8,8,8),
-            irr::core::vector3df(0, 0, 0), irr::core::vector3df(0,0,0));
+            _selectorWorld, _node, _boxColision,
+            irr::core::vector3df(0, 0, 0), _translationColision);
     if (!anim)
         return (false);
     _node->addAnimator(anim);
