@@ -18,7 +18,19 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().addColision(_device->getSceneManager(), irr::core::vector3df(2, 2, 2));
 }
 
-void Player::update(MyEventReceiver event)
+void Player::update(MyEventReceiver event, Map *map)
 {
     this->getPlayerController().action(event, 1);
+    irr::core::vector3df pos = this->getDisplayInfo().getPosition();
+    irr::core::vector3df rot = this->getDisplayInfo().getRotation();
+    switch(rot.X % 90) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+    }
 }

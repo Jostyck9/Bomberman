@@ -30,7 +30,7 @@ void Game::updateObj(GameObject *obj)
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = dynamic_cast<Player *>(obj);
-        current->update(_events);
+        current->update(_events, this->_map);
     }
 }
 
