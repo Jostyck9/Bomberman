@@ -23,7 +23,7 @@ private:
     PlayerController _controller;
 
 public:
-    ACharacter();
+    ACharacter(irr::IrrlichtDevice* device);
     virtual ~ACharacter() = default;
 
     CharacterStats &getStats();

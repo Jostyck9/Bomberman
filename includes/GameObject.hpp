@@ -13,6 +13,7 @@ public:
     enum objectType_s {
         PRINTABLE_OBJ,
         PLAYER,
+        WALL,
         UNKNOWN
     };
     typedef objectType_s objecType_t;

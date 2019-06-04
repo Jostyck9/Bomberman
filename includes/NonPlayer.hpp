@@ -16,7 +16,7 @@ class NonPlayer : public ACharacter
 private:
     BotIA _ia;
 public:
-    NonPlayer(Map &map);
+    NonPlayer(irr::IrrlichtDevice *device, Map &map);
     void update(MyEventReceiver event = MyEventReceiver()) override;
 };
 

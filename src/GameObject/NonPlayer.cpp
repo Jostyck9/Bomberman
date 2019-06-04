@@ -8,7 +8,7 @@
 
 #include "NonPlayer.hpp"
 
-NonPlayer::NonPlayer(Map &map) : _ia(map, *this)
+NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map) : ACharacter(device), _ia(map, *this)
 {
 
 }

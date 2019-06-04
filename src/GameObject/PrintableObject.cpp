@@ -7,7 +7,7 @@
 
 #include "PrintableObject.hpp"
 
-PrintableObject::PrintableObject(irr::core::vector3df position)
+PrintableObject::PrintableObject(irr::IrrlichtDevice* device, irr::core::vector3df position) : _displayInfo(device)
 {
     _displayInfo.setPosition(position);
 }
@@ -22,7 +22,7 @@ GraphicalElements &PrintableObject::getDisplayInfo()
     return (_displayInfo);
 }
 
-void PrintableObject::updateColision(irr::scene::ISceneManager* smgr)
+void PrintableObject::updateColision()
 {
-    getDisplayInfo().updateColision(smgr);
+    getDisplayInfo().updateColision();
 }

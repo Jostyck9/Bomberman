@@ -6,19 +6,19 @@
 */
 
 #include <iostream>
-#include "GraphicalElements.hpp"
 #include <string>
-#include <iostream>
+#include "GraphicalElements.hpp"
+#include "PlayerController.hpp"
 
 irr::scene::IMetaTriangleSelector *GraphicalElements::_allSelectors = nullptr;
 
-GraphicalElements::GraphicalElements(const irr::core::vector3df &position, const irr::core::vector3df &rotation, irr::f32 scale, bool collide) :
+GraphicalElements::GraphicalElements(irr::IrrlichtDevice *device, const irr::core::vector3df &position, const irr::core::vector3df &rotation, irr::core::vector3df scale) :
+                                    _device(device),
                                     _mesh(nullptr),
                                     _node(nullptr),
                                     _scale(scale),
                                     _position(position),
                                     _rotation(rotation),
-                                    _collide(collide),
                                     _selector(nullptr),
                                     _selectorWorld(nullptr)
 {}
@@ -35,49 +35,29 @@ void GraphicalElements::setRotation(const irr::core::vector3df &rotation)
         _node->setRotation(rotation);
 }
 
-bool GraphicalElements::isCollide() const
-{
-    return _collide;
-}
-
-void GraphicalElements::setCollide(bool canCollide)
-{
-    _collide = canCollide;
-}
-
 const irr::scene::IAnimatedMesh* GraphicalElements::getMesh() const
 {
     return (_mesh);
 }
 
-void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, std::vector<std::string> texture, std::string &meshPath)
+void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &meshPath, irr::s32 id)
 {
-    this->_mesh = smgr->getMesh(meshPath.data());
+    irr::scene::ISceneManager* smgr = nullptr;
+    irr::video::IVideoDriver* driver = nullptr;
+
+    if (!_device)
+        return;
+    smgr = _device->getSceneManager();
+    driver = _device->getVideoDriver();
+    _mesh = smgr->getMesh(meshPath.data());
     _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (_node) {
-        // _node->setScale(irr::core::vector3df(5,5,5));
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
         _node->setMD2Animation(irr::scene::EMAT_STAND);
+        _node->setID(id);
         for (irr::u16 i = 0; i < texture.size(); i++)
-            _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
-        std::cout << "posX : " << _position.X << "posY : " << _position.Y << std::endl;
+            _node->setMaterialTexture(i, driver->getTexture(texture[i].c_str()));
         _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
-    }
-}
-
-void GraphicalElements::setMesh(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, meshType_t type, std::string &mesh, std::vector<std::string> texture)
-{
-    if (type == CUBE) {
-        std::cout << mesh << std::endl;
-        this->_mesh = smgr->getMesh(mesh.data());
-        _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
-        if (_node) {
-            _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-            _node->setMD2Animation(irr::scene::EMAT_STAND);
-            for (irr::u16 i = 0; i < texture.size(); i++)
-                _node->setMaterialTexture(i, driver->getTexture(texture[i].data()));
-            _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
-        }
     }
 }
 
@@ -88,9 +68,10 @@ const std::string &GraphicalElements::getMeshPath() const
 
 void GraphicalElements::setMeshPath(const std::string &meshPath)
 {
+    if (_node)
+        _node->drop();
     _meshPath = meshPath;
-    // TODO - implement GraphicalElements::setMesh
-    throw "Not yet implemented";
+
 }
 
 irr::core::vector3df GraphicalElements::getScale()
@@ -100,7 +81,6 @@ irr::core::vector3df GraphicalElements::getScale()
 
 void GraphicalElements::setScale(irr::core::vector3df scale)
 {
-    //TODO chage scale into a vector3f
     _scale = scale;
     _node->setScale(scale);
 }
@@ -119,10 +99,14 @@ void GraphicalElements::setPosition(irr::core::vector3df& position)
         _node->setPosition(position);
 }
 
-bool GraphicalElements::createSelectorWorld(irr::scene::ISceneManager* smgr)
+bool GraphicalElements::createSelectorWorld()
 {
     irr::u32 size = 0;
+    irr::scene::ISceneManager* smgr = nullptr;
 
+    if (!_device)
+        return (false);
+    smgr = _device->getSceneManager();
     if (smgr == nullptr || _allSelectors == nullptr || _node == nullptr)
         return (false);
     if (_selectorWorld) {
@@ -148,10 +132,14 @@ bool GraphicalElements::createSelectorWorld(irr::scene::ISceneManager* smgr)
     return (true);
 }
 
-bool GraphicalElements::addColision(irr::scene::ISceneManager* smgr, irr::core::vector3df sphere, irr::core::vector3df translation)
+bool GraphicalElements::addColision(irr::core::vector3df sphere, irr::core::vector3df translation)
 {
     irr::scene::ISceneNodeAnimator* anim = nullptr;
+    irr::scene::ISceneManager* smgr = nullptr;
 
+    if (!_device)
+        return (false);
+    smgr = _device->getSceneManager();
     _boxColision = sphere;
     _translationColision = translation;
     if (!smgr)
@@ -160,7 +148,7 @@ bool GraphicalElements::addColision(irr::scene::ISceneManager* smgr, irr::core::
         _allSelectors = smgr->createMetaTriangleSelector();
     if (!_allSelectors)
         return (false);
-    if (!createSelectorWorld(smgr))
+    if (!createSelectorWorld())
         return (false);
     anim = smgr->createCollisionResponseAnimator(
             _selectorWorld, _node, sphere,
@@ -172,13 +160,15 @@ bool GraphicalElements::addColision(irr::scene::ISceneManager* smgr, irr::core::
     return (false);
 }
 
-bool GraphicalElements::updateColision(irr::scene::ISceneManager* smgr)
+bool GraphicalElements::updateColision()
 {
     irr::scene::ISceneNodeAnimator* anim = nullptr;
+    irr::scene::ISceneManager* smgr = nullptr;
 
-    if (!_collide)
-        return (true);
-    if (!createSelectorWorld(smgr))
+    if (!_device)
+        return (false);
+    smgr = _device->getSceneManager();
+    if (!createSelectorWorld())
         return (false);
     anim = smgr->createCollisionResponseAnimator(
             _selectorWorld, _node, _boxColision,
@@ -188,4 +178,35 @@ bool GraphicalElements::updateColision(irr::scene::ISceneManager* smgr)
     _node->addAnimator(anim);
     anim->drop();
     return (true);
+}
+
+irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s32 id)
+{
+    irr::core::vector3df intersection;
+    irr::core::vector3df positionEnd;
+    irr::core::triangle3df hitTriangle;
+    irr::core::line3d<irr::f32> ray;
+    irr::f32 rotation = 0;
+    irr::scene::ISceneCollisionManager *collMan = nullptr;
+
+    if (!_device)
+        return (nullptr);
+    collMan = _device->getSceneManager()->getSceneCollisionManager();
+    if (!collMan || !_node)
+        return (nullptr);
+    rotation = _node->getRotation().Z;
+    if (rotation == PlayerController::rotation_e::RIGHT) {
+        positionEnd = irr::core::vector3df(1, 0, 0);
+    } else if (rotation == PlayerController::rotation_e::LEFT) {
+        positionEnd = irr::core::vector3df(-1, 0, 0);
+    } else if (rotation == PlayerController::rotation_e::UP) {
+        positionEnd = irr::core::vector3df(0, 1, 0);
+    } else if (rotation == PlayerController::rotation_e::DOWN) {
+        positionEnd = irr::core::vector3df(0, -1, 0);
+    } else
+        return (nullptr);
+    ray.start = _node->getPosition();
+    ray.end = ray.start + (positionEnd).normalize() * distance;
+    // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
+    return (collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id));
 }

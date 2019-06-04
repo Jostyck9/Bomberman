@@ -10,7 +10,7 @@
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, 100), irr::core::vector3df(50, 50, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, -100), irr::core::vector3df(50, 50, 0));
     std::vector<std::string> textures;
     std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
     irr::s16 valx = 17;

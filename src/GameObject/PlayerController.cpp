@@ -63,19 +63,19 @@ void PlayerController::setRotation(irr::EKEY_ACTION action)
     switch (action)
     {
     case irr::EKA_MOVE_BACKWARD:
-        rotation.Z = 0;
+        rotation.Z = rotation_e::DOWN;
         break;
     
     case irr::EKA_MOVE_FORWARD:
-        rotation.Z = -180;
+        rotation.Z = rotation_e::UP;
         break;
     
     case irr::EKA_STRAFE_LEFT:
-        rotation.Z = 90;
+        rotation.Z = rotation_e::LEFT;
         break;
 
     case irr::EKA_STRAFE_RIGHT:
-        rotation.Z = -90;
+        rotation.Z = rotation_e::RIGHT;
         break;
     default:
         return;
@@ -99,15 +99,15 @@ void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
         break;
     
     case irr::EKA_STRAFE_LEFT:
-        position.X += offset * speed;
+        position.X -= offset * speed;
         break;
 
     case irr::EKA_STRAFE_RIGHT:
-        position.X -= offset * speed;
+        position.X += offset * speed;
         break;
     default:
         return;
     }
-    std::cout << "x: " << position.X << "Y: " << position.Y << std::endl;
+    // std::cout << "x: " << position.X << "Y: " << position.Y << std::endl;
     _displayInfo.setPosition(position);
 }
