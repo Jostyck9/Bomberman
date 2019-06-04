@@ -9,6 +9,7 @@
 #define PLAYER_HPP
 
 #include "ACharacter.hpp"
+#include "Map.hpp"
 #include <vector>
 
 class Player : public ACharacter
@@ -16,7 +17,7 @@ class Player : public ACharacter
 private:
     irr::IrrlichtDevice* _device;
 public:
-    void update(MyEventReceiver event = MyEventReceiver(), Map *map) override;
+    void update(EventReceiver event = MyEventReceiver()) override;
 
     Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16);
 };

@@ -18,21 +18,12 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
 }
 
-void Player::update(MyEventReceiver event, Map *map)
+void Player::update(MyEventReceiver event)
 {
     this->getPlayerController().action(event, 1);
-    irr::core::vector3df pos = this->getDisplayInfo().getPosition();
-    irr::core::vector3df rot = this->getDisplayInfo().getRotation();
-    switch(rot.X % 90) {
-        case 0:
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-    }
+    // irr::core::vector3df pos = this->getDisplayInfo().getPosition();
+    // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
+    // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
 
     if (getDisplayInfo().getFrontObj(3, GameObject::WALL) != nullptr)
         std::cout << "ok" << std::endl;
