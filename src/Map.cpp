@@ -71,11 +71,11 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
+                Wall *newWall = new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
+                Wall *newWall = new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
                 addToMap(i, j, newWall);
             }
         }
@@ -117,7 +117,7 @@ void Map::updateColision()
                 if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PRINTABLE_OBJ) {
                     current = dynamic_cast<PrintableObject *>(it);
                     if (current)
-                        current->updateColision(_device->getSceneManager());
+                        current->updateColision();
                 }
             }
         }

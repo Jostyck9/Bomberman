@@ -7,7 +7,7 @@
 
 #include "ACharacter.hpp"
 
-ACharacter::ACharacter() : _stats(), _score(), _life(), _controller(this->getDisplayInfo())
+ACharacter::ACharacter(irr::IrrlichtDevice* device) : PrintableObject(device), _stats(), _score(), _life(), _controller(this->getDisplayInfo())
 {
 }
 
