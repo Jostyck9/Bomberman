@@ -12,6 +12,7 @@
 
 class BombUp : public AItem
 {
+public:
     BombUp() = default;
     ~BombUp() = default;
     bool applyEffect(ACharacter& player) override;

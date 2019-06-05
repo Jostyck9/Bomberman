@@ -12,6 +12,7 @@
 
 class FireUp : public AItem
 {
+public:
     FireUp() = default;
     ~FireUp() = default;
     bool applyEffect(ACharacter& player) override;

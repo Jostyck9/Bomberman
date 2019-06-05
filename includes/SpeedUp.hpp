@@ -5,6 +5,7 @@
 
 class SpeedUp : public AItem
 {
+public:
     SpeedUp() = default;
     ~SpeedUp() = default;
     bool applyEffect(ACharacter& player) override;

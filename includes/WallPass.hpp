@@ -5,6 +5,7 @@
 
 class WallPass : public AItem
 {
+public:
     WallPass() = default;
     ~WallPass() = default;
     bool applyEffect(ACharacter& player) override;

@@ -26,7 +26,8 @@ private:
     irr::u16 _size;
 
 public:
-    Map(irr::IrrlichtDevice *_device, irr::u16 size);
+    Map(irr::IrrlichtDevice *device, irr::u16 size);
+    Map(irr::IrrlichtDevice *device, const std::string &save, irr::u16 size);
     ~Map();
 
     void genMap(irr::u16 size);
@@ -34,6 +35,10 @@ public:
     void addToMap(irr::u16 x, irr::u16 y, GameObject *obj);
     boost::multi_array<std::vector<GameObject*>, 2> &getMap();
     irr::u16 getSize() const;
+    bool save();
+    bool load(const std::string &filename);
+    void setDevice(irr::IrrlichtDevice *device);
+    void setSize(irr::u16 size);
 };
 
 #endif // !MAP_HPP_

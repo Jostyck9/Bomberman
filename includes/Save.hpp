@@ -15,8 +15,6 @@ class Save
 public:
     Save() = default;
     ~Save() = default;
-    bool saveGame(Map map);
-    Map *loadGame(std::string file);
 private:
 };
 
