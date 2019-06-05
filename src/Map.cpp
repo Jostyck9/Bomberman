@@ -123,3 +123,21 @@ void Map::updateColision()
         }
     }
 }
+
+irr::core::vector2df Map::getPosition(GameObject *obj)
+{
+    irr::core::vector2df pos;
+
+    for (irr::u16 x = 0; x < _width; x++) {
+        for (irr::u16 y = 0; y < _heigh; y++) {
+            for (auto &it : _map[x][y]) {
+                if (obj == it) {
+                    pos.X = x;
+                    pos.Y = y;
+                    return (pos);
+                }
+            }
+        }
+    }
+    return (pos);
+}
