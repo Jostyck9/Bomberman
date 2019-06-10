@@ -7,10 +7,11 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "Save.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, -100), irr::core::vector3df(50, 50, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
     std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
     irr::s16 valx = 12.5;

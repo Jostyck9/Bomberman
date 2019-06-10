@@ -23,11 +23,11 @@ private:
     irr::IrrlichtDevice *_device;
     boost::multi_array<std::vector<GameObject*>, 2> _map;
     std::vector<std::string> _mapGen;
-    irr::u16 _width;
-    irr::u16 _heigh;
+    irr::u16 _size;
 
 public:
-    Map(irr::IrrlichtDevice *_device, irr::u16 size);
+    Map(irr::IrrlichtDevice *device, irr::u16 size);
+    Map(irr::IrrlichtDevice *device, const std::string &save, irr::u16 size);
     ~Map();
 
     void genMap(irr::u16 size);
@@ -37,9 +37,12 @@ public:
     void updateColision();
 
     boost::multi_array<std::vector<GameObject*>, 2> &getMap();
+    irr::u16 getSize() const;
+    bool save();
+    bool load(const std::string &filename);
+    void setDevice(irr::IrrlichtDevice *device);
+    void setSize(irr::u16 size);
     irr::core::vector2df getPosition(GameObject *);
-    irr::u16 getWidth() const;
-    irr::u16 getHeigh() const;
 };
 
 #endif // !MAP_HPP_
