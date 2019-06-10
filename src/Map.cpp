@@ -44,25 +44,18 @@ void Map::genMap(irr::u16 size)
 {
     std::string str;
 
-    if (size % 2 == 0)
-        size++;
     for (int i = 0; i < size; i++)
         str += '_';
     for (int i = 0; i < size; i++)
         _mapGen.push_back(str);
-/*    for (int i = 0; i < (size * size) / 4 * 3; i++)
-        _mapGen.at(std::rand() % size).at(std::rand() % size) = 'X';
-    for (int i = 0; i < (size * size) / 3 * 2; i++)
-        _mapGen.at(std::rand() % size).at(std::rand() % size) = 'O';
-    for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - 1; j++) {
-            if (_mapGen.at(i).at(j) != 'X' && _mapGen.at(i + 1).at(j) != 'X' &&
-                _mapGen.at(i).at(j + 1) != 'X' && _mapGen.at(i + 1).at(j + 1) != 'X')
-                _mapGen.at(i + rand() % 2).at(j + rand() % 2) = 'X';
-        }
-    }*/
-    for (irr::u16 i = 0; i < (size * size) - size; i++)
-        _mapGen.at(std::rand() % size).at(std::rand() % size) = 'O';
+    for (irr::u16 i = 0; i < size * size / 4; i++) {
+        irr::u16 x = std::rand() % (size / 2);
+        irr::u16 y = std::rand() % (size / 2);
+        _mapGen.at(x).at(y) = 'O';
+        _mapGen.at(size - x - 1).at(y) = 'O';
+        _mapGen.at(x).at(size - y - 1) = 'O';
+        _mapGen.at(size - x - 1).at(size - y - 1) = 'O';
+    }
     for (irr::u16 i = 2; i < size; i = i + 2) {
         for (irr::u16 j = 2; j < size; j = j + 2) {
             _mapGen.at(i).at(j) = 'X';

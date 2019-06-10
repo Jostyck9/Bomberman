@@ -9,7 +9,7 @@
 #include "Game.hpp"
 #include "Save.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 11)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 17)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(-5, 90, 200), irr::core::vector3df(-5, 100, 0));
     std::vector<std::string> textures;
