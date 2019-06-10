@@ -21,7 +21,7 @@ int main(void)
         return (84);
     }
 
-    device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
+    device->setWindowCaption(L"MarioBomber");
     while (scene) {
         scene->display();
         scene = scene->handleEvent();
