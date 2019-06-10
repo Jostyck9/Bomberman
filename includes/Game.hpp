@@ -18,6 +18,7 @@ class Game : public AScene
 private:
     Map _map;
     void updateObj(GameObject *obj);
+    void updateMapFromPlayer(Player *current);
 
 public:
     Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);

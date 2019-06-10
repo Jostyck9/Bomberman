@@ -113,6 +113,16 @@ void Map::addToMap(irr::u16 x, irr::u16 y, GameObject *obj)
     _map[x][y].push_back(obj);
 }
 
+void Map::delToMap(irr::u16 x, irr::u16 y, GameObject *obj)
+{
+    if (x >= _size || y >= _size || obj == nullptr)
+        return;
+    for (irr::u16 i = 0; i < _map[x][y].size(); i++) {
+        if (obj == _map[x][y].at(i))
+            _map[x][y].erase(_map[x][y].begin() + i);
+    }
+}
+
 boost::multi_array<std::vector<GameObject*>, 2> &Map::getMap()
 {
     return (_map);
