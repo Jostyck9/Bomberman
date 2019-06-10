@@ -17,8 +17,8 @@ class Game : public AScene
 {
 private:
     Map _map;
-    void updateObj(GameObject *obj);
-    void updateMapFromPlayer(Player *current);
+    void updateObj(std::shared_ptr<GameObject> obj);
+    void updateMapFromPlayer(std::shared_ptr<Player> current);
 
 public:
     Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);

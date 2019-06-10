@@ -33,5 +33,5 @@ PlayerController &ACharacter::getPlayerController()
 
 GameObject::objecType_t ACharacter::getType()
 {
-    return (GameObject::PLAYER);
+    return (GameObject::ACHARACTER);
 }

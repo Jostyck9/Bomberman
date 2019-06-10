@@ -7,7 +7,7 @@
 
 #include "PrintableObject.hpp"
 
-PrintableObject::PrintableObject(irr::IrrlichtDevice* device, irr::core::vector3df position) : _displayInfo(device)
+PrintableObject::PrintableObject(irr::IrrlichtDevice* device, irr::core::vector3df position) : GameObject(device), _displayInfo(device)
 {
     _displayInfo.setPosition(position);
 }

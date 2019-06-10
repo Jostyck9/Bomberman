@@ -5,6 +5,7 @@
 ** Wall.cpp
 */
 
+#include <memory>
 #include <iostream>
 #include "Wall.hpp"
 #include "SpeedUp.hpp"
@@ -27,25 +28,25 @@ Wall::~Wall()
 {
 }
 
-void Wall::createPowerUp(irr::IrrlichtDevice *device, Map *map, irr::u16 x, irr::u16 y)
+void Wall::createPowerUp(irr::IrrlichtDevice *device, Map &map, irr::u16 x, irr::u16 y)
 {
     irr::u16 nb = std::rand() % 10;
 
     if (nb == 0) {
-        SpeedUp *newSpeedUp = new SpeedUp(device);
-        map->addToMap(x, y, newSpeedUp);
+        std::shared_ptr<GameObject> newSpeedUp(new SpeedUp(device));
+        map.addToMap(x, y, newSpeedUp);
     }
     if (nb == 1) {
-        FireUp *newFireUp = new FireUp(device);
-        map->addToMap(x, y, newFireUp);
+        std::shared_ptr<GameObject> newFireUp(new FireUp(device));
+        map.addToMap(x, y, newFireUp);
     }
     if (nb == 2) {
-        BombUp *newBombUp = new BombUp(device);
-        map->addToMap(x, y, newBombUp);
+        std::shared_ptr<GameObject> newBombUp(new BombUp(device));
+        map.addToMap(x, y, newBombUp);
     }
     if (nb == 3) {
-        WallPass *newSpeedUp = new WallPass(device);
-        map->addToMap(x, y, newSpeedUp);
+        std::shared_ptr<GameObject> newSpeedUp(new WallPass(device));
+        map.addToMap(x, y, newSpeedUp);
     }
 }
 
