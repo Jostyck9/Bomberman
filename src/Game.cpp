@@ -51,6 +51,7 @@ IScene* Game::update()
             }
         }
     }
+    _events.resetKeys();
     return (this);
 }
 

@@ -54,6 +54,9 @@ void PlayerController::action(MyEventReceiver &events, irr::u16 speed)
         setRotation(irr::EKA_STRAFE_RIGHT);
         move(irr::EKA_STRAFE_RIGHT, speed);
     }
+    if (events.IsKeyReleased(_keyMap.getAction())) {
+        std::cout << "test" << std::endl;
+    }
 }
 
 void PlayerController::setRotation(irr::EKEY_ACTION action)
