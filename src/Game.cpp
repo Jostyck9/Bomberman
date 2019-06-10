@@ -6,17 +6,20 @@
 */
 
 #include <iostream>
+#include "Bomb.hpp"
 #include "Game.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 10)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(50, 30, -100), irr::core::vector3df(50, 50, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
+    std::string path = "/home/bhugo/repo2/c++/Bomberman/assets/meshs/Luigi/Luigi.obj";
     irr::s16 valx = 17;
     irr::s16 valy = 15;
 
     Player *p1 = new Player(device, textures, path, valx, valy);
+    Bomb *bomb = new Bomb(device, *p1, 3);
+    _map.addToMap(0, 0, bomb);
     _map.addToMap(0, 0, p1);
     _map.updateColision();
     this->setCamera(camera);
