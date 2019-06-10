@@ -104,12 +104,12 @@ boost::multi_array<std::vector<GameObject*>, 2> &Map::getMap()
     return (_map);
 }
 
-irr::u16 Map::getWidth() const
+irr::u16 Map::getSize() const
 {
     return (_width);
 }
 
-irr::u16 Map::getHeigh() const
+irr::u16 Map::getSize() const
 {
     return (_heigh);
 }
@@ -121,8 +121,8 @@ void Map::updateColision()
 
     if (!smgr)
         return;
-    for (irr::u16 x = 0; x < getWidth(); x++) {
-        for (irr::u16 y = 0; y < getHeigh(); y++) {
+    for (irr::u16 x = 0; x < getSize(); x++) {
+        for (irr::u16 y = 0; y < getSize(); y++) {
             for (auto it : _map[x][y]) {
                 if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PRINTABLE_OBJ) {
                     current = dynamic_cast<PrintableObject *>(it);

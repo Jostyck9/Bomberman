@@ -40,8 +40,8 @@ void Game::updateMapFromPlayer(Player *current)
     irr::u16 x1 = 0;
     irr::u16 y1 = 0;
 
-    for (irr::u16 i = 0; i < this->_map.getWidth(); i++) {
-        for (irr::u16 k = 0; k < this->_map.getHeigh(); k++) {
+    for (irr::u16 i = 0; i < this->_map.getSize(); i++) {
+        for (irr::u16 k = 0; k < this->_map.getSize(); k++) {
             for (irr::u16 x = 0; x < this->_map.getMap()[i][k].size(); x++) {
                 if (current == _map.getMap()[i][k].at(x)) {
                     x1 = current->getPlayerController().getDisplayInfo().getPosition().X;
@@ -68,8 +68,8 @@ IScene* Game::update()
         delete this;
         return (nullptr);
     }
-    for (irr::u16 x = 0; x < _map.getWidth(); x++) {
-        for (irr::u16 y = 0; y < _map.getHeigh(); y++) {
+    for (irr::u16 x = 0; x < _map.getSize(); x++) {
+        for (irr::u16 y = 0; y < _map.getSize(); y++) {
             for (auto &it : _map.getMap()[x][y]) {
                 updateObj(it);
             }
