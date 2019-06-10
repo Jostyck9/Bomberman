@@ -1,6 +1,6 @@
 #include "Bomb.hpp"
 
-Bomb::Bomb(ACharacter& character, irr::u16 radius) : _radius(radius), _parentCharacter(character)
+Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius) : PrintableObject(device), _radius(radius), _parentCharacter(character)
 {
 }
 

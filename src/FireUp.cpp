@@ -7,6 +7,10 @@
 
 #include "FireUp.hpp"
 
+FireUp::FireUp(irr::IrrlichtDevice* device) : AItem(device)
+{
+}
+
 bool FireUp::applyEffect(ACharacter &player)
 {
     player.getStats().setBombRadius(player.getStats().getBombRadius() + 1);

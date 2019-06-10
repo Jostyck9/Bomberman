@@ -9,16 +9,17 @@
 #include "Game.hpp"
 #include "Save.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 17)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
-    Camera camera(device->getSceneManager(), irr::core::vector3df(-5, 90, 200), irr::core::vector3df(-5, 100, 0));
+    Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
     std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-    irr::u16 valx = 10;
-    irr::u16 valy = 40;
+    irr::s16 valx = 17;
+    irr::s16 valy = 15;
 
     Player *p1 = new Player(device, textures, path, valx, valy);
     _map.addToMap(1, 1, p1);
+    _map.updateColision();
     this->setCamera(camera);
 }
 

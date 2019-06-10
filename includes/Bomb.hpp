@@ -18,7 +18,7 @@ private:
     ACharacter& _parentCharacter;
 
 public:
-    Bomb(ACharacter& character, irr::u16 radius);
+    Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius);
 
     irr::u16 getRadius();
     void setRadius(irr::u16 _radius);

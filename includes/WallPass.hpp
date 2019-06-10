@@ -6,7 +6,7 @@
 class WallPass : public AItem
 {
 public:
-    WallPass() = default;
+    WallPass(irr::IrrlichtDevice* device);
     ~WallPass() = default;
     bool applyEffect(ACharacter& player) override;
     GameObject::objecType_t getType() override;

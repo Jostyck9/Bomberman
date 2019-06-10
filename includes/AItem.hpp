@@ -13,6 +13,7 @@
 class AItem : public PrintableObject
 {
 public:
+    AItem(irr::IrrlichtDevice* device);
     virtual bool applyEffect(ACharacter& player) = 0;
 };
 

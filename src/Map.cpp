@@ -87,14 +87,19 @@ void Map::genMap(irr::u16 size)
 
 void Map::setMap()
 {
+    std::vector<std::string> brkwall;
+    std::vector<std::string> wall;
+
+    brkwall.push_back("./assets/meshs/Brick_block/brick.png");
+    wall.push_back("./assets/meshs/Strong_block/block.png");
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/bricks.jpg", i, j, false);
+                Wall *newWall = new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/Brick_Block.png", i, j, true);
+                Wall *newWall = new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
                 addToMap(i, j, newWall);
             }
         }
@@ -167,6 +172,11 @@ bool Map::save()
 
 bool Map::load(const std::string &filename)
 {
+    std::vector<std::string> brkwall;
+    std::vector<std::string> wall;
+
+    brkwall.push_back("./assets/meshs/Brick_block/brick.png");
+    wall.push_back("./assets/meshs/Strong_block/block.png");
     std::ifstream file(filename);
     if (!file.is_open())
         return false;
@@ -183,28 +193,28 @@ bool Map::load(const std::string &filename)
             BOOST_FOREACH(ptree::value_type const& cell, v.second.get_child( "" )) {
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
-                        Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/bricks.jpg", i, j, false);
+                        Wall *newWall = new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
                         addToMap(i, j, newWall);
                     }
                     else {
-                        Wall *newWall = new Wall(_device->getSceneManager(), _device->getVideoDriver(), "./assets/textures/Brick_Block.png", i, j, true);
+                        Wall *newWall = new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
                         addToMap(i, j, newWall);
                     }
                 }
                 if (cell.first == "speedup") {
-                    SpeedUp *newSpeedUp = new SpeedUp;
+                    SpeedUp *newSpeedUp = new SpeedUp(_device);
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    FireUp *newFireUp = new FireUp;
+                    FireUp *newFireUp = new FireUp(_device);
                     addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    BombUp *newBombUp = new BombUp;
+                    BombUp *newBombUp = new BombUp(_device);
                     addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    WallPass *newSpeedUp = new WallPass;
+                    WallPass *newSpeedUp = new WallPass(_device);
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "Player") {
@@ -220,5 +230,43 @@ bool Map::load(const std::string &filename)
             }
         }
     }
-    return true;
+    return (true);
+}
+
+void Map::updateColision()
+{
+    irr::scene::ISceneManager* smgr = _device->getSceneManager();
+    PrintableObject *current = nullptr;
+
+    if (!smgr)
+        return;
+    for (irr::u16 x = 0; x < getSize(); x++) {
+        for (irr::u16 y = 0; y < getSize(); y++) {
+            for (auto it : _map[x][y]) {
+                if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PRINTABLE_OBJ) {
+                    current = dynamic_cast<PrintableObject *>(it);
+                    if (current)
+                        current->updateColision();
+                }
+            }
+        }
+    }
+}
+
+irr::core::vector2df Map::getPosition(GameObject *obj)
+{
+    irr::core::vector2df pos;
+
+    for (irr::u16 x = 0; x < _size; x++) {
+        for (irr::u16 y = 0; y < _size; y++) {
+            for (auto &it : _map[x][y]) {
+                if (obj == it) {
+                    pos.X = x;
+                    pos.Y = y;
+                    return (pos);
+                }
+            }
+        }
+    }
+    return (pos);
 }

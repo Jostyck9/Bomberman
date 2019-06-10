@@ -7,6 +7,10 @@
 
 #include "BombUp.hpp"
 
+BombUp::BombUp(irr::IrrlichtDevice* device) : AItem(device)
+{
+}
+
 bool BombUp::applyEffect(ACharacter &player)
 {
     player.getStats().setNbrBomb(player.getStats().getNbrBomb() + 1);

@@ -13,7 +13,7 @@
 class FireUp : public AItem
 {
 public:
-    FireUp() = default;
+    FireUp(irr::IrrlichtDevice* device);
     ~FireUp() = default;
     bool applyEffect(ACharacter& player) override;
     GameObject::objecType_t getType() override;

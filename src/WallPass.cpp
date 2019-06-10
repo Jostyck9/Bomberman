@@ -7,6 +7,10 @@
 
 #include "WallPass.hpp"
 
+WallPass::WallPass(irr::IrrlichtDevice* device) : AItem(device)
+{
+}
+
 bool WallPass::applyEffect(ACharacter &player)
 {
     player.getStats().setPassThrough(true);

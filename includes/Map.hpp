@@ -33,12 +33,15 @@ public:
     void genMap(irr::u16 size);
     void setMap();
     void addToMap(irr::u16 x, irr::u16 y, GameObject *obj);
+    void updateColision();
+
     boost::multi_array<std::vector<GameObject*>, 2> &getMap();
     irr::u16 getSize() const;
     bool save();
     bool load(const std::string &filename);
     void setDevice(irr::IrrlichtDevice *device);
     void setSize(irr::u16 size);
+    irr::core::vector2df getPosition(GameObject *);
 };
 
 #endif // !MAP_HPP_

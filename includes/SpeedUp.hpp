@@ -6,7 +6,7 @@
 class SpeedUp : public AItem
 {
 public:
-    SpeedUp() = default;
+    SpeedUp(irr::IrrlichtDevice* device);
     ~SpeedUp() = default;
     bool applyEffect(ACharacter& player) override;
     GameObject::objecType_t getType() override;

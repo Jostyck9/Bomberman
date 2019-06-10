@@ -7,7 +7,7 @@
 
 #include "PrintableObject.hpp"
 
-PrintableObject::PrintableObject(irr::core::vector3df position)
+PrintableObject::PrintableObject(irr::IrrlichtDevice* device, irr::core::vector3df position) : _displayInfo(device)
 {
     _displayInfo.setPosition(position);
 }
@@ -20,4 +20,9 @@ GameObject::objecType_t PrintableObject::getType()
 GraphicalElements &PrintableObject::getDisplayInfo()
 {
     return (_displayInfo);
+}
+
+void PrintableObject::updateColision()
+{
+    getDisplayInfo().updateColision();
 }

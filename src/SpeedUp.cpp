@@ -7,6 +7,10 @@
 
 #include "SpeedUp.hpp"
 
+SpeedUp::SpeedUp(irr::IrrlichtDevice* device) : AItem(device)
+{
+}
+
 bool SpeedUp::applyEffect(ACharacter &player)
 {
     player.getStats().setSpeed(player.getStats().getSpeed() + 1);

@@ -9,6 +9,7 @@
 #define PLAYER_HPP
 
 #include "ACharacter.hpp"
+#include "Map.hpp"
 #include <vector>
 
 class Player : public ACharacter
@@ -18,7 +19,7 @@ private:
 public:
     void update(MyEventReceiver event = MyEventReceiver()) override;
 
-    Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::u16, irr::u16);
+    Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16);
 };
 
 #endif
