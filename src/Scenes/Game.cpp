@@ -9,7 +9,7 @@
 #include "Game.hpp"
 #include "Save.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, "save.txt", 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
@@ -17,26 +17,26 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     irr::s16 valx = 12.5;
     irr::s16 valy = 12.5;
 
-    Player *p1 = new Player(device, textures, path, valx, valy);
+    std::shared_ptr<Player> p1(new Player(device, textures, path, valx, valy));
     _map.addToMap(1, 1, p1);
     _map.updateColision();
     this->setCamera(camera);
 }
 
-void Game::updateObj(GameObject *obj)
+void Game::updateObj(std::shared_ptr<GameObject> obj)
 {
-    Player *current = nullptr;
+    std::shared_ptr<Player> current = nullptr;
 
     if (!obj)
         return;
     if (obj->getType() == GameObject::PLAYER) {
-        current = dynamic_cast<Player *>(obj);
+        current = std::dynamic_pointer_cast<Player>(obj);
         current->update(_events);
         updateMapFromPlayer(current);
     }
 }
 
-void Game::updateMapFromPlayer(Player *current)
+void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
 {
     irr::u16 x1 = 0;
     irr::u16 y1 = 0;

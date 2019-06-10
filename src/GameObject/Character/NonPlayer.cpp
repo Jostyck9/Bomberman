@@ -18,3 +18,8 @@ void NonPlayer::update(MyEventReceiver event)
     (void)event;
     //TODO with IA
 }
+
+GameObject::objecType_t NonPlayer::getType()
+{
+    return (GameObject::objectType_s::NONPLAYER);
+}

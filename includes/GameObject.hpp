@@ -20,6 +20,7 @@ public:
         PRINTABLE_OBJ,
         ACHARACTER,
         PLAYER,
+        NONPLAYER,
         WALL,
         BOMB,
         SPEEDUP,

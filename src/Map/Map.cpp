@@ -95,25 +95,25 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                Wall *newWall = new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                Wall *newWall = new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
                 addToMap(i, j, newWall);
             }
         }
     }
 }
 
-void Map::addToMap(irr::u16 x, irr::u16 y, GameObject *obj)
+void Map::addToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
 {
     if (x >= _size || y >= _size || obj == nullptr)
         return;
     _map[x][y].push_back(obj);
 }
 
-void Map::delToMap(irr::u16 x, irr::u16 y, GameObject *obj)
+void Map::delToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
 {
     if (x >= _size || y >= _size || obj == nullptr)
         return;
@@ -123,7 +123,7 @@ void Map::delToMap(irr::u16 x, irr::u16 y, GameObject *obj)
     }
 }
 
-boost::multi_array<std::vector<GameObject*>, 2> &Map::getMap()
+boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &Map::getMap()
 {
     return (_map);
 }
@@ -155,7 +155,7 @@ bool Map::save()
             file << "\t\t<y>" << j << "</y>" << std::endl;
             for (irr::u16 k = 0; k < _map[i][j].size(); k++) {
                 if (_map[i][j].at(k)->getType() == GameObject::WALL)
-                    file << "\t\t<wall>" << dynamic_cast<Wall *>(_map[i][j].at(k))->isBreakable() << "</wall>" << std::endl;
+                    file << "\t\t<wall>" <<  std::dynamic_pointer_cast<Wall>(_map[i][j].at(k))->isBreakable() << "</wall>" << std::endl;
                 if (_map[i][j].at(k)->getType() == GameObject::SPEEDUP)
                     file << "\t\t<speedup>" << "</speedup>" << std::endl;
                 if (_map[i][j].at(k)->getType() == GameObject::BOMBUP)
@@ -166,10 +166,10 @@ bool Map::save()
                     file << "\t\t<wallpass>" << "</wallpass>" << std::endl;
                 if (_map[i][j].at(k)->getType() == GameObject::PLAYER) {
                     file << "\t\t<player>" << std::endl;
-                    file << "\t\t\t<nbrbomb>" << dynamic_cast<ACharacter *>(_map[i][j].at(k))->getStats().getNbrBomb() << "</nbrbomb>" <<std::endl;
-                    file << "\t\t\t<bombradius>" << dynamic_cast<ACharacter *>(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
-                    file << "\t\t\t<passthrough>" << dynamic_cast<ACharacter *>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
-                    file << "\t\t\t<speed>" << dynamic_cast<ACharacter *>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t\t<nbrbomb>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getNbrBomb() << "</nbrbomb>" <<std::endl;
+                    file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
+                    file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
+                    file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
             }
@@ -203,34 +203,34 @@ bool Map::load(const std::string &filename)
             BOOST_FOREACH(ptree::value_type const& cell, v.second.get_child( "" )) {
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
-                        Wall *newWall = new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false);
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
                         addToMap(i, j, newWall);
                     }
                     else {
-                        Wall *newWall = new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true);
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
                         addToMap(i, j, newWall);
                     }
                 }
                 if (cell.first == "speedup") {
-                    SpeedUp *newSpeedUp = new SpeedUp(_device);
+                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device));
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    FireUp *newFireUp = new FireUp(_device);
+                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device));
                     addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    BombUp *newBombUp = new BombUp(_device);
+                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device));
                     addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    WallPass *newSpeedUp = new WallPass(_device);
+                    std::shared_ptr<WallPass> newSpeedUp(new WallPass(_device));
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "Player") {
                     std::vector<std::string> textures;
                     std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-                    Player *player = new Player(_device, textures, path, i, j);
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
@@ -246,7 +246,7 @@ bool Map::load(const std::string &filename)
 void Map::updateColision()
 {
     irr::scene::ISceneManager* smgr = _device->getSceneManager();
-    PrintableObject *current = nullptr;
+    std::shared_ptr<PrintableObject> current(nullptr);
 
     if (!smgr)
         return;
@@ -254,7 +254,7 @@ void Map::updateColision()
         for (irr::u16 y = 0; y < getSize(); y++) {
             for (auto it : _map[x][y]) {
                 if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PRINTABLE_OBJ) {
-                    current = dynamic_cast<PrintableObject *>(it);
+                    current = std::dynamic_pointer_cast<PrintableObject>(it);
                     if (current)
                         current->updateColision();
                 }
@@ -263,7 +263,7 @@ void Map::updateColision()
     }
 }
 
-irr::core::vector2df Map::getPosition(GameObject *obj)
+irr::core::vector2df Map::getPosition(std::shared_ptr<GameObject> obj)
 {
     irr::core::vector2df pos;
 
