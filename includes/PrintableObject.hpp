@@ -17,11 +17,11 @@ private:
     GraphicalElements _displayInfo;
 
 public:
-    PrintableObject(irr::core::vector3df position = irr::core::vector3df(0, 0, 0));
+    PrintableObject(irr::IrrlichtDevice* device, irr::core::vector3df position = irr::core::vector3df(0, 0, 0));
+    virtual ~PrintableObject() = default;
 
-    ~PrintableObject();
-
-    GameObject::objecType_t getType();
+    virtual GameObject::objecType_t getType();
+    void updateColision();
 
 protected:
     GraphicalElements &getDisplayInfo();

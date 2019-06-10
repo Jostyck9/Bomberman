@@ -14,9 +14,20 @@
 
 class PlayerController
 {
+public:
+    enum rotation_e {
+        UP = -180,
+        DOWN = 0,
+        LEFT = -90,
+        RIGHT = 90
+    };
+
 private:
     KeyMap _keyMap;
     GraphicalElements &_displayInfo;
+
+    void setRotation(irr::EKEY_ACTION action);
+    void move(irr::EKEY_ACTION action, irr::u16 speed);
 
 public:
     PlayerController(GraphicalElements &displayInfos);
@@ -28,7 +39,7 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(MyEventReceiver &events);
+    void action(MyEventReceiver &events, irr::u16 speed = 1);
 };
 
 #endif // !PLAYER_CONTROLLER_HPP

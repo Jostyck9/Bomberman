@@ -5,6 +5,7 @@
 ** MyEventReceiver.cpp
 */
 
+#include <iostream>
 #include "MyEventReceiver.hpp"
 
 MyEventReceiver::MyEventReceiver()
