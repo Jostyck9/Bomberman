@@ -10,13 +10,11 @@
 
 NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device), _ia(map, *this)
 {
-    irr::core::vector3df pos(pos_x, pos_y, 0);
-    irr::core::vector3df pos_r(pos_x / 10, pos_y / 10, 0);
+    irr::core::vector3df pos(pos_x * 10, pos_y * 10, 0);
     this->getDisplayInfo().setPosition(pos);
-    this->getPlayerController().setPosition(pos_r);
+    this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
     this->getDisplayInfo().setMesh(path_text, path_mesh);
-    this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
-    this->getDisplayInfo().setScale(irr::core::vector3df(1.5,1.5,1.5));
+    this->getDisplayInfo().setRotation(irr::core::vector3df(0,0,0));
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
 }
 
