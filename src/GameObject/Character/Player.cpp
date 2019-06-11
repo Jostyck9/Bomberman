@@ -30,3 +30,8 @@ void Player::update(MyEventReceiver event)
     if (getDisplayInfo().getFrontObj(2, GameObject::WALL) != nullptr)
         std::cout << "ok" << std::endl;
 }
+
+GameObject::objecType_t Player::getType()
+{
+    return (GameObject::objectType_s::PLAYER);
+}

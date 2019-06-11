@@ -24,7 +24,7 @@ public:
     Wall(irr::IrrlichtDevice *device, std::string mesh, std::vector<std::string> text, irr::u16 x, irr::u16 y, bool isBreakable = true);
     ~Wall();
 
-    void createPowerUp(irr::IrrlichtDevice *device, Map *map, irr::u16 x, irr::u16 y);
+    void createPowerUp(irr::IrrlichtDevice *device, Map &map, irr::u16 x, irr::u16 y);
     bool isBreakable();
     objecType_t getType() override;
 };

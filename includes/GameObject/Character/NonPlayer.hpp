@@ -18,6 +18,8 @@ private:
 public:
     NonPlayer(irr::IrrlichtDevice *device, Map &map);
     void update(MyEventReceiver event = MyEventReceiver()) override;
+
+    GameObject::objecType_t getType() override;
 };
 
 #endif

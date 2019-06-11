@@ -7,7 +7,7 @@ enable_testing()
 
 # sources et include
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "includes/*.hpp")
-include_directories(includes "includes/exception")
+include_directories(includes includes/exception includes/GameObject/Character includes/GameObject/Entités includes/GameObject/Items includes/Map includes/Scenes)
 
 if(MSVC)
 	# Force to always compile with W4

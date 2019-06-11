@@ -20,6 +20,8 @@ public:
     void update(MyEventReceiver event = MyEventReceiver()) override;
 
     Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16);
+
+    GameObject::objecType_t getType() override;
 };
 
 #endif
