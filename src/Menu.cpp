@@ -9,7 +9,7 @@
 #include "driverChoice.h"
 #include "Menu.hpp"
 
-Menu::Menu(irr::IrrlichtDevice* device) : AScene(device, _events)
+Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver)
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(-100, -130, 90), irr::core::vector3df(0, 0, 0));
     guienv = device->getGUIEnvironment();
@@ -22,10 +22,40 @@ Menu::Menu(irr::IrrlichtDevice* device) : AScene(device, _events)
 
 IScene* Menu::update()
 {
+    irr::s32 id = -1;
+
     if (!_device->run()) {
         delete this;
         return (nullptr);
     }
+
+    // std::cout << "test" << std::endl;
+    id = _events.getButtonPressed();
+    switch(id) {
+        case GUI_QUIT:
+            // break;
+            delete this;
+            return (nullptr);
+
+        case GUI_PLAY:
+            break;
+
+        case GUI_LOAD:
+            break;
+
+        case GUI_SETTINGS:
+            break;
+
+        case GUI_HOW_TO_PLAY:
+            break;
+
+        case GUI_SCOREBOARD:
+            break;
+
+        default:
+            break;
+    }
+    _events.resetKeys();
     return (this);
 }
 

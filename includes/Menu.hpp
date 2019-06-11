@@ -22,7 +22,7 @@ private:
     irr::video::ITexture *image;
 
 public:
-    Menu(irr::IrrlichtDevice* device);
+    Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
     IScene* update() override;
     IScene* handleEvent() override;
     void display() override;
