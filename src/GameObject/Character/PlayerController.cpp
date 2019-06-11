@@ -8,11 +8,11 @@
 #include <iostream>
 #include "PlayerController.hpp"
 
-PlayerController::PlayerController(GraphicalElements &displayInfos) : _displayInfo(displayInfos)
+PlayerController::PlayerController(GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
 {
 }
 
-PlayerController::PlayerController(KeyMap keyMap, GraphicalElements &displayInfos) : _displayInfo(displayInfos)
+PlayerController::PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
 {
     _keyMap = keyMap;
 }
