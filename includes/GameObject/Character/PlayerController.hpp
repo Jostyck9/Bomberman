@@ -26,8 +26,8 @@ public:
 private:
     KeyMap _keyMap;
     GraphicalElements &_displayInfo;
-    irr::core::vector3df _pos;
     GameObject &_player;
+    irr::core::vector3df _pos;
 
     void setRotation(irr::EKEY_ACTION action);
     void move(irr::EKEY_ACTION action, irr::u16 speed);
@@ -42,7 +42,7 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(MyEventReceiver &events, irr::u16 speed = 1);
+    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, irr::u16 speed = 1);
     void setPosition(irr::core::vector3df);
     irr::core::vector3df getPosition();
 };

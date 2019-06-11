@@ -36,7 +36,7 @@ public:
     GameObject(irr::IrrlichtDevice *device);
     virtual ~GameObject() = default;
 
-private:
+protected:
     irr::IrrlichtDevice *_device;
 };
 

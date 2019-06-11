@@ -36,7 +36,7 @@ GraphicalElements &PlayerController::getDisplayInfo()
     return (_displayInfo);
 }
 
-void PlayerController::action(MyEventReceiver &events, irr::u16 speed)
+void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &events, irr::u16 speed)
 {
     if (events.IsKeyDown(_keyMap.getBackward())) {
         setRotation(irr::EKA_MOVE_BACKWARD);
