@@ -5,7 +5,12 @@
 ** CharacterStats.cpp
 */
 
+#include <iostream>
 #include "CharacterStats.hpp"
+
+CharacterStats::CharacterStats() : _passThrough(false), _bombRadius(1), _nbrBomb(1), _speed(1)
+{
+}
 
 bool CharacterStats::getPassThrough()
 {

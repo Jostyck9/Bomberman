@@ -5,8 +5,8 @@
 ** Exception.hpp
 */
 
-#ifndef _EXCEPTION_HPP
-#define _EXCEPTION_HPP
+#ifndef _BOMBER_EXCEPTION_HPP
+#define _BOMBER_EXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -24,4 +24,4 @@ public:
     const char *what() const noexcept override;
 };
 
-#endif //_EXCEPTION_HPP
+#endif //_BOMBER_EXCEPTION_HPP

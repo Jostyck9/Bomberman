@@ -114,3 +114,13 @@ void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
     // std::cout << "x: " << position.X << "Y: " << position.Y << std::endl;
     _displayInfo.setPosition(position);
 }
+
+void PlayerController::setPosition(irr::core::vector3df pos)
+{
+    _pos = pos;
+}
+
+irr::core::vector3df PlayerController::getPosition()
+{
+    return(_pos);
+}

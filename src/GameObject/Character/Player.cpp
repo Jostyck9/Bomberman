@@ -12,7 +12,9 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
 {
     _device = device;
     irr::core::vector3df pos(pos_x, pos_y, 0);
+    irr::core::vector3df pos_r(pos_x / 10, pos_y / 10, 0);
     this->getDisplayInfo().setPosition(pos);
+    this->getPlayerController().setPosition(pos_r);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
     this->getDisplayInfo().setScale(irr::core::vector3df(0.2,0.2,0.2));
@@ -28,4 +30,9 @@ void Player::update(MyEventReceiver event)
 
     if (getDisplayInfo().getFrontObj(3, GameObject::WALL) != nullptr)
         std::cout << "ok" << std::endl;
+}
+
+GameObject::objecType_t Player::getType()
+{
+    return (GameObject::objectType_s::PLAYER);
 }

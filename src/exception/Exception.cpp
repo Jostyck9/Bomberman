@@ -5,7 +5,7 @@
 ** Exception.cpp
 */
 
-#include "Exception.hpp"
+#include "BomberException.hpp"
 
 bomberException::bomberException(const std::string &message, const std::string &part)
 {

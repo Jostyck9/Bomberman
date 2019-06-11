@@ -5,8 +5,8 @@
 
 ## How to compile
 
-1. Create a **build** folder
-2. Execute the command : "cmake .. & cd .."
+1. Create a **"build"** folder
+2. Execute the command : "cd build && cmake .. && cd .."
 
 ## How to execute
 

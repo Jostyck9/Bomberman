@@ -42,3 +42,13 @@ ACharacter& Bomb::getParentCharacter()
 {
     return (_parentCharacter);
 }
+
+GameObject::objecType_t Bomb::getType()
+{
+    return BOMB;
+}
+
+// void Bomb::setParentCharacter(ACharacter& character)
+// {
+//     _parentCharacter = character;
+// }
