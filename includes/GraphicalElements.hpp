@@ -66,6 +66,12 @@ public:
     bool addColision(irr::core::vector3df sphere, irr::core::vector3df translation = irr::core::vector3df(0, 0, 0));
     bool updateColision();
 
+    void setAnimation(bool);
+    void setFrame(irr::u16 begin, irr::u16 end);
+    void getFrame();
+    void setCurrFrame(irr::u16 frame);
+    void setSpeed(irr::u16 speed);
+
     irr::scene::ISceneNode *getFrontObj(irr::f32 distance, irr::s32 id = -1);
 };
 
