@@ -11,6 +11,17 @@
 #include <irrlicht/irrlicht.h>
 
 using namespace irr;
+using namespace gui;
+
+enum
+{
+    GUI_QUIT = 101,
+    GUI_PLAY,
+    GUI_LOAD,
+    GUI_SETTINGS,
+    GUI_HOW_TO_PLAY,
+    GUI_SCOREBOARD
+};
 
 class MyEventReceiver : public IEventReceiver
 {
