@@ -13,11 +13,12 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
 {
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
+    std::string path = "./assets/meshs/Luigi/luigi.b3d";
     irr::s16 valx = 12.5;
     irr::s16 valy = 12.5;
 
     Player *p1 = new Player(device, textures, path, valx, valy);
+    p1->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
     _map.addToMap(1, 1, p1);
     _map.updateColision();
     this->setCamera(camera);

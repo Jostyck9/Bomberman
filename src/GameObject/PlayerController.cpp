@@ -38,22 +38,36 @@ GraphicalElements &PlayerController::getDisplayInfo()
 
 void PlayerController::action(MyEventReceiver &events, irr::u16 speed)
 {
+    bool checker = false;
+
     if (events.IsKeyDown(_keyMap.getBackward())) {
         setRotation(irr::EKA_MOVE_BACKWARD);
         move(irr::EKA_MOVE_BACKWARD, speed);
+        checker = true;
     }
     if (events.IsKeyDown(_keyMap.getForward())) {
         setRotation(irr::EKA_MOVE_FORWARD);
         move(irr::EKA_MOVE_FORWARD, speed);
+        checker = true;
     }
     if (events.IsKeyDown(_keyMap.getLeft())) {
         setRotation(irr::EKA_STRAFE_LEFT);
         move(irr::EKA_STRAFE_LEFT, speed);
+        checker = true;
     }
     if (events.IsKeyDown(_keyMap.getRight())) {
         setRotation(irr::EKA_STRAFE_RIGHT);
         move(irr::EKA_STRAFE_RIGHT, speed);
+        checker = true;
     }
+    if (checker == true) {
+        this->getDisplayInfo().setAnimation(true);
+        this->getDisplayInfo().setSpeed(60);
+    }else {
+        this->getDisplayInfo().setCurrFrame(0);
+        this->getDisplayInfo().setAnimation(false);
+    }
+
 }
 
 void PlayerController::setRotation(irr::EKEY_ACTION action)
