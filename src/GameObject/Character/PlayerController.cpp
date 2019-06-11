@@ -6,6 +6,9 @@
 */
 
 #include <iostream>
+#include <memory>
+#include "Bomb.hpp"
+#include "ACharacter.hpp"
 #include "PlayerController.hpp"
 
 PlayerController::PlayerController(GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
@@ -55,6 +58,8 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
         move(irr::EKA_STRAFE_RIGHT, speed);
     }
     if (events.IsKeyReleased(_keyMap.getAction())) {
+        ACharacter &player = reinterpret_cast<ACharacter&>(_player);
+        std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius()));
         std::cout << "test" << std::endl;
     }
 }
