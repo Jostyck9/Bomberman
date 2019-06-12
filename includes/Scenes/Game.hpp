@@ -23,7 +23,6 @@ private:
 public:
     Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
     IScene* update() override;
-    IScene* handleEvent() override;
     void display() override;
 };
 

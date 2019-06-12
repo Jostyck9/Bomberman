@@ -8,6 +8,7 @@
 #include <memory>
 #include <iostream>
 #include "Menu.hpp"
+#include "background.hpp"
 
 int main(void)
 {
@@ -17,7 +18,8 @@ int main(void)
     IrrlichtDevice *device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
     if (!device)
         return (84);
-    IScene *scene(new Menu(device, receiver));
+    IScene *back(new Background(device, receiver));
+    IScene *scene(new Menu(device, receiver, back));
     if (!scene) {
         device->drop();
         return (84);
@@ -26,7 +28,6 @@ int main(void)
     device->setWindowCaption(L"MarioBomber");
     while (scene) {
         scene->display();
-        scene = scene->handleEvent();
         if (!scene)
             break;
         scene = scene->update();

@@ -28,6 +28,14 @@ AScene::AScene(irr::IrrlichtDevice* device,MyEventReceiver &events) : _device(de
     }
 }
 
+AScene::AScene(irr::IrrlichtDevice* device,MyEventReceiver &events, bool camera) : _device(device), _sceneManager(nullptr), _driver(nullptr), _camera(), _events(events)
+{
+    if (_device) {
+        _sceneManager = _device->getSceneManager();
+        _driver = _device->getVideoDriver();
+    }
+}
+
 void AScene::setCamera(Camera &camera)
 {
     irr::scene::ICameraSceneNode *current = nullptr;

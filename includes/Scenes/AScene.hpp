@@ -20,9 +20,11 @@ protected:
     irr::video::IVideoDriver* _driver;
     Camera _camera;
     MyEventReceiver &_events;
+    bool camera;
 
 public:
     AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events);
+    AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events, bool camera);
     AScene(irr::IrrlichtDevice* device, MyEventReceiver &_events, Camera &camera);
     const Camera &getCamera();
     void setCamera(Camera &camera); 

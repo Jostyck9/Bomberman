@@ -79,11 +79,6 @@ IScene* Game::update()
     return (this);
 }
 
-IScene* Game::handleEvent()
-{
-    return (this);
-}
-
 void Game::display()
 {
     if (!_device->run()) {
