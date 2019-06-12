@@ -14,6 +14,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/foreach.hpp>
 
+#include "BomberException.hpp"
 #include "Bomb.hpp"
 #include "ACharacter.hpp"
 #include "Map.hpp"
@@ -108,19 +109,54 @@ void Map::setMap()
 
 void Map::addToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
 {
-    if (x >= _size || y >= _size || obj == nullptr)
-        return;
+    if (x >= _size || y >= _size || obj == nullptr) {
+        throw bomberException("Invalid parameter for adding on the map", "Map");
+    }
     _map[x][y].push_back(obj);
 }
 
 void Map::delToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
 {
+    int i = 0;
+
     if (x >= _size || y >= _size || obj == nullptr)
         return;
-    for (irr::u16 i = 0; i < _map[x][y].size(); i++) {
-        if (obj == _map[x][y].at(i))
+    for (auto &it : _map[x][y]) {
+        if (it->getID() == obj->getID()) {
             _map[x][y].erase(_map[x][y].begin() + i);
+        }
+        i++;
     }
+}
+
+void Map::delToMap(irr::s32 id)
+{
+    for (irr::u16 x = 0; x < _map.size(); x++) {
+        for (irr::u16 y = 0; y < _map.size(); y++) {
+            for (irr::u16 i = 0; i < _map[x][y].size(); i++) {
+                if (id == _map[x][y].at(i)->getID()) {
+                    _map[x][y].erase(_map[x][y].begin() + i);
+                    return;
+                }
+            }
+        }
+    } 
+}
+
+void Map::delToMap(std::shared_ptr<GameObject> obj)
+{
+    if (obj == nullptr)
+        return;
+    for (irr::u16 x = 0; x < _map.size(); x++) {
+        for (irr::u16 y = 0; y < _map.size(); y++) {
+            for (irr::u16 i = 0; i < _map[x][y].size(); i++) {
+                if (obj->getID() == _map[x][y].at(i)->getID()) {
+                    _map[x][y].erase(_map[x][y].begin() + i);
+                    return;
+                }
+            }
+        }
+    } 
 }
 
 boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &Map::getMap()
