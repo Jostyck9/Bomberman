@@ -6,6 +6,7 @@
 */
 
 #include "Game.hpp"
+#include "Bomb.hpp"
 #include "Save.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
@@ -26,13 +27,18 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
 void Game::updateObj(std::shared_ptr<GameObject> obj)
 {
     std::shared_ptr<Player> current = nullptr;
+    std::shared_ptr<Bomb> currentBomb = nullptr;
 
     if (!obj)
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
         current->update(_map, _events);
-        updateMapFromPlayer(current);
+        // updateMapFromPlayer(current);
+    } else if (obj->getType() == GameObject::BOMB) {
+        currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
+        currentBomb->update(_map);
+        _map.updateColision();
     }
 }
 

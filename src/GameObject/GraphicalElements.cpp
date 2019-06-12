@@ -25,7 +25,10 @@ GraphicalElements::GraphicalElements(irr::IrrlichtDevice *device, const irr::cor
 
 GraphicalElements::~GraphicalElements()
 {
-    _node->removeAll();
+    // _selectorWorld->drop();
+    // _allSelectors->removeTriangleSelector(_selector);
+    // _selector->drop();
+    _node->remove();
 }
 
 const irr::core::vector3df &GraphicalElements::getRotation() const

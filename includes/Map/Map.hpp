@@ -34,6 +34,8 @@ public:
     void setMap();
     void addToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj);
     void delToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj);
+    void delToMap(std::shared_ptr<GameObject> obj);
+    void delToMap(irr::s32 id);
     void updateColision();
 
     boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &getMap();

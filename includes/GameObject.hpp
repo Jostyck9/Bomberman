@@ -15,6 +15,9 @@
 #endif
 
 class GameObject {
+private:
+    irr::s32 _id;
+
 public:
     enum objectType_s {
         PRINTABLE_OBJ,
@@ -35,6 +38,8 @@ public:
 
     GameObject(irr::IrrlichtDevice *device);
     virtual ~GameObject() = default;
+
+    irr::s32 getID();
 
 protected:
     irr::IrrlichtDevice *_device;

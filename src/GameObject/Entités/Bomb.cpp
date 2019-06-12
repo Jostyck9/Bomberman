@@ -5,6 +5,7 @@
 ** Bomb.cpp
 */
 
+#include <iostream>
 #include "Bomb.hpp"
 
 Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius) : PrintableObject(device), _radius(radius), _parentCharacter(character)
@@ -26,7 +27,12 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius) 
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
-    this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+    // this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+}
+
+Bomb::~Bomb()
+{
+    std::cout << "BOOOMB" << std::endl;
 }
 
 irr::u16 Bomb::getRadius()
@@ -39,9 +45,11 @@ void Bomb::setRadius(irr::u16 radius)
     _radius = radius;
 }
 
-void Bomb::update()
+void Bomb::update(Map &map)
 {
-    
+    if (!myTimer.isTimeElapsed(3))
+        return;
+    map.delToMap(getID());
 }
 
 ACharacter& Bomb::getParentCharacter()

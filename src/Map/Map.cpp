@@ -284,6 +284,7 @@ void Map::updateColision()
     irr::scene::ISceneManager* smgr = _device->getSceneManager();
     std::shared_ptr<PrintableObject> current(nullptr);
 
+    return;
     if (!smgr)
         return;
     for (irr::u16 x = 0; x < getSize(); x++) {

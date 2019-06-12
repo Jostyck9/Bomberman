@@ -11,8 +11,10 @@
 MyEventReceiver::MyEventReceiver()
 {
     _buttonPressed = -1;
-    for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
+    for (u32 i=0; i < KEY_KEY_CODES_COUNT; ++i) {
         KeyIsDown[i] = false;
+        KeyIsRealeased[i] = false;
+    }
 }
 
 void MyEventReceiver::resetKeys()
@@ -20,6 +22,7 @@ void MyEventReceiver::resetKeys()
     for (irr::s16 i = 0; i < KEY_KEY_CODES_COUNT; i++) {
         KeyIsRealeased[i] = false;
     }
+    _buttonPressed = -1;
 }
 
 bool MyEventReceiver::IsKeyDown(irr::EKEY_CODE keyCode) const
