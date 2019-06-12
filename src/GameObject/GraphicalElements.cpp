@@ -53,7 +53,6 @@ void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &m
     _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (_node) {
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        _node->setMD2Animation(irr::scene::EMAT_STAND);
         _node->setID(id);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].c_str()));
@@ -71,7 +70,6 @@ void GraphicalElements::setMeshPath(const std::string &meshPath)
     if (_node)
         _node->drop();
     _meshPath = meshPath;
-
 }
 
 irr::core::vector3df GraphicalElements::getScale()
@@ -209,4 +207,29 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
     ray.end = ray.start + (positionEnd).normalize() * distance;
     // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
     return (collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id));
+}
+
+void GraphicalElements::setAnimation(bool anim)
+{
+    _node->setLoopMode(anim);
+}
+
+void GraphicalElements::setFrame(irr::u16 begin, irr::u16 end)
+{
+    _node->setFrameLoop(begin, end);
+}
+
+void GraphicalElements::getFrame()
+{
+    std::cout << _node->getFrameNr() << std::endl;
+}
+
+void GraphicalElements::setCurrFrame(irr::u16 frame)
+{
+    _node->setCurrentFrame(frame);
+}
+
+void GraphicalElements::setSpeed(irr::u16 speed)
+{
+    _node->setAnimationSpeed(speed);
 }
