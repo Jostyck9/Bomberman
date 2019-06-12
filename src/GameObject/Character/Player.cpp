@@ -27,8 +27,8 @@ void Player::update(Map &map, MyEventReceiver event)
     // irr::core::vector3df pos = this->getDisplayInfo().getPosition();
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
-
-    if (getDisplayInfo().getFrontObj(3, GameObject::WALL) != nullptr)
+//    this->getDisplayInfo().setFrame(0, 60);
+    if (getDisplayInfo().getFrontObj(2, GameObject::WALL) != nullptr)
         std::cout << "ok" << std::endl;
 }
 

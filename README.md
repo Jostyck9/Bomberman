@@ -3,10 +3,10 @@
 
   A Bomberman game using the Irrlicht library
 
-## How to compile
+## How to compile on Linux
 
 1. Create a **"build"** folder
-2. Execute the command : "cd build && cmake .. && cd .."
+2. Execute the command : "cd build && cmake .. && make && cd .."
 
 ## How to execute
 

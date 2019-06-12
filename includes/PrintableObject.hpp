@@ -22,7 +22,6 @@ public:
 
     virtual GameObject::objecType_t getType();
     void updateColision();
-
     GraphicalElements &getDisplayInfo();
 };
 
