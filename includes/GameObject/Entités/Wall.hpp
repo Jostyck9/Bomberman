@@ -17,6 +17,7 @@ class Wall : public PrintableObject
 private:
     bool _isBreakable;
     Life _life;
+    irr::core::vector3df _pos;
 
 public:
     // IItem* createRandomItem();
@@ -27,6 +28,9 @@ public:
     void createPowerUp(irr::IrrlichtDevice *device, Map &map, irr::u16 x, irr::u16 y);
     bool isBreakable();
     objecType_t getType() override;
+
+    irr::core::vector3df getPos();
+    void setPos(irr::core::vector3df);
 };
 
 #endif

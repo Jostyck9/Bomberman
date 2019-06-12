@@ -90,6 +90,8 @@ void Map::setMap()
     std::vector<std::string> brkwall;
     std::vector<std::string> wall;
 
+    std::shared_ptr<WallPass> powerup(new WallPass(_device, 10 * 10, 9 * 10));
+    addToMap(10, 9, powerup);
     brkwall.push_back("./assets/meshs/Brick_block/brick.png");
     wall.push_back("./assets/meshs/Strong_block/block.png");
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
@@ -212,20 +214,20 @@ bool Map::load(const std::string &filename)
                     }
                 }
                 if (cell.first == "speedup") {
-                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device));
+                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i * 10, j * 10));
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device));
+                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i * 10, j * 10));
                     addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device));
+                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i * 10, j * 10));
                     addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    std::shared_ptr<WallPass> newSpeedUp(new WallPass(_device));
-                    addToMap(i, j, newSpeedUp);
+                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i * 10, j * 10));
+                    addToMap(i, j, newWallPass);
                 }
                 if (cell.first == "Player") {
                     std::vector<std::string> textures;
