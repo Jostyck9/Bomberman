@@ -47,6 +47,7 @@ public:
 
 public:
     GraphicalElements(irr::IrrlichtDevice *device, const irr::core::vector3df &position = irr::core::vector3df(0, 0, 0), const irr::core::vector3df &rotation = irr::core::vector3df(0, 0, 0), irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+    ~GraphicalElements();
 
     const irr::core::vector3df &getRotation() const;
     void setRotation(const irr::core::vector3df &rotation);

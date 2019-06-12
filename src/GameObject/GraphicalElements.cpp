@@ -23,6 +23,11 @@ GraphicalElements::GraphicalElements(irr::IrrlichtDevice *device, const irr::cor
                                     _selectorWorld(nullptr)
 {}
 
+GraphicalElements::~GraphicalElements()
+{
+    _node->removeAll();
+}
+
 const irr::core::vector3df &GraphicalElements::getRotation() const
 {
     return _rotation;

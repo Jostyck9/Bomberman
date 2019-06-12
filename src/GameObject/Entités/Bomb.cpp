@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2018
+** Bomberman
+** File description:
+** Bomb.cpp
+*/
+
 #include "Bomb.hpp"
 
 Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius) : PrintableObject(device), _radius(radius), _parentCharacter(character)
@@ -34,8 +41,7 @@ void Bomb::setRadius(irr::u16 radius)
 
 void Bomb::update()
 {
-    // TODO - implement Bomb::update
-    throw "Not yet implemented";
+    
 }
 
 ACharacter& Bomb::getParentCharacter()

@@ -5,7 +5,6 @@
 ** Game.cpp
 */
 
-#include <iostream>
 #include "Game.hpp"
 #include "Save.hpp"
 
@@ -77,6 +76,9 @@ IScene* Game::update()
             }
         }
     }
+
+    // std::cout << "timer : " << _timer.getElapsedTime() << std::endl;
+
     _events.resetKeys();
     return (this);
 }
