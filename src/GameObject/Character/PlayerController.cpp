@@ -10,6 +10,7 @@
 #include "Bomb.hpp"
 #include "ACharacter.hpp"
 #include "PlayerController.hpp"
+#include "BomberException.hpp"
 
 PlayerController::PlayerController(GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
 {
@@ -78,9 +79,35 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
 void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
 {
     ACharacter &player = reinterpret_cast<ACharacter&>(_player);
-    std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius()));
+    irr::f32 rotation = player.getDisplayInfo().getRotation().Z;
+    irr::core::vector2df posMap = map.getPosition(player.getID());
+    bool canPut = true;
 
-    map.addToMap(2, 1, bomb);
+    if (rotation == PlayerController::rotation_e::RIGHT) {
+        posMap.X += 1;
+    } else if (rotation == PlayerController::rotation_e::LEFT) {
+        posMap.X -= 1;
+    } else if (rotation == PlayerController::rotation_e::UP) {
+        posMap.Y += 1;
+    } else {
+        posMap.Y += 1;
+    }
+    try {
+        const std::vector<std::shared_ptr<GameObject>> &cell = map.getCellObject(posMap.X, posMap.Y);
+        if (!cell.empty())
+            canPut = false;
+    } catch (bomberException &e) {}
+    if (!canPut)
+        return;
+
+    if (player.getStats().getNbrBomb() == 0)
+        return;
+    player.getStats().setNbrBomb(player.getStats().getNbrBomb() - 1);
+
+    std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius()));
+    map.addToMap(posMap.X, posMap.Y, bomb);
+
+
     map.updateColision();
 }
 

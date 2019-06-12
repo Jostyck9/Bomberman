@@ -25,7 +25,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     this->setCamera(camera);
 }
 
-void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel)
+void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 {
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<Bomb> currentBomb = nullptr;
@@ -35,7 +35,7 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
         current->update(_map, _events);
-        // updateMapFromPlayer(current);
+        idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
         currentBomb->update(_map, idToDel);
@@ -54,6 +54,7 @@ void Game::deleteObj(std::vector<irr::s32> &idToDel)
 IScene* Game::update()
 {
     std::vector<irr::s32> idToDel;
+    std::vector<irr::s32> idToMove;
 
     if (!_device->run()) {
         delete this;
@@ -62,15 +63,26 @@ IScene* Game::update()
     for (irr::u16 x = 0; x < _map.getSize(); x++) {
         for (irr::u16 y = 0; y < _map.getSize(); y++) {
             for (auto &it : _map.getMap()[x][y]) {
-                updateObj(it, idToDel);
+                updateObj(it, idToDel, idToMove);
             }
         }
     }
-
+    updatePosition(idToMove);
     deleteObj(idToDel);
 
     _events.resetKeys();
     return (this);
+}
+
+void Game::updatePosition(std::vector<irr::s32> &idToMove)
+{
+    std::shared_ptr<GameObject> current(nullptr);
+
+    for (auto &it : idToMove) {
+        current = _map.getObject(it);
+        if (current && (current->getType() == GameObject::objectType_s::PLAYER || current->getType() == GameObject::objectType_s::NONPLAYER))
+            updateMapFromPlayer(std::dynamic_pointer_cast<Player>(current));
+    }
 }
 
 void Game::updateMapFromPlayer(std::shared_ptr<Player> current)

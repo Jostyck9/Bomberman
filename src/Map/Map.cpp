@@ -124,6 +124,7 @@ void Map::delToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
     for (auto &it : _map[x][y]) {
         if (it->getID() == obj->getID()) {
             _map[x][y].erase(_map[x][y].begin() + i);
+            return;
         }
         i++;
     }
@@ -299,6 +300,20 @@ void Map::updateColision()
     }
 }
 
+std::shared_ptr<GameObject> Map::getObject(irr::s32 id)
+{
+    for (irr::u16 x = 0; x < getSize(); x++) {
+        for (irr::u16 y = 0; y < getSize(); y++) {
+            for (auto it : _map[x][y]) {
+                if (it->getID() == id) {
+                    return (it);
+                }
+            }
+        }
+    }
+    return (std::shared_ptr<GameObject>(nullptr));
+}
+
 irr::core::vector2df Map::getPosition(std::shared_ptr<GameObject> obj)
 {
     irr::core::vector2df pos;
@@ -315,4 +330,29 @@ irr::core::vector2df Map::getPosition(std::shared_ptr<GameObject> obj)
         }
     }
     return (pos);
+}
+
+irr::core::vector2df Map::getPosition(irr::s32 id)
+{
+    irr::core::vector2df pos;
+
+    for (irr::u16 x = 0; x < _size; x++) {
+        for (irr::u16 y = 0; y < _size; y++) {
+            for (auto &it : _map[x][y]) {
+                if (id == it->getID()) {
+                    pos.X = x;
+                    pos.Y = y;
+                    return (pos);
+                }
+            }
+        }
+    }
+    return (pos);
+}
+
+const std::vector<std::shared_ptr<GameObject>> &Map::getCellObject(irr::u16 x, irr::u16 y) const
+{
+    if (x >= _size || y >= _size)
+        throw bomberException("Invalid position", "Map");
+    return (_map[x][y]);
 }

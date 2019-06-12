@@ -52,6 +52,7 @@ Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel)
     if (!myTimer.isTimeElapsed(3))
         return (Action_e::NOTHING);
     idToDel.push_back(getID());
+    _parentCharacter.getStats().setNbrBomb(_parentCharacter.getStats().getNbrBomb() + 1);
     return (Action_e::DELETE);
 }
 
