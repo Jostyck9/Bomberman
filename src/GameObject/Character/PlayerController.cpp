@@ -80,12 +80,8 @@ void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
     ACharacter &player = reinterpret_cast<ACharacter&>(_player);
     std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius()));
 
-    std::cout << "test" << std::endl;
     map.addToMap(2, 1, bomb);
-    std::cout << "test2 : " << bomb.use_count() << std::endl;
     map.updateColision();
-    std::cout << "test3" << std::endl;
-    // std::cout << map.getMap()[0][0].size() << std::endl;
 }
 
 void PlayerController::setRotation(irr::EKEY_ACTION action)

@@ -17,7 +17,8 @@ class Game : public AScene
 {
 private:
     Map _map;
-    void updateObj(std::shared_ptr<GameObject> obj);
+    void deleteObj(std::vector<irr::s32> &idToDel);
+    void updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel);
     void updateMapFromPlayer(std::shared_ptr<Player> current);
 
 public:

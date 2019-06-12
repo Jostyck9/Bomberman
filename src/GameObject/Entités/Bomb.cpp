@@ -28,11 +28,12 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius) 
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
     // this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().addColision();
 }
 
 Bomb::~Bomb()
 {
-    std::cout << "BOOOMB" << std::endl;
+    std::cout << "BOOOUUUMMM" << std::endl;
 }
 
 irr::u16 Bomb::getRadius()
@@ -45,11 +46,13 @@ void Bomb::setRadius(irr::u16 radius)
     _radius = radius;
 }
 
-void Bomb::update(Map &map)
+Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel)
 {
+    (void)map;
     if (!myTimer.isTimeElapsed(3))
-        return;
-    map.delToMap(getID());
+        return (Action_e::NOTHING);
+    idToDel.push_back(getID());
+    return (Action_e::DELETE);
 }
 
 ACharacter& Bomb::getParentCharacter()

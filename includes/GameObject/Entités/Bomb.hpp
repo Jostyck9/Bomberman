@@ -14,6 +14,13 @@
 
 class Bomb : public PrintableObject
 {
+public:
+    enum Action_e
+    {
+        NOTHING,
+        DELETE
+    };
+
 private:
     Timer myTimer;
     irr::u16 _radius;
@@ -25,7 +32,7 @@ public:
 
     irr::u16 getRadius();
     void setRadius(irr::u16 _radius);
-    void update(Map &map);
+    Action_e update(Map &map, std::vector<irr::s32> &idToDel);
     objecType_t getType() override;
     ACharacter& getParentCharacter();
 };

@@ -284,13 +284,12 @@ void Map::updateColision()
     irr::scene::ISceneManager* smgr = _device->getSceneManager();
     std::shared_ptr<PrintableObject> current(nullptr);
 
-    return;
     if (!smgr)
         return;
     for (irr::u16 x = 0; x < getSize(); x++) {
         for (irr::u16 y = 0; y < getSize(); y++) {
             for (auto it : _map[x][y]) {
-                if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PRINTABLE_OBJ) {
+                if (it->getType() == GameObject::PLAYER) {
                     current = std::dynamic_pointer_cast<PrintableObject>(it);
                     if (current)
                         current->updateColision();
