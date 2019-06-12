@@ -12,6 +12,7 @@
 #include "MyEventReceiver.hpp"
 #include "KeyMap.hpp"
 #include "GameObject.hpp"
+#include "Map.hpp"
 
 class PlayerController
 {
@@ -42,9 +43,11 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, irr::u16 speed = 1);
+    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, irr::u16 speed = 1);
     void setPosition(irr::core::vector3df);
     irr::core::vector3df getPosition();
+
+    void createBomb(irr::IrrlichtDevice *device, Map &map);
 };
 
 #endif // !PLAYER_CONTROLLER_HPP

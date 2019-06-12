@@ -13,8 +13,9 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map) : ACharacter(device)
 
 }
 
-void NonPlayer::update(MyEventReceiver event)
+void NonPlayer::update(Map &map, MyEventReceiver event)
 {
+    (void)map;
     (void)event;
     //TODO with IA
 }

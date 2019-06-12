@@ -31,7 +31,7 @@ void Game::updateObj(std::shared_ptr<GameObject> obj)
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
-        current->update(_events);
+        current->update(_map, _events);
         updateMapFromPlayer(current);
     }
 }
