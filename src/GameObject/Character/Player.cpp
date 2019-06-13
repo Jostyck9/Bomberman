@@ -18,7 +18,7 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
     this->getDisplayInfo().setScale(irr::core::vector3df(1.5,1.5,1.5));
-    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 3));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
 }
 
 void Player::update(Map &map, MyEventReceiver event)
@@ -28,8 +28,8 @@ void Player::update(Map &map, MyEventReceiver event)
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
 //    this->getDisplayInfo().setFrame(0, 60);
-    if (getDisplayInfo().getFrontObj(2, GameObject::WALL) != nullptr)
-        std::cout << "ok" << std::endl;
+    // if (getDisplayInfo().getFrontObj(4, GameObject::ITEM) != nullptr)
+    //     std::cout << "ok" << std::endl;
 }
 
 GameObject::objecType_t Player::getType()

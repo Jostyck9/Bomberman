@@ -32,8 +32,10 @@ GraphicalElements::~GraphicalElements()
     if (_allSelectors && _selector) {
         _allSelectors->removeTriangleSelector(_selector);
     }
-    _node->removeAnimators();
-    _node->remove();
+    if (_node) {
+        _node->removeAnimators();
+        _node->remove();
+    }
 }
 
 const irr::core::vector3df &GraphicalElements::getRotation() const
@@ -69,7 +71,7 @@ void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &m
         _node->setID(id);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].c_str()));
-        _node->setPosition(irr::core::vector3df(_position.X, _position.Y, 0));
+        _node->setPosition(irr::core::vector3df(_position.X, _position.Y, _position.Z));
     }
 }
 
@@ -93,7 +95,8 @@ irr::core::vector3df GraphicalElements::getScale()
 void GraphicalElements::setScale(irr::core::vector3df scale)
 {
     _scale = scale;
-    _node->setScale(scale);
+    if (_node)
+        _node->setScale(scale);
 }
 
 const irr::core::vector3df& GraphicalElements::getPosition()
@@ -179,7 +182,7 @@ bool GraphicalElements::addColisionResponse(irr::core::vector3df sphere, irr::co
         return (false);
     anim = smgr->createCollisionResponseAnimator(
             _selectorWorld, _node, sphere,
-            irr::core::vector3df(0, 0, 0), translation);
+            irr::core::vector3df(0, 0, 20), translation);
     if (!anim)
         return (false);
     _node->addAnimator(anim);
@@ -199,7 +202,7 @@ bool GraphicalElements::updateColision()
         return (false);
     anim = smgr->createCollisionResponseAnimator(
             _selectorWorld, _node, _boxColision,
-            irr::core::vector3df(0, 0, 0), _translationColision);
+            irr::core::vector3df(0, 0, 20), _translationColision);
     if (!anim)
         return (false);
     _node->removeAnimators();
@@ -234,6 +237,8 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
     } else
         return (nullptr);
     ray.start = _node->getPosition();
+    ray.start.X += 2.5;
+    ray.start.Y += 2.5;
     ray.end = ray.start + (positionEnd).normalize() * distance;
     // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
     return (collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id));
@@ -241,12 +246,14 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
 
 void GraphicalElements::setAnimation(bool anim)
 {
-    _node->setLoopMode(anim);
+    if (_node)
+        _node->setLoopMode(anim);
 }
 
 void GraphicalElements::setFrame(irr::u16 begin, irr::u16 end)
 {
-    _node->setFrameLoop(begin, end);
+    if (_node)
+        _node->setFrameLoop(begin, end);
 }
 
 void GraphicalElements::getFrame()
@@ -256,10 +263,12 @@ void GraphicalElements::getFrame()
 
 void GraphicalElements::setCurrFrame(irr::u16 frame)
 {
-    _node->setCurrentFrame(frame);
+    if (_node)
+        _node->setCurrentFrame(frame);
 }
 
 void GraphicalElements::setSpeed(irr::u16 speed)
 {
-    _node->setAnimationSpeed(speed);
+    if (_node)
+        _node->setAnimationSpeed(speed);
 }
