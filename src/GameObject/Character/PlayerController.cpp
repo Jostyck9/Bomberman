@@ -90,7 +90,7 @@ void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
     } else if (rotation == PlayerController::rotation_e::UP) {
         posMap.Y += 1;
     } else {
-        posMap.Y += 1;
+        posMap.Y -= 1;
     }
     try {
         const std::vector<std::shared_ptr<GameObject>> &cell = map.getCellObject(posMap.X, posMap.Y);
@@ -104,9 +104,8 @@ void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
         return;
     player.getStats().setNbrBomb(player.getStats().getNbrBomb() - 1);
 
-    std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius()));
+    std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius(), posMap));
     map.addToMap(posMap.X, posMap.Y, bomb);
-
 
     map.updateColision();
 }

@@ -17,8 +17,8 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getPlayerController().setPosition(pos_r);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
-    // this->getDisplayInfo().setScale(irr::core::vector3df(0.2,0.2,0.2));
-    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().setScale(irr::core::vector3df(1.5,1.5,1.5));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 3));
 }
 
 void Player::update(Map &map, MyEventReceiver event)

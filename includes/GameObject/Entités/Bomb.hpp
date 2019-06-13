@@ -27,7 +27,7 @@ private:
     ACharacter& _parentCharacter;
 
 public:
-    Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius);
+    Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap);
     ~Bomb();
 
     irr::u16 getRadius();
