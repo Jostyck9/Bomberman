@@ -20,8 +20,21 @@ GraphicalElements::GraphicalElements(irr::IrrlichtDevice *device, const irr::cor
                                     _position(position),
                                     _rotation(rotation),
                                     _selector(nullptr),
-                                    _selectorWorld(nullptr)
+                                    _selectorWorld(nullptr),
+                                    _anim(nullptr)
 {}
+
+GraphicalElements::~GraphicalElements()
+{
+    if (_selectorWorld) {
+        _selectorWorld->drop();
+    }
+    if (_allSelectors && _selector) {
+        _allSelectors->removeTriangleSelector(_selector);
+    }
+    _node->removeAnimators();
+    _node->remove();
+}
 
 const irr::core::vector3df &GraphicalElements::getRotation() const
 {
@@ -114,13 +127,10 @@ bool GraphicalElements::createSelectorWorld()
     _selectorWorld = smgr->createMetaTriangleSelector();
     if (_selectorWorld == nullptr)
         return (false);
-    if (_selector == nullptr) {
-        _selector = smgr->createTriangleSelector(_node);
-    }
     if (_selector == nullptr)
         return (false);
     _node->setTriangleSelector(_selector);
-    _allSelectors->addTriangleSelector(_selector);
+
     size = _allSelectors->getSelectorCount();
     for (irr::u32 i = 0; i < size; i++) {
         if (_allSelectors->getSelector(i) == _selector)
@@ -130,7 +140,27 @@ bool GraphicalElements::createSelectorWorld()
     return (true);
 }
 
-bool GraphicalElements::addColision(irr::core::vector3df sphere, irr::core::vector3df translation)
+bool GraphicalElements::addColision()
+{
+    irr::scene::ISceneManager* smgr = nullptr;
+
+    if (!_device || !_node)
+        return (false);
+    smgr = _device->getSceneManager();
+    if (!smgr)
+        return (false);
+    if (!_allSelectors)
+        _allSelectors = smgr->createMetaTriangleSelector();
+    if (!_allSelectors)
+        return (false);
+
+    _selector = smgr->createOctreeTriangleSelector(_mesh, _node);
+    _allSelectors->addTriangleSelector(_selector);
+    _node->setTriangleSelector(_selector);
+    return (true);
+}
+
+bool GraphicalElements::addColisionResponse(irr::core::vector3df sphere, irr::core::vector3df translation)
 {
     irr::scene::ISceneNodeAnimator* anim = nullptr;
     irr::scene::ISceneManager* smgr = nullptr;
@@ -138,14 +168,13 @@ bool GraphicalElements::addColision(irr::core::vector3df sphere, irr::core::vect
     if (!_device)
         return (false);
     smgr = _device->getSceneManager();
-    _boxColision = sphere;
-    _translationColision = translation;
     if (!smgr)
         return (false);
-    if (!_allSelectors)
-        _allSelectors = smgr->createMetaTriangleSelector();
-    if (!_allSelectors)
+    _boxColision = sphere;
+    _translationColision = translation;
+    if (_selector == nullptr && !addColision())
         return (false);
+
     if (!createSelectorWorld())
         return (false);
     anim = smgr->createCollisionResponseAnimator(
@@ -155,7 +184,7 @@ bool GraphicalElements::addColision(irr::core::vector3df sphere, irr::core::vect
         return (false);
     _node->addAnimator(anim);
     anim->drop();
-    return (false);
+    return (true);
 }
 
 bool GraphicalElements::updateColision()
@@ -173,6 +202,7 @@ bool GraphicalElements::updateColision()
             irr::core::vector3df(0, 0, 0), _translationColision);
     if (!anim)
         return (false);
+    _node->removeAnimators();
     _node->addAnimator(anim);
     anim->drop();
     return (true);

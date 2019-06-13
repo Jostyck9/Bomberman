@@ -5,6 +5,7 @@
 ** main.cpp
 */
 
+#include <iostream>
 #include <memory>
 #include "Game.hpp"
 

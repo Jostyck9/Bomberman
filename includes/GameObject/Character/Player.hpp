@@ -17,7 +17,7 @@ class Player : public ACharacter
 private:
     irr::IrrlichtDevice* _device;
 public:
-    void update(MyEventReceiver event = MyEventReceiver()) override;
+    void update(Map &map, MyEventReceiver event = MyEventReceiver()) override;
 
     Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16);
 

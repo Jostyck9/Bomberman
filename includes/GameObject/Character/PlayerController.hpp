@@ -11,6 +11,8 @@
 #include "GraphicalElements.hpp"
 #include "MyEventReceiver.hpp"
 #include "KeyMap.hpp"
+#include "GameObject.hpp"
+#include "Map.hpp"
 
 class PlayerController
 {
@@ -25,14 +27,15 @@ public:
 private:
     KeyMap _keyMap;
     GraphicalElements &_displayInfo;
+    GameObject &_player;
     irr::core::vector3df _pos;
 
     void setRotation(irr::EKEY_ACTION action);
     void move(irr::EKEY_ACTION action, irr::u16 speed);
 
 public:
-    PlayerController(GraphicalElements &displayInfos);
-    PlayerController(KeyMap keyMap, GraphicalElements &displayInfos);
+    PlayerController(GraphicalElements &displayInfos, GameObject &player);
+    PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player);
     ~PlayerController();
 
     const KeyMap &getKeyMap() const;
@@ -40,9 +43,11 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(MyEventReceiver &events, irr::u16 speed = 1);
+    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, irr::u16 speed = 1);
     void setPosition(irr::core::vector3df);
     irr::core::vector3df getPosition();
+
+    void createBomb(irr::IrrlichtDevice *device, Map &map);
 };
 
 #endif // !PLAYER_CONTROLLER_HPP

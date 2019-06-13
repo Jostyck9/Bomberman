@@ -13,6 +13,7 @@
 #include "CharacterStats.hpp"
 #include "Score.hpp"
 #include "Life.hpp"
+#include "Map.hpp"
 
 class ACharacter : public PrintableObject
 {
@@ -30,7 +31,7 @@ public:
     Score &getScore();
     Life &getLife();
     PlayerController &getPlayerController();
-    virtual void update(MyEventReceiver event = MyEventReceiver()) = 0;
+    virtual void update(Map &map, MyEventReceiver event = MyEventReceiver()) = 0;
 
     GameObject::objecType_t getType();
 };
