@@ -18,6 +18,8 @@ public:
     // This is the one method that we have to implement
     bool OnEvent(const irr::SEvent& event);
 
+    void resetKeys();
+
     // This is used to check whether a key is being held down
     bool IsKeyDown(irr::EKEY_CODE keyCode) const;
     bool IsKeyReleased(irr::EKEY_CODE keyCode) const;
@@ -26,7 +28,6 @@ public:
     
     irr::s32 getButtonPressed();
 
-    void resetKeys();
 
     MyEventReceiver();
 

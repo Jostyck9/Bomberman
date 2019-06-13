@@ -17,7 +17,7 @@ private:
     BotIA _ia;
 public:
     NonPlayer(irr::IrrlichtDevice *device, Map &map);
-    void update(MyEventReceiver event = MyEventReceiver()) override;
+    void update(Map &map, MyEventReceiver event = MyEventReceiver()) override;
 
     GameObject::objecType_t getType() override;
 };

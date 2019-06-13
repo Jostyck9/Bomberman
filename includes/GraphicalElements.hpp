@@ -31,6 +31,7 @@ private:
 
     irr::scene::ITriangleSelector *_selector;
     irr::scene::IMetaTriangleSelector *_selectorWorld;
+    irr::scene::ISceneNodeAnimator* _anim;
     static irr::scene::IMetaTriangleSelector *_allSelectors;
 
     irr::core::vector3df _boxColision;
@@ -47,6 +48,7 @@ public:
 
 public:
     GraphicalElements(irr::IrrlichtDevice *device, const irr::core::vector3df &position = irr::core::vector3df(0, 0, 0), const irr::core::vector3df &rotation = irr::core::vector3df(0, 0, 0), irr::core::vector3df scale = irr::core::vector3df(1, 1, 1));
+    ~GraphicalElements();
 
     const irr::core::vector3df &getRotation() const;
     void setRotation(const irr::core::vector3df &rotation);
@@ -63,7 +65,8 @@ public:
     const irr::core::vector3df& getPosition();
     void setPosition(irr::core::vector3df& _position);
 
-    bool addColision(irr::core::vector3df sphere, irr::core::vector3df translation = irr::core::vector3df(0, 0, 0));
+    bool addColision();
+    bool addColisionResponse(irr::core::vector3df sphere, irr::core::vector3df translation = irr::core::vector3df(0, 0, 0));
     bool updateColision();
 
     void setAnimation(bool);

@@ -17,10 +17,11 @@ Wall::Wall(irr::IrrlichtDevice *device, std::string mesh, std::vector<std::strin
 {
     irr::core::vector3df pos(x * 10, y * 10, 0);
 
-    std::cout << "x : " << pos.X << " y : " << pos.Y << std::endl;
+    // std::cout << "x : " << pos.X << " y : " << pos.Y << std::endl;
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(texture, mesh, GameObject::WALL);
-    this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+    // this->getDisplayInfo().addColisionResponse(irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().addColision();
     this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.068));
 }
 

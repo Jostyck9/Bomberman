@@ -17,12 +17,13 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getPlayerController().setPosition(pos_r);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
-    this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().setScale(irr::core::vector3df(1.5,1.5,1.5));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 3));
 }
 
-void Player::update(MyEventReceiver event)
+void Player::update(Map &map, MyEventReceiver event)
 {
-    this->getPlayerController().action(event, 1);
+    this->getPlayerController().action(_device, event, map, 1);
     // irr::core::vector3df pos = this->getDisplayInfo().getPosition();
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
