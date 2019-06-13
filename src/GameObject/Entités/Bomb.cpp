@@ -52,6 +52,7 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
                 std::shared_ptr<Wall> currentWall = std::dynamic_pointer_cast<Wall>(it);
                 if (currentWall->isBreakable()) {
                     idToDel.push_back(currentWall->getID());
+                    currentWall->createPowerUp(_device, map, _posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i));
                 }
                 return;
             }
