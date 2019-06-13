@@ -9,6 +9,7 @@
 #define __SOUND_HPP__
 
 #include <irrKlang.h>
+#include <string>
 
 using namespace irrklang;
 
@@ -16,16 +17,16 @@ class Sound
 {
     private:
         bool _loop;
-        ISoundEngine *engine;
-        ISound* sound;
+        ISoundEngine *_engine;
+        ISound* _sound;
     public:
-        Sound(std::string path);
+        Sound(std::string &);
 
-        void startSound();
-        void pauseSound();
-        void stopSound();
-        void setLoop(bool);
-        bool getLoop();
+        // void startSound();
+        // void pauseSound();
+        // void stopSound();
+        // void setLoop(bool);
+        // bool getLoop();
 };
 
 #endif //__SOUND_HPP__

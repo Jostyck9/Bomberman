@@ -7,7 +7,6 @@
 
 #include "Sound.hpp"
 
-Sound::Sound()
+Sound::Sound(std::string &path) : _loop(true), _engine(nullptr), _sound(nullptr)
 {
-    
 }

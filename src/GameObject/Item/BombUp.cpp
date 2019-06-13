@@ -18,10 +18,10 @@ BombUp::BombUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AI
     this->setPosWorld(pos_world_tmp);
     this->setPosMap(pos_map_tmp);
     this->getDisplayInfo().setPosition(pos_world_tmp);
-    this->getDisplayInfo().setMesh(path_text, path_mesh);
+    this->getDisplayInfo().setMesh(path_text, path_mesh, GameObject::objecType_t::ITEM);
     this->getDisplayInfo().setScale(irr::core::vector3df(2, 2, 2));
     this->getDisplayInfo().setRotation(irr::core::vector3df(180, 70, 170));
-    this->getDisplayInfo().addColision(irr::core::vector3df(2, 2, 2));
+    this->getDisplayInfo().addColision();
 }
 
 bool BombUp::applyEffect(ACharacter &player)

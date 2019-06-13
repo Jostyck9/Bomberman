@@ -30,6 +30,7 @@ public:
         BOMBUP,
         FIREUP,
         WALLPASS,
+        ITEM,
         UNKNOWN
     };
     typedef objectType_s objecType_t;
