@@ -21,12 +21,12 @@ irr::core::vector3df AItem::getPosMap()
     return (this->_posMap);
 }
 
-irr::core::vector3df AItem::setPosWorld(irr::core::vector3df posW)
+void AItem::setPosWorld(irr::core::vector3df posW)
 {
     this->_posWorld = posW;
 }
 
-irr::core::vector3df AItem::setPosMap(irr::core::vector3df posM)
+void AItem::setPosMap(irr::core::vector3df posM)
 {
     this->_posMap = posM;
 }

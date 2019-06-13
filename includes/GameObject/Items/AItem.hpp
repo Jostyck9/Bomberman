@@ -22,8 +22,8 @@ public:
     irr::core::vector3df getPosWorld();
     irr::core::vector3df getPosMap();
 
-    irr::core::vector3df setPosWorld(irr::core::vector3df);
-    irr::core::vector3df setPosMap(irr::core::vector3df);
+    void setPosWorld(irr::core::vector3df);
+    void setPosMap(irr::core::vector3df);
 };
 
 #endif
