@@ -24,7 +24,11 @@ public:
 private:
     Timer myTimer;
     irr::u16 _radius;
+    irr::core::vector2df _posMap;
+
     ACharacter& _parentCharacter;
+
+    void detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core::vector2di dir);
 
 public:
     Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap);
