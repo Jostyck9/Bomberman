@@ -50,6 +50,11 @@ void GraphicalElements::setRotation(const irr::core::vector3df &rotation)
         _node->setRotation(rotation);
 }
 
+const irr::scene::IAnimatedMeshSceneNode* GraphicalElements::getNode() const
+{
+    return (_node);
+}
+
 const irr::scene::IAnimatedMesh* GraphicalElements::getMesh() const
 {
     return (_mesh);

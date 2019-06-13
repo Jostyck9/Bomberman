@@ -53,6 +53,8 @@ public:
     const irr::core::vector3df &getRotation() const;
     void setRotation(const irr::core::vector3df &rotation);
 
+    const irr::scene::IAnimatedMeshSceneNode* getNode() const;
+
     const irr::scene::IAnimatedMesh* getMesh() const;
     void setMesh(std::vector<std::string>, std::string &meshPath, irr::s32 id = 0);
 

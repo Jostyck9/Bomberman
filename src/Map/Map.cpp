@@ -302,6 +302,22 @@ void Map::updateColision()
     }
 }
 
+std::shared_ptr<GameObject> Map::getObject(irr::scene::ISceneNode *node)
+{
+    if (!node)
+        return (nullptr);
+    for (irr::u16 x = 0; x < getSize(); x++) {
+        for (irr::u16 y = 0; y < getSize(); y++) {
+            for (auto it : _map[x][y]) {
+                if (std::dynamic_pointer_cast<PrintableObject>(it)->getDisplayInfo().getNode() == node) {
+                    return (it);
+                }
+            }
+        }
+    }
+    return (nullptr);
+}
+
 std::shared_ptr<GameObject> Map::getObject(irr::s32 id)
 {
     for (irr::u16 x = 0; x < getSize(); x++) {
