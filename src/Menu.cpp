@@ -15,7 +15,10 @@
 Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, camera), _background(background)
 {
     guienv = device->getGUIEnvironment();
+    sizescreen = this->_driver->getScreenSize();
     button();
+    tittle();
+    setSkin();
 }
 
 Menu::~Menu()
@@ -26,7 +29,7 @@ Menu::~Menu()
     how_play->remove();
     scoreboard->remove();
     quit->remove();
-    
+
 }
 
 IScene* Menu::update()
@@ -79,27 +82,50 @@ void Menu::display()
     _driver->endScene();
 }
 
+void Menu::tittle()
+{
+    // title = guienv->addImage(_driver->getTexture("./assets/title.png"),
+    //         irr::core::position2d<int>(300,-10));
+    // title->setScaleImage(true);
+}
+
 bool Menu::button()
 {
-    play = guienv->addButton(irr::core::rect<irr::s32>(280,30,370,50), 0, GUI_PLAY, L"Play");
-    load = guienv->addButton(irr::core::rect<irr::s32>(280,70,370,90), 0, GUI_LOAD, L"Load");
-    settings = guienv->addButton(irr::core::rect<irr::s32>(280,110,370,130), 0, GUI_SETTINGS, L"Settings");
-    how_play = guienv->addButton(irr::core::rect<irr::s32>(280,150,370,170), 0, GUI_HOW_TO_PLAY, L"How To Play");
-    scoreboard = guienv->addButton(irr::core::rect<irr::s32>(280,190,370,210), 0, GUI_SCOREBOARD, L"Scoreboard");
-    quit = guienv->addButton(irr::core::rect<irr::s32>(280,230,370,250), 0, GUI_QUIT, L"Quit");
+    play = guienv->addButton(irr::core::rect<irr::s32>(sizescreen.Width/4,sizescreen.Height/2,sizescreen.Width/3,sizescreen.Height/1.8), 0, GUI_PLAY, L"Play");
+    load = guienv->addButton(irr::core::rect<irr::s32>(sizescreen.Width/4,480,sizescreen.Width/3,520), 0, GUI_LOAD, L"Load");
+    settings = guienv->addButton(irr::core::rect<irr::s32>(800,400,940,440), 0, GUI_SETTINGS, L"Settings");
+    how_play = guienv->addButton(irr::core::rect<irr::s32>(800,480,940,520), 0, GUI_HOW_TO_PLAY, L"How To Play");
+    scoreboard = guienv->addButton(irr::core::rect<irr::s32>(1050,30,1190, 70), 0, GUI_SCOREBOARD, L"Scoreboard");
+    quit = guienv->addButton(irr::core::rect<irr::s32>(560,640,700,680), 0, GUI_QUIT, L"Quit");
     return (true);
 }
 
-void Menu::setSkin(s32 alpha, irr::gui::IGUISkin * skin)
+void Menu::setSkin()
 {
+
+    texture = this->_driver->getTexture("./assets/textures/button.png");
+    play->setImage(texture);
+    // play->setPressedImage();
+    load->setImage(texture);
+    settings->setImage(texture);
+    how_play->setImage(texture);
+    scoreboard->setImage(texture);
+    quit->setImage(texture);
+    play->setScaleImage(true);
+    load->setScaleImage(true);
+    settings->setScaleImage(true);
+    how_play->setScaleImage(true);
+    scoreboard->setScaleImage(true);
+    quit->setScaleImage(true);
+
+    // skin = guienv->getSkin();
+	// font = guienv->getFont("./assets/myfont.xml");
+	// if (font)
+	// 	skin->setFont(font);
+
+	// skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
     // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_WINDOW);
     // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_BUTTON);
     // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_DEFAULT); //Font des Textes
     // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_MENU);
-    // for (s32 i=0; i<irr::gui::EGDC_COUNT ; ++i)
-	// {
-	// 	video::SColor col = skin->getColor((EGUI_DEFAULT_COLOR)i);
-	// 	col.setAlpha(alpha);
-	// 	skin->setColor((EGUI_DEFAULT_COLOR)i, col);
-	// }
 }
