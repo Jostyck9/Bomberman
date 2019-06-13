@@ -28,8 +28,8 @@ void Player::update(Map &map, MyEventReceiver event)
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
 //    this->getDisplayInfo().setFrame(0, 60);
-    if (getDisplayInfo().getFrontObj(2, GameObject::ITEM) != nullptr)
-        std::cout << "ok" << std::endl;
+    // if (getDisplayInfo().getFrontObj(4, GameObject::ITEM) != nullptr)
+    //     std::cout << "ok" << std::endl;
 }
 
 GameObject::objecType_t Player::getType()

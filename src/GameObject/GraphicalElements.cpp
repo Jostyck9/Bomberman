@@ -32,8 +32,10 @@ GraphicalElements::~GraphicalElements()
     if (_allSelectors && _selector) {
         _allSelectors->removeTriangleSelector(_selector);
     }
-    _node->removeAnimators();
-    _node->remove();
+    if (_node) {
+        _node->removeAnimators();
+        _node->remove();
+    }
 }
 
 const irr::core::vector3df &GraphicalElements::getRotation() const
@@ -93,7 +95,8 @@ irr::core::vector3df GraphicalElements::getScale()
 void GraphicalElements::setScale(irr::core::vector3df scale)
 {
     _scale = scale;
-    _node->setScale(scale);
+    if (_node)
+        _node->setScale(scale);
 }
 
 const irr::core::vector3df& GraphicalElements::getPosition()
@@ -234,7 +237,8 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
     } else
         return (nullptr);
     ray.start = _node->getPosition();
-    ray.start.Z -= 2;
+    ray.start.X += 2.5;
+    ray.start.Y += 2.5;
     ray.end = ray.start + (positionEnd).normalize() * distance;
     // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
     return (collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id));
@@ -242,12 +246,14 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
 
 void GraphicalElements::setAnimation(bool anim)
 {
-    _node->setLoopMode(anim);
+    if (_node)
+        _node->setLoopMode(anim);
 }
 
 void GraphicalElements::setFrame(irr::u16 begin, irr::u16 end)
 {
-    _node->setFrameLoop(begin, end);
+    if (_node)
+        _node->setFrameLoop(begin, end);
 }
 
 void GraphicalElements::getFrame()
@@ -257,10 +263,12 @@ void GraphicalElements::getFrame()
 
 void GraphicalElements::setCurrFrame(irr::u16 frame)
 {
-    _node->setCurrentFrame(frame);
+    if (_node)
+        _node->setCurrentFrame(frame);
 }
 
 void GraphicalElements::setSpeed(irr::u16 speed)
 {
-    _node->setAnimationSpeed(speed);
+    if (_node)
+        _node->setAnimationSpeed(speed);
 }

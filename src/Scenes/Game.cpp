@@ -11,8 +11,8 @@
 #include "Save.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver),
-                                                                    // _ground(device, "./assets/meshs/Stade/Stade.b3d", irr::core::vector3df(0, 0, 20), irr::core::vector3df(0, 0, 0), irr::core::vector3df(0.5, 0.5, 0.5)),
-                                                                     _ground(device, "./assets/meshs/Brick_block/Brick_Block.obj", irr::core::vector3df(-10, -20, 11), irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 0.1)),
+                                                                    _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
+                                                                    //  _ground(device, "./assets/meshs/Brick_block/Brick_Block.obj", irr::core::vector3df(-10, -20, 11), irr::core::vector3df(0, 0, 0), irr::core::vector3df(10, 10, 0.1)),
                                                                     _map(device, 21)
 {
     _ground.addColision();
