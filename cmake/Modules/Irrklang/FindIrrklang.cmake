@@ -23,8 +23,8 @@ IF (NOT Irrklang_INCLUDE_DIRS OR NOT Irrklang_LIBRARIES)
     PATHS
       /usr/include/IrrKlang/        # Default Fedora28 system include path
       /usr/local/include/IrrKlang/  # Default Fedora28 local include path
-      ${Irrklang_DIR}/Irrklang/include/    # Expected to contain the path to this file for Windows10
-      ${Irrklang_DIR}/Irrklang/include/     # irrklang root directory (if provided)
+      cmake/Modules/Irrklang/include/    # Expected to contain the path to this file for Windows10
+      cmake/Modules/Irrklang/include/     # irrklang root directory (if provided)
   )
 
   IF (MSVC)     # Windows
@@ -44,8 +44,8 @@ IF (NOT Irrklang_INCLUDE_DIRS OR NOT Irrklang_LIBRARIES)
       /usr/lib/x86_64-linux-gnu/    # Some more Linux library path
       /usr/local/lib/               # Some more Linux library path
       /usr/local/lib64/             # Some more Linux library path
-      ${Irrklang_DIR}/Irrklang/         # Expected to contain the path to this file for Windows10
-      ${Irrklang_DIR}/Irrklang/              # irrklang root directory (if provided)
+      cmake/Modules/Irrklang/         # Expected to contain the path to this file for Windows10
+      cmake/Modules/Irrklang/              # irrklang root directory (if provided)
   )
 ENDIF (NOT Irrklang_INCLUDE_DIRS OR NOT Irrklang_LIBRARIES)
 
