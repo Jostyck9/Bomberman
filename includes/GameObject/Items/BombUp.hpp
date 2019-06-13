@@ -13,7 +13,7 @@
 class BombUp : public AItem
 {
 public:
-    BombUp(irr::IrrlichtDevice* device);
+    BombUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y);
     ~BombUp() = default;
     bool applyEffect(ACharacter& player) override;
     GameObject::objecType_t getType() override;

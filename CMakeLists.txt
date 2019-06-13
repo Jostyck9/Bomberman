@@ -23,15 +23,19 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 # set the cmake module path
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/Irrlicht")
 
 # Trouver un package avec find_package
 find_package("Irrlicht")
-if (Irrlicht_FOUND)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/Irrklang")
+find_package("Irrklang")
+
+if (Irrlicht_FOUND AND Irrklang_FOUND)
     # executable
     add_executable(bomberman ${SOURCE_FILES})
-    include_directories(${Irrlicht_INCLUDE_DIRS})
-    target_link_libraries(bomberman ${Irrlicht_LIBRARIES})
+    include_directories(${Irrlicht_INCLUDE_DIRS} ${Irrklang_INCLUDE_DIRS})
+	target_link_libraries(bomberman ${Irrlicht_LIBRARIES} ${Irrklang_LIBRARIES})
 else()
     message(FATAL_ERROR "Librairy not found")
 endif()
