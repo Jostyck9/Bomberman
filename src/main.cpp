@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 #include "Game.hpp"
+#include "Sound.hpp"
 
 int main(void)
 {
@@ -24,6 +25,9 @@ int main(void)
     }
 
     device->setWindowCaption(L"MarioBomber");
+    Sound sound;
+
+    sound.playGameMusic();
     while (scene) {
         scene->display();
         scene = scene->handleEvent();

@@ -91,8 +91,6 @@ void Map::setMap()
     std::vector<std::string> brkwall;
     std::vector<std::string> wall;
 
-    std::shared_ptr<WallPass> powerup(new WallPass(_device, 10 * 10, 9 * 10));
-    addToMap(10, 9, powerup);
     brkwall.push_back("./assets/meshs/Brick_block/brick.png");
     wall.push_back("./assets/meshs/Strong_block/block.png");
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
