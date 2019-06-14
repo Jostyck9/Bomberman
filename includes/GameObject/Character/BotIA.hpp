@@ -23,7 +23,7 @@ public:
     };
     typedef direction_s direction_t;
 
-    BotIA(Map &map, std::shared_ptr<ACharacter> character);
+    BotIA(Map &map, ACharacter &character);
     void getAction(MyEventReceiver &event);
     direction_t checkBomb();
     bool checkWallAround(irr::u16 x, irr::u16 y);
@@ -33,7 +33,7 @@ public:
 
 private:
     Map &_map;
-    std::shared_ptr<ACharacter> _character;
+    ACharacter &_character;
 };
 
 #endif // !BOTIA_HPP
