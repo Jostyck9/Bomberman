@@ -44,6 +44,8 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
 {
     bool checker = false;
 
+    if (!myTimer.isTimeElapsedRestart(0.01))
+        return;
     if (events.IsKeyDown(_keyMap.getBackward())) {
         setRotation(irr::EKA_MOVE_BACKWARD);
         move(irr::EKA_MOVE_BACKWARD, speed);

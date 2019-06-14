@@ -13,6 +13,7 @@
 #include "KeyMap.hpp"
 #include "GameObject.hpp"
 #include "Map.hpp"
+#include "Timer.hpp"
 
 class PlayerController
 {
@@ -29,6 +30,7 @@ private:
     GraphicalElements &_displayInfo;
     GameObject &_player;
     irr::core::vector3df _pos;
+    Timer myTimer;
 
     void setRotation(irr::EKEY_ACTION action);
     void move(irr::EKEY_ACTION action, irr::u16 speed);

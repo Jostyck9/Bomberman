@@ -27,7 +27,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
     irr::scene::ISceneNode *node = NULL;
     std::shared_ptr<GameObject> obj = nullptr;
 
-    this->getPlayerController().action(_device, event, map, 1);
+    this->getPlayerController().action(_device, event, map, getStats().getSpeed());
     // irr::core::vector3df pos = this->getDisplayInfo().getPosition();
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
