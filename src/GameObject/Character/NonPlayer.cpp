@@ -20,7 +20,8 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::str
 
 void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
 {
-    this->getPlayerController().action(event, getStats().getSpeed());
+    _ia.getAction(event);
+    this->getPlayerController().action(_device, event, map, getStats().getSpeed());
 }
 
 GameObject::objecType_t NonPlayer::getType()
