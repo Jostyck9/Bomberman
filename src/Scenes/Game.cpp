@@ -10,6 +10,7 @@
 #include "Game.hpp"
 #include "Bomb.hpp"
 #include "Save.hpp"
+#include "NonPlayer.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
@@ -32,6 +33,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
 void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 {
     std::shared_ptr<Player> current = nullptr;
+    std::shared_ptr<NonPlayer> currentIA = nullptr;
     std::shared_ptr<Bomb> currentBomb = nullptr;
     std::shared_ptr<Explosion> currentExplosion = nullptr;
 
@@ -40,6 +42,10 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
         current->update(_map, idToDel, _events);
+        idToMove.push_back(obj->getID());
+    } else if (obj->getType() == GameObject::NONPLAYER) {
+        currentIA = std::dynamic_pointer_cast<NonPlayer>(obj);
+        currentIA->update(_map, idToDel);
         idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
