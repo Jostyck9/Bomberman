@@ -13,10 +13,11 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map) : ACharacter(device)
 
 }
 
-void NonPlayer::update(Map &map, MyEventReceiver event)
+void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
 {
     (void)map;
     (void)event;
+    (void)idToDel;
     //TODO with IA
 }
 

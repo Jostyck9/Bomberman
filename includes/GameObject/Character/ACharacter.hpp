@@ -31,7 +31,7 @@ public:
     Score &getScore();
     Life &getLife();
     PlayerController &getPlayerController();
-    virtual void update(Map &map, MyEventReceiver event = MyEventReceiver()) = 0;
+    virtual void update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event = MyEventReceiver()) = 0;
 
     GameObject::objecType_t getType();
 };
