@@ -17,8 +17,8 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
-    this->getDisplayInfo().setScale(irr::core::vector3df(1.3,1.3,1.3));
-    this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
+    this->getDisplayInfo().setScale(irr::core::vector3df(5,5,5));
+    this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,180));
     this->getDisplayInfo().addColision();
 }
 
