@@ -30,6 +30,7 @@ public:
     void setKeyPressed(irr::EKEY_CODE key);
     void setKeyReleased(irr::EKEY_CODE key);
     irr::s32 getButtonPressed();
+
     MyEventReceiver();
 
 private:

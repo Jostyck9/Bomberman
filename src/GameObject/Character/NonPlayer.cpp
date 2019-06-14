@@ -26,6 +26,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
     std::cout << "s1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S) << std::endl;
     std::cout << "d1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D) << std::endl;
     std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;
+
     this->getPlayerController().action(_device, event, map, getStats().getSpeed());
 }
 
