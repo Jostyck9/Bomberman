@@ -50,6 +50,11 @@ void GraphicalElements::setRotation(const irr::core::vector3df &rotation)
         _node->setRotation(rotation);
 }
 
+const irr::scene::IAnimatedMeshSceneNode* GraphicalElements::getNode() const
+{
+    return (_node);
+}
+
 const irr::scene::IAnimatedMesh* GraphicalElements::getMesh() const
 {
     return (_mesh);
@@ -213,6 +218,7 @@ bool GraphicalElements::updateColision()
 
 irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s32 id)
 {
+    irr::scene::ISceneNode *res = NULL;
     irr::core::vector3df intersection;
     irr::core::vector3df positionEnd;
     irr::core::triangle3df hitTriangle;
@@ -237,11 +243,20 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
     } else
         return (nullptr);
     ray.start = _node->getPosition();
+    // TODO remove the start.X and start.Y modification when the mesh is at the right position
     ray.start.X += 2.5;
     ray.start.Y += 2.5;
     ray.end = ray.start + (positionEnd).normalize() * distance;
     // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
-    return (collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id));
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    ray.start.Z += 0.5;
+    ray.end.Z += 0.5;
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    return (NULL);
 }
 
 void GraphicalElements::setAnimation(bool anim)

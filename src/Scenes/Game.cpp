@@ -38,7 +38,7 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
-        current->update(_map, _events);
+        current->update(_map, idToDel, _events);
         idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
