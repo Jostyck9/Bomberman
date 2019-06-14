@@ -10,8 +10,7 @@
 
 BombUp::BombUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AItem(device)
 {
-    std::string path_mesh = "./assets/meshs/Bullet Bill/model.obj";
-    std::cout << "Yolo" << std::endl;
+    std::string path_mesh = "./assets/meshs/Bullet_Bill/model.obj";
     std::vector<std::string> path_text;
     irr::core::vector3df pos_world_tmp(pos_x * 10, (pos_y * 10) + 4, 0);
     irr::core::vector3df pos_map_tmp(pos_x, pos_y, 0);

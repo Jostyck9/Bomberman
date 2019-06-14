@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 #include "Game.hpp"
+#include "Sound.hpp"
 
 int main(void)
 {
@@ -22,7 +23,6 @@ int main(void)
         device->drop();
         return (84);
     }
-
     device->setWindowCaption(L"MarioBomber");
     while (scene) {
         scene->display();

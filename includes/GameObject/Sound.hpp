@@ -10,6 +10,7 @@
 
 #include <irrKlang.h>
 #include <string>
+#include <vector>
 
 using namespace irrklang;
 
@@ -19,14 +20,17 @@ class Sound
         bool _loop;
         ISoundEngine *_engine;
         ISound* _sound;
+        std::vector<std::string> _sounds;
     public:
-        Sound(std::string &);
-
-        // void startSound();
-        // void pauseSound();
-        // void stopSound();
-        // void setLoop(bool);
-        // bool getLoop();
+        Sound();
+        void playMenuMusic();
+        void playGameMusic();
+        void playPutBomb();
+        void playExplosionBomb();
+        void playSoundWin();
+        void playSoundDefeat();
+        void playPowerUpEffet();
+        void destroyMe();
 };
 
 #endif //__SOUND_HPP__
