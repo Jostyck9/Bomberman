@@ -275,8 +275,9 @@ bool Map::load(const std::string &filename)
                 }
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j));
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10));
+                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
@@ -285,8 +286,9 @@ bool Map::load(const std::string &filename)
                 }
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i, j));
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10));
+                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
