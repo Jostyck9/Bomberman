@@ -23,11 +23,7 @@ int main(void)
         device->drop();
         return (84);
     }
-
     device->setWindowCaption(L"MarioBomber");
-    Sound sound;
-
-    sound.playGameMusic();
     while (scene) {
         scene->display();
         scene = scene->handleEvent();
