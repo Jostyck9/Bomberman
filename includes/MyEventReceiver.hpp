@@ -8,7 +8,11 @@
 #ifndef MYEVENTRECEIVER_HPP
 #define MYEVENTRECEIVER_HPP
 
+#ifdef _WIN64
+#include <irrlicht.h>
+#else
 #include <irrlicht/irrlicht.h>
+#endif
 
 using namespace irr;
 

@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\cmake",
+    "\\cmake\\Modules",
+    "\\cmake\\Modules\\Irrklang",
+    "\\cmake\\Modules\\Irrlicht"
+  ],
+  "SelectedNode": "\\cmake\\Modules\\Irrlicht\\FindIrrlicht.cmake",
+  "PreviewInSolutionExplorer": false
+}
