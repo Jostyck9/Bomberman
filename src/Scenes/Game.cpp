@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "Bomb.hpp"
 #include "Save.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), _map(device, 21)//, _player(device, NULL, "./assets/meshs/Mario.obj", 1, 1)
@@ -17,23 +18,71 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     irr::s16 valx = 12.5;
     irr::s16 valy = 12.5;
 
+    device->setResizable(true);
     std::shared_ptr<Player> p1(new Player(device, textures, path, valx, valy));
     p1->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
     _map.addToMap(1, 1, p1);
-    _map.updateColision();
+    // _map.updateColision();
     this->setCamera(camera);
 }
 
-void Game::updateObj(std::shared_ptr<GameObject> obj)
+void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 {
     std::shared_ptr<Player> current = nullptr;
+    std::shared_ptr<Bomb> currentBomb = nullptr;
 
     if (!obj)
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
-        current->update(_events);
-        updateMapFromPlayer(current);
+        current->update(_map, _events);
+        idToMove.push_back(obj->getID());
+    } else if (obj->getType() == GameObject::BOMB) {
+        currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
+        currentBomb->update(_map, idToDel);
+    }
+}
+
+void Game::deleteObj(std::vector<irr::s32> &idToDel)
+{
+    for (auto &it : idToDel) {
+        _map.delToMap(it);
+    }
+    if (!idToDel.empty())
+        _map.updateColision();
+}
+
+IScene* Game::update()
+{
+    std::vector<irr::s32> idToDel;
+    std::vector<irr::s32> idToMove;
+
+    if (!_device->run()) {
+        delete this;
+        return (nullptr);
+    }
+    for (irr::u16 x = 0; x < _map.getSize(); x++) {
+        for (irr::u16 y = 0; y < _map.getSize(); y++) {
+            for (auto &it : _map.getMap()[x][y]) {
+                updateObj(it, idToDel, idToMove);
+            }
+        }
+    }
+    updatePosition(idToMove);
+    deleteObj(idToDel);
+
+    _events.resetKeys();
+    return (this);
+}
+
+void Game::updatePosition(std::vector<irr::s32> &idToMove)
+{
+    std::shared_ptr<GameObject> current(nullptr);
+
+    for (auto &it : idToMove) {
+        current = _map.getObject(it);
+        if (current && (current->getType() == GameObject::objectType_s::PLAYER || current->getType() == GameObject::objectType_s::NONPLAYER))
+            updateMapFromPlayer(std::dynamic_pointer_cast<Player>(current));
     }
 }
 
@@ -62,22 +111,6 @@ void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
             }
         }
     }
-}
-
-IScene* Game::update()
-{
-    if (!_device->run()) {
-        delete this;
-        return (nullptr);
-    }
-    for (irr::u16 x = 0; x < _map.getSize(); x++) {
-        for (irr::u16 y = 0; y < _map.getSize(); y++) {
-            for (auto &it : _map.getMap()[x][y]) {
-                updateObj(it);
-            }
-        }
-    }
-    return (this);
 }
 
 void Game::display()

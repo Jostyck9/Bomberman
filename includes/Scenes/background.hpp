@@ -15,14 +15,16 @@ class Background : public AScene
 {
     public:
     Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
+    ~Background();
     void createBackGround();
     IScene* update() override;
     void display() override;
 
 
     private:
-    irr::video::ITexture *image;
     scene::ISceneNode* camera;
+    scene::IAnimatedMeshSceneNode * menu_map;
+    scene::IAnimatedMeshSceneNode* anms;
 };
 
 #endif

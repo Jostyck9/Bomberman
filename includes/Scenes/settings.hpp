@@ -12,21 +12,35 @@
 #include "AScene.hpp"
 #include "background.hpp"
 
+enum
+{
+    GUI_RETURN_MENU,
+    GUI_SOUND,
+    GUI_MUSIC,
+};
+
 class Settings : public AScene
 {
 private:
-    irr::gui::IGUIEnvironment *guienv;
-    irr::gui::IGUIStaticText *texte;
-    irr::gui::IGUIButton *bouton;
-    irr::video::ITexture *image;
     IScene *_background;
+    irr::gui::IGUIEnvironment *guienv;
+    irr::video::ITexture *texture;
+    irr::gui::IGUIButton *return_menu;
+    irr::gui::IGUIButton *but_sound;
+    irr::gui::IGUIButton *music;
+    irr::gui::IGUIImage *cadre_menu;
+    irr::gui::IGUIEditBox *edit_sound;
+    const wchar_t *print_box;
 
 public:
     Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);
+    ~Settings();
     IScene* update() override;
     void display() override;
     bool button();
-    void setSkin(s32 alpha, irr::gui::IGUISkin * skin);
+    void print_image();
+    void sound();
+    //void setSkin();
 };
 
 #endif

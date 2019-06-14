@@ -6,16 +6,18 @@
 */
 
 #include <iostream>
-#include "driverChoice.h"
 #include "Menu.hpp"
 #include "Game.hpp"
 #include "settings.hpp"
+#include "How_play.hpp"
+#include "Scoreboard.hpp"
 
 
-Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, camera), _background(background)
+Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
 {
     guienv = device->getGUIEnvironment();
     sizescreen = this->_driver->getScreenSize();
+    device->setResizable(false);
     button();
     tittle();
     setSkin();
@@ -29,11 +31,13 @@ Menu::~Menu()
     how_play->remove();
     scoreboard->remove();
     quit->remove();
+    title->remove();
 
 }
 
 IScene* Menu::update()
 {
+    IScene *next = NULL;
     irr::s32 id = -1;
 
     if (!_device->run()) {
@@ -48,21 +52,29 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-            //delete this;
-            return (new Game(this->_device, this->_events));
+        next = new Game(this->_device, this->_events);
+            delete this;
+            delete this->_background;
+            return (next);
             break;
 
         case GUI_LOAD:
             break;
 
         case GUI_SETTINGS:
-            //delete this;
-            return (new Settings(this->_device, this->_events, this->_background));
+            next = new Settings(this->_device, this->_events, this->_background);
+            delete this;
+            return (next);
 
         case GUI_HOW_TO_PLAY:
-            break;
+            next = new How_Play(this->_device, this->_events, this->_background);
+            delete this;
+            return (next);
 
         case GUI_SCOREBOARD:
+            next = new Scoreboard(this->_device, this->_events, this->_background);
+            delete this;
+            return (next);
             break;
 
         default:
@@ -84,38 +96,42 @@ void Menu::display()
 
 void Menu::tittle()
 {
-    // title = guienv->addImage(_driver->getTexture("./assets/title.png"),
-    //         irr::core::position2d<int>(300,-10));
-    // title->setScaleImage(true);
+    title = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/BomberMario.png"),
+            irr::core::position2d<int>(300,30));
+    title->setScaleImage(true);
 }
 
 bool Menu::button()
 {
-    play = guienv->addButton(irr::core::rect<irr::s32>(sizescreen.Width/4,sizescreen.Height/2,sizescreen.Width/3,sizescreen.Height/1.8), 0, GUI_PLAY, L"Play");
-    load = guienv->addButton(irr::core::rect<irr::s32>(sizescreen.Width/4,480,sizescreen.Width/3,520), 0, GUI_LOAD, L"Load");
+    play = guienv->addButton(irr::core::rect<irr::s32>(300,400,440,440), 0, GUI_PLAY, L"Play");
+    load = guienv->addButton(irr::core::rect<irr::s32>(300,480,440,520), 0, GUI_LOAD, L"Load");
     settings = guienv->addButton(irr::core::rect<irr::s32>(800,400,940,440), 0, GUI_SETTINGS, L"Settings");
     how_play = guienv->addButton(irr::core::rect<irr::s32>(800,480,940,520), 0, GUI_HOW_TO_PLAY, L"How To Play");
-    scoreboard = guienv->addButton(irr::core::rect<irr::s32>(1050,30,1190, 70), 0, GUI_SCOREBOARD, L"Scoreboard");
+    scoreboard = guienv->addButton(irr::core::rect<irr::s32>(1150,30,1250, 70), 0, GUI_SCOREBOARD, L"Scoreboard");
     quit = guienv->addButton(irr::core::rect<irr::s32>(560,640,700,680), 0, GUI_QUIT, L"Quit");
     return (true);
 }
 
 void Menu::setSkin()
 {
-
     texture = this->_driver->getTexture("./assets/textures/button.png");
+    pressed = this->_driver->getTexture("./assets/textures/pressed.png");    
     play->setImage(texture);
-    // play->setPressedImage();
-    load->setImage(texture);
-    settings->setImage(texture);
-    how_play->setImage(texture);
-    scoreboard->setImage(texture);
-    quit->setImage(texture);
     play->setScaleImage(true);
+    play->setPressedImage(pressed);
+    load->setImage(texture);
     load->setScaleImage(true);
+    load->setPressedImage(pressed);
+    settings->setImage(texture);
     settings->setScaleImage(true);
+    settings->setPressedImage(pressed);
+    how_play->setImage(texture);
     how_play->setScaleImage(true);
+    how_play->setPressedImage(pressed);
+    scoreboard->setImage(texture);
     scoreboard->setScaleImage(true);
+    scoreboard->setPressedImage(pressed);
+    quit->setImage(texture);
     quit->setScaleImage(true);
 
     // skin = guienv->getSkin();
@@ -124,8 +140,4 @@ void Menu::setSkin()
 	// 	skin->setFont(font);
 
 	// skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
-    // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_WINDOW);
-    // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_BUTTON);
-    // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_DEFAULT); //Font des Textes
-    // guienv->getSkin()->setFont(guienv->(""), irr::gui::EGDF_MENU);
 }

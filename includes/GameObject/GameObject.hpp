@@ -15,6 +15,9 @@
 #endif
 
 class GameObject {
+private:
+    irr::s32 _id;
+
 public:
     enum objectType_s {
         PRINTABLE_OBJ,
@@ -27,6 +30,7 @@ public:
         BOMBUP,
         FIREUP,
         WALLPASS,
+        ITEM,
         UNKNOWN
     };
     typedef objectType_s objecType_t;
@@ -36,7 +40,9 @@ public:
     GameObject(irr::IrrlichtDevice *device);
     virtual ~GameObject() = default;
 
-private:
+    irr::s32 getID();
+
+protected:
     irr::IrrlichtDevice *_device;
 };
 

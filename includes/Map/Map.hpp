@@ -34,7 +34,11 @@ public:
     void setMap();
     void addToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj);
     void delToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj);
+    void delToMap(std::shared_ptr<GameObject> obj);
+    void delToMap(irr::s32 id);
     void updateColision();
+    const std::vector<std::shared_ptr<GameObject>> &getCellObject(irr::u16 x, irr::u16 y) const;
+    std::shared_ptr<GameObject> getObject(irr::s32 id);
 
     boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &getMap();
     irr::u16 getSize() const;
@@ -42,7 +46,9 @@ public:
     bool load(const std::string &filename);
     void setDevice(irr::IrrlichtDevice *device);
     void setSize(irr::u16 size);
+
     irr::core::vector2df getPosition(std::shared_ptr<GameObject>);
+    irr::core::vector2df getPosition(irr::s32 id);
 };
 
 #endif // !MAP_HPP_

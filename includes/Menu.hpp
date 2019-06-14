@@ -14,12 +14,23 @@
 #include "AScene.hpp"
 #include "background.hpp"
 
+enum
+{
+    GUI_QUIT = 101,
+    GUI_PLAY,
+    GUI_LOAD,
+    GUI_SETTINGS,
+    GUI_HOW_TO_PLAY,
+    GUI_SCOREBOARD
+};
+
 class Menu : public AScene
 {
 private:
     irr::gui::IGUIEnvironment *guienv;
     irr::gui::IGUIStaticText *texte;
     irr::video::ITexture *texture;
+    irr::video::ITexture *pressed;
     irr::gui::IGUIImage *title;
     irr::gui::IGUIButton *play;
     irr::gui::IGUIButton *load;

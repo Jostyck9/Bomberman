@@ -5,10 +5,12 @@
 ** main.cpp
 */
 
+#include <iostream>
 #include <memory>
 #include <iostream>
 #include "Menu.hpp"
 #include "background.hpp"
+#include "settings.hpp"
 
 int main(void)
 {
@@ -25,7 +27,7 @@ int main(void)
         return (84);
     }
 
-    device->setWindowCaption(L"MarioBomber");
+    device->setWindowCaption(L"BomberMario");
     while (scene) {
         scene->display();
         if (!scene)

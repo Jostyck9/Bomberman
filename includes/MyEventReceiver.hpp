@@ -12,21 +12,14 @@
 
 using namespace irr;
 
-enum
-{
-    GUI_QUIT = 101,
-    GUI_PLAY,
-    GUI_LOAD,
-    GUI_SETTINGS,
-    GUI_HOW_TO_PLAY,
-    GUI_SCOREBOARD
-};
 
 class MyEventReceiver : public IEventReceiver
 {
 public:
     // This is the one method that we have to implement
     bool OnEvent(const irr::SEvent& event);
+
+    void resetKeys();
 
     // This is used to check whether a key is being held down
     bool IsKeyDown(irr::EKEY_CODE keyCode) const;
@@ -36,7 +29,6 @@ public:
     
     irr::s32 getButtonPressed();
 
-    void resetKeys();
 
     MyEventReceiver();
 

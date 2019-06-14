@@ -11,17 +11,24 @@
 Background::Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver)
 {
     createBackGround();
-}    
+}
+
+Background::~Background()
+{
+    menu_map->remove();
+    anms->remove();
+    camera->remove();
+}
 
 void Background::createBackGround()
 {
     camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(0, 3, -5), irr::core::vector3df(0,0,0));
-    scene::IAnimatedMeshSceneNode * menu_map = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine Room/room.obj"));
-    scene::IAnimatedMeshSceneNode* anms = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Bomb-omb/model.dae"));
+    menu_map = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine Room/room.obj"));
+    anms = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Bomb-omb/bomb.b3d"));
     anms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     anms->setPosition(core::vector3df(0,-0.2,0));
-    anms->setScale(core::vector3df(0.01,0.01,0.01));
-    anms->setRotation(core::vector3df(0,180,0));
+    anms->setScale(core::vector3df(1,1,1));
+    anms->setRotation(core::vector3df(0,145,0));
     menu_map->setRotation(core::vector3df(0,-34,0));
     menu_map->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 
@@ -41,7 +48,6 @@ void Background::display()
     }
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _sceneManager->drawAll();
-    // _driver->endScene();
 }
 
 IScene* Background::update()
