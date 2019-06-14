@@ -45,7 +45,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
         node = getDisplayInfo().getFrontObj(2, GameObject::WALL);
         if (node) {
             obj = map.getObject(node);
-            if (obj) {
+            if (obj && std::dynamic_pointer_cast<Wall>(obj)->isBreakable()) {
                 newPos = std::dynamic_pointer_cast<Wall>(obj)->getDisplayInfo().getPosition();
                 newPos.Y += 3;
                 newPos.Z = -20;
