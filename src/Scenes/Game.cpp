@@ -20,10 +20,14 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     std::vector<std::string> textures;
     std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
     // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
-
     std::shared_ptr<Player> p1(new Player(device, textures, path, 1, 1));
     if (p1) {
         _map.addToMap(1, 1, p1);
+    }
+    std::shared_ptr<Player> p2(new Player(device, textures, path, 1, _map.getSize() - 2));
+    if (p2) {
+        p2->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+        _map.addToMap(1, _map.getSize() - 2, p2);
     }
     // _map.updateColision();
     this->setCamera(camera);

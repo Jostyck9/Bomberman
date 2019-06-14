@@ -8,7 +8,7 @@
 #include "BotIA.hpp"
 #include "Wall.hpp"
 
-BotIA::BotIA(Map &map, std::shared_ptr<ACharacter> character) : _map(map), _character(character)
+BotIA::BotIA(Map &map, ACharacter &character) : _map(map), _character(character)
 {
 }
 
@@ -25,7 +25,7 @@ void BotIA::getAction(MyEventReceiver &event)
     irr::u16 move = std::rand() / 4;
     if (move == 0)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-    if (move == 1)
+        if (move == 1)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
     if (move == 2)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
@@ -35,7 +35,7 @@ void BotIA::getAction(MyEventReceiver &event)
 
 bool BotIA::breakWall(MyEventReceiver &event)
 {
-    irr::core::vector2df pos = _map.getPosition(_character);
+    irr::core::vector2df pos = _map.getPosition(_character.getID());
 
     if (pos.X - 1 >= 1 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         if (checkWallAround(pos.X - 1, pos.Y)) {
@@ -87,7 +87,7 @@ bool BotIA::checkWallAround(irr::u16 x, irr::u16 y)
 
 bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 {
-    irr::core::vector2df pos = _map.getPosition(_character);
+    irr::core::vector2df pos = _map.getPosition(_character.getID());
 
     if (direction == UNKNOWN)
         return false;
@@ -128,7 +128,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 
 BotIA::direction_t BotIA::checkBomb()
 {
-    irr::core::vector2df pos = _map.getPosition(_character);
+    irr::core::vector2df pos = _map.getPosition(_character.getID());
     for (irr::u16 i = 0; i < 3; i++) {
         if (pos.X - i >= 0 && _map.getMap()[pos.X - i][pos.Y].size() > 0 && _map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB)
                 return left;
