@@ -8,7 +8,12 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include <irrlicht/irrlicht.h>
+#ifdef _WIN64
+	#include <irrlicht.h>
+#else
+	#include <irrlicht/irrlicht.h>
+#endif
+
 
 class Camera
 {

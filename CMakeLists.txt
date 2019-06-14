@@ -7,7 +7,7 @@ enable_testing()
 
 # sources et include
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "includes/*.hpp")
-include_directories(includes includes/exception includes/Timer includes/GameObject/ includes/GameObject/Character includes/GameObject/Entités includes/GameObject/Items includes/Map includes/Scenes)
+include_directories(includes includes/exception includes/Timer includes/GameObject/ includes/GameObject/Character includes/GameObject/Entités includes/GameObject/Items includes/Map includes/Scenes cmake)
 
 #compilation flags
 if(MSVC)
