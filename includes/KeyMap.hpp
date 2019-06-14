@@ -9,9 +9,9 @@
 #define KEY_MAP_HPP_
 
 #ifdef _WIN64
-#include <irrlicht.h>
+	#include <irrlicht.h>
 #else
-#include <irrlicht/irrlicht.h>
+	#include <irrlicht/irrlicht.h>
 #endif
 
 class KeyMap

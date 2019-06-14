@@ -7,7 +7,7 @@ enable_testing()
 
 # sources et include
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "includes/*.hpp")
-include_directories(includes includes/exception includes/Timer includes/GameObject/ includes/GameObject/Character includes/GameObject/Entités includes/GameObject/Items includes/Map includes/Scenes)
+include_directories(includes includes/exception includes/Timer includes/GameObject/ includes/GameObject/Character includes/GameObject/Entités includes/GameObject/Items includes/Map includes/Scenes cmake)
 
 #compilation flags
 if(MSVC)
@@ -19,16 +19,16 @@ if(MSVC)
 	endif()
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	# Update if necessary
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W")
 endif()
 
 # set the cmake module path
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/Irrlicht")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
 # Trouver un package avec find_package
 find_package("Irrlicht")
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/Irrklang")
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/Irrklang")
 find_package("Irrklang")
 
 if (Irrlicht_FOUND AND Irrklang_FOUND)

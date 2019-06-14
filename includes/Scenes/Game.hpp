@@ -12,10 +12,12 @@
 #include "Map.hpp"
 #include "Player.hpp"
 #include "AScene.hpp"
+#include "Decor.hpp"
 
 class Game : public AScene
 {
 private:
+    Decor _ground;
     Map _map;
     void deleteObj(std::vector<irr::s32> &idToDel);
     void updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove);

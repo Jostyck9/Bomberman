@@ -39,6 +39,7 @@ public:
     void updateColision();
     const std::vector<std::shared_ptr<GameObject>> &getCellObject(irr::u16 x, irr::u16 y) const;
     std::shared_ptr<GameObject> getObject(irr::s32 id);
+    std::shared_ptr<GameObject> getObject(irr::scene::ISceneNode *node);
 
     boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &getMap();
     irr::u16 getSize() const;
