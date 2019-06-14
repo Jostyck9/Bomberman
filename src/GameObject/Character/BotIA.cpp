@@ -8,11 +8,7 @@
 #include "BotIA.hpp"
 #include "Wall.hpp"
 
-<<<<<<< HEAD
 BotIA::BotIA(Map &map, ACharacter &character) : _map(map), _character(character)
-=======
-BotIA::BotIA(Map &map, std::shared_ptr<ACharacter> character) : _map(map), _character(character)
->>>>>>> Add Basic IA
 {
 }
 
@@ -29,7 +25,7 @@ void BotIA::getAction(MyEventReceiver &event)
     irr::u16 move = std::rand() / 4;
     if (move == 0)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-    if (move == 1)
+        if (move == 1)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
     if (move == 2)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
