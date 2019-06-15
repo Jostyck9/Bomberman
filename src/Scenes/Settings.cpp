@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2018
 ** Bomberman
 ** File description:
-** settings.cpp
+** Settings.cpp
 */
 
 #include <iostream>
-#include "settings.hpp"
+#include "Settings.hpp"
 #include "Menu.hpp"
 
 Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)

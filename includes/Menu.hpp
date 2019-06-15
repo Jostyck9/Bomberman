@@ -53,6 +53,7 @@ private:
     irr::gui::IGUIFont* font;
     IScene *_background;
     irr::core::dimension2d<f32> sizescreen;
+    irr::core::stringw Load_error;
 
 public:
     Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);

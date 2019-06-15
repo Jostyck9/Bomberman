@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Menu.hpp"
 #include "background.hpp"
-#include "settings.hpp"
+#include "Settings.hpp"
 #include "Sound.hpp"
 
 int main(void)

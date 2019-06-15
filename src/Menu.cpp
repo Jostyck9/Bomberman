@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Menu.hpp"
 #include "Game.hpp"
-#include "settings.hpp"
+#include "Settings.hpp"
 #include "How_play.hpp"
 #include "Scoreboard.hpp"
 #include "Play.hpp"
@@ -59,7 +59,13 @@ IScene* Menu::update()
             break;
 
         case GUI_LOAD:
+            try {
             next = new Game(this->_device, this->_events, "save.txt");
+            }
+            catch (std::exception) {
+                _device->getGUIEnvironment()->addMessageBox(
+                Load_error.c_str(), L"No save can be load");
+            }
             delete this;
             delete _background;
             return (next);
