@@ -61,7 +61,7 @@ IScene* Play::update()
         //     return (next);
 
         case GUI_START_GAME:
-            next = new Game(this->_device, this->_events, _character);
+            next = new Game(this->_device, this->_events);
             delete this;
             return (next);
 
@@ -157,13 +157,13 @@ void Play::Mesh()
     Luigi->setScale(core::vector3df(0.5,0.5,0.5));
     Luigi->setRotation(core::vector3df(0,145,0));
 
-    Toad = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Toad/Toad.b3d"));
+    Toad = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Toad/toad.b3d"));
     Toad->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     Toad->setPosition(core::vector3df(-1.5,0,1));
     Toad->setScale(core::vector3df(0.3,0.3,0.3));
     Toad->setRotation(core::vector3df(0,145,0));
 
-    Peach = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Peach/pitchv2.b3d"));
+    Peach = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Peach/peach.b3d"));
     Peach->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     Peach->setPosition(core::vector3df(-2.4,0,0.4));
     Peach->setScale(core::vector3df(0.8,0.8,0.8));
