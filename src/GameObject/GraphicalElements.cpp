@@ -65,6 +65,7 @@ void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &m
     irr::scene::ISceneManager* smgr = nullptr;
     irr::video::IVideoDriver* driver = nullptr;
 
+    _meshPath = meshPath;
     if (!_device)
         return;
     smgr = _device->getSceneManager();
