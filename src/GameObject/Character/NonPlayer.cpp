@@ -48,31 +48,20 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
 
     std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     irr::core::vector3df pos = getDisplayInfo().getPosition();
+    irr::core::vector2df posMap = map.getPosition(getID());
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z)) {
-        if ((int)pos.X % 10 > 5)
-            pos.X = (int)pos.X / 10 * 10 + 10;
-        else if ((int)pos.X % 10 < 5)
-            pos.X = (int)pos.X / 10 * 10;
+        pos.X = posMap.X * 10;
     }
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Q)) {
-        if ((int)pos.Y % 10 > 5)
-            pos.Y = (int)pos.Y / 10 * 10 + 10;
-        else if ((int)pos.Y % 10 < 5)
-            pos.Y = (int)pos.Y / 10 * 10;
+        pos.Y = posMap.Y * 10;
     }
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S)) {
-        if ((int)pos.X % 10 > 5)
-            pos.X = (int)pos.X / 10 * 10 + 10;
-        else if ((int)pos.X % 10 < 5)
-            pos.X = (int)pos.X / 10 * 10;
+        pos.X = posMap.X * 10;
     }
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D)) {
-        if ((int)pos.Y % 10 > 5)
-            pos.Y = (int)pos.Y / 10 * 10 + 10;
-        else if ((int)pos.Y % 10 < 5)
-            pos.Y = (int)pos.Y / 10 * 10;
+        pos.Y = posMap.Y * 10;
     }
-//    std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
+    std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     getDisplayInfo().setPosition(pos);
 
 /*    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;

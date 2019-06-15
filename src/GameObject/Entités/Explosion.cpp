@@ -37,7 +37,7 @@ void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
     std::vector<std::shared_ptr<GameObject>> &cell = map.getCellObject(_x, _y);
 
     for (auto &it : cell) {
-        if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PLAYER) {
+        if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::NONPLAYER) {
             character = std::dynamic_pointer_cast<ACharacter>(it);
             character->applyDammage(idToDel, 1);
         } else if (it->getType() == GameObject::BOMB) {

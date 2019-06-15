@@ -118,7 +118,7 @@ irr::s16 BotIA::getPosValue(irr::u16 x, irr::u16 y)
         (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::PLAYER ||
          _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::NONPLAYER))
         return BotIA::objValue_t::PLAYER;
-    if (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMB)
+    if (!_map.getMap()[x][y].empty() && (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
         return BotIA::objValue_t::BOMB;
     return BotIA::objValue_t::OTHER;
 }
@@ -232,13 +232,13 @@ BotIA::direction_t BotIA::checkBomb()
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
     for (irr::u16 i = 0; i < 3; i++) {
-        if (pos.X - i >= 0 && _map.getMap()[pos.X - i][pos.Y].size() > 0 && _map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.X - i >= 0 && _map.getMap()[pos.X - i][pos.Y].size() > 0 && (_map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return left;
-        if (pos.X + i < _map.getSize() && _map.getMap()[pos.X + i][pos.Y].size() > 0 && _map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.X + i < _map.getSize() && _map.getMap()[pos.X + i][pos.Y].size() > 0 && (_map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return right;
-        if (pos.Y - i >= 0 && _map.getMap()[pos.X][pos.Y - i].size() > 0 && _map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.Y - i >= 0 && _map.getMap()[pos.X][pos.Y - i].size() > 0 && (_map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return up;
-        if (pos.Y + i < _map.getSize() && _map.getMap()[pos.X][pos.Y + i].size() > 0 && _map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.Y + i < _map.getSize() && _map.getMap()[pos.X][pos.Y + i].size() > 0 && (_map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return down;
     }
     return UNKNOWN;
