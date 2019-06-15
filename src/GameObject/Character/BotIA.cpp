@@ -47,17 +47,17 @@ bool BotIA::findBestWay(MyEventReceiver &event)
     irr::s16 left = wayValue(pos.X - 1, pos.Y, BotIA::direction_t::left, 1);
 
 
-    if (up < 5 && down < 5 && right < 5 && left < 5) {
+    if (up < 60 && down < 60 && right < 60 && left < 60) {
         std::cout << "RECURSIF NICE" << std::endl;
         return false;
     }
     if (up >= left && up >= right && up >= down)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-    if (left >= down && left >= right && left >= up)
+    else if (left >= down && left >= right && left >= up)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-    if (down >= left && down >= right && down >= up)
+    else if (down >= left && down >= right && down >= up)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-    if (right >= left && right >= down && right >= up)
+    else if (right >= left && right >= down && right >= up)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
     std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
     return true;
@@ -133,25 +133,25 @@ bool BotIA::breakWall(MyEventReceiver &event)
     if (pos.X - 1 >= 1 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         if (checkWallAround(pos.X - 1, pos.Y)) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-            event.setKeyPressed(EKEY_CODE::KEY_SPACE);
+            event.setKeyReleased(EKEY_CODE::KEY_SPACE);
             return true;
         }
     if  (pos.X + 1 < _map.getSize() && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         if (checkWallAround(pos.X + 1, pos.Y)) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
-            event.setKeyPressed(EKEY_CODE::KEY_SPACE);
+            event.setKeyReleased(EKEY_CODE::KEY_SPACE);
             return true;
         }
     if  (pos.Y - 1 >= 0 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
         if (checkWallAround(pos.X, pos.Y - 1)) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-            event.setKeyPressed(EKEY_CODE::KEY_SPACE);
+            event.setKeyReleased(EKEY_CODE::KEY_SPACE);
             return true;
         }
     if  (pos.Y + 1 < _map.getSize() && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
         if (checkWallAround(pos.X, pos.Y + 1)) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-            event.setKeyPressed(EKEY_CODE::KEY_SPACE);
+            event.setKeyReleased(EKEY_CODE::KEY_SPACE);
             return true;
         }
     return false;
@@ -182,6 +182,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
 
+    std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
     if (direction == UNKNOWN)
         return false;
     if (direction == left) {
