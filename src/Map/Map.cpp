@@ -97,11 +97,13 @@ void Map::setMap()
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
                 std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", wall, i, j, false));
-                addToMap(i, j, newWall);
+                if (newWall)
+                    addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
                 std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", brkwall, i, j, true));
-                addToMap(i, j, newWall);
+                if (newWall)
+                    addToMap(i, j, newWall);
             }
         }
     }
@@ -109,7 +111,7 @@ void Map::setMap()
 
 void Map::addToMap(irr::u16 x, irr::u16 y, std::shared_ptr<GameObject> obj)
 {
-    if (x >= _size || y >= _size || obj == nullptr) {
+    if (x >= _size || y >= _size || obj == nullptr || !obj) {
         throw bomberException("Invalid parameter for adding on the map", "Map");
     }
     _map[x][y].push_back(obj);
@@ -251,48 +253,60 @@ bool Map::load(const std::string &filename)
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
                         std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", wall, i, j, false));
-                        addToMap(i, j, newWall);
+                        if (newWall)
+                            addToMap(i, j, newWall);
                     }
                     else {
                         std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", brkwall, i, j, true));
-                        addToMap(i, j, newWall);
+                        if (newWall)
+                            addToMap(i, j, newWall);
                     }
                 }
                 if (cell.first == "speedup") {
-                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i, j));
-                    addToMap(i, j, newSpeedUp);
+                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i * 10, j * 10));
+                    if (newSpeedUp)
+                        addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i, j));
-                    addToMap(i, j, newFireUp);
+                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i * 10, j * 10));
+                    if (newFireUp)
+                        addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i, j));
-                    addToMap(i, j, newBombUp);
+                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i * 10, j * 10));
+                    if (newBombUp)
+                        addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i, j));
-                    addToMap(i, j, newWallPass);
+                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i * 10, j * 10));
+                    if (newWallPass)
+                        addToMap(i, j, newWallPass);
                 }
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
-                    std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j));
-                    player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
-                    player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
-                    player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
-                    player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
-                    addToMap(i, j, player);
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10));
+                    if (player) {
+                        player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+                        player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
+                        player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
+                        player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
+                        player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
+                        addToMap(i, j, player);
+                    }
                 }
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
-                    std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i, j));
-                    player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
-                    player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
-                    player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
-                    player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
-                    addToMap(i, j, player);
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10));
+                    if (player) {
+                        player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+                        player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
+                        player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
+                        player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
+                        player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
+                        addToMap(i, j, player);
+                    }
                 }
             }
         }

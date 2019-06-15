@@ -31,7 +31,7 @@ GameObject::objecType_t Explosion::getType()
     return (GameObject::objectType_s::EXPLOSION);
 }
 
-void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
+void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd)
 {
     std::shared_ptr<ACharacter> character = nullptr;
     std::shared_ptr<Bomb> bomb = nullptr;
@@ -43,7 +43,7 @@ void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
             character->applyDammage(idToDel, 1);
         } else if (it->getType() == GameObject::BOMB) {
             bomb = std::dynamic_pointer_cast<Bomb>(it);
-            bomb->update(map, idToDel, true);
+            bomb->update(map, idToDel, objToAdd, true);
         } else if (it->getType() == GameObject::SPEEDUP || 
                     it->getType() == GameObject::BOMBUP || 
                     it->getType() == GameObject::FIREUP || 
@@ -53,12 +53,12 @@ void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
     }
 }
 
-void Explosion::update(Map &map, std::vector<irr::s32> &idToDel)
+void Explosion::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd)
 {
     double limit_max = 1;
     irr::core::vector3df scale = getDisplayInfo().getScale();
 
-    updateDammage(map, idToDel);
+    updateDammage(map, idToDel, objToAdd);
     if (scale.Z > 1)
         scale.Z -= 1;
     if (!_myTimer.isTimeElapsed(limit_max)) {
