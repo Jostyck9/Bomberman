@@ -12,7 +12,6 @@ Scoreboard::Scoreboard(irr::IrrlichtDevice* device, MyEventReceiver &receiver, I
 {
     guienv = device->getGUIEnvironment();
     button();
-    // image();
 }
 
 Scoreboard::~Scoreboard()

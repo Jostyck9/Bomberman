@@ -9,10 +9,9 @@
 
 WallPass::WallPass(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AItem(device)
 {
-    std::string path_mesh = "./assets/meshs/Power Star/Power Star.obj";
+    std::string path_mesh = "./assets/meshs/Power_Star/Power_Star.obj";
     std::vector<std::string> path_text;
-    path_text.push_back("./assets/meshs/Power Star/power.png");
-    path_text.push_back("./assets/meshs/Power Star/shine.png");
+    path_text.push_back("./assets/meshs/Power_Star/power.png");
     irr::core::vector3df pos_world_tmp(pos_x * 10, (pos_y * 10) + 5, 0);
     irr::core::vector3df pos_map_tmp(pos_x, pos_y, 0);
     this->setPosWorld(pos_world_tmp);

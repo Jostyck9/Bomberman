@@ -11,6 +11,7 @@
 #include "settings.hpp"
 #include "How_play.hpp"
 #include "Scoreboard.hpp"
+#include "Play.hpp"
 
 
 Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
@@ -52,13 +53,16 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-        next = new Game(this->_device, this->_events);
+        next = new Play(this->_device, this->_events);
             delete this;
-            delete this->_background;
             return (next);
             break;
 
         case GUI_LOAD:
+            //next = new Game(this->_device, this->_events, "save.txt");
+            delete this;
+            delete _background;
+            return (next);
             break;
 
         case GUI_SETTINGS:
@@ -103,41 +107,50 @@ void Menu::tittle()
 
 bool Menu::button()
 {
-    play = guienv->addButton(irr::core::rect<irr::s32>(300,400,440,440), 0, GUI_PLAY, L"Play");
-    load = guienv->addButton(irr::core::rect<irr::s32>(300,480,440,520), 0, GUI_LOAD, L"Load");
-    settings = guienv->addButton(irr::core::rect<irr::s32>(800,400,940,440), 0, GUI_SETTINGS, L"Settings");
-    how_play = guienv->addButton(irr::core::rect<irr::s32>(800,480,940,520), 0, GUI_HOW_TO_PLAY, L"How To Play");
+    play = guienv->addButton(irr::core::rect<irr::s32>(300,390,440,440), 0, GUI_PLAY, L"");
+    load = guienv->addButton(irr::core::rect<irr::s32>(300,470,440,520), 0, GUI_LOAD, L"");
+    settings = guienv->addButton(irr::core::rect<irr::s32>(800,390,980,440), 0, GUI_SETTINGS, L"");
+    how_play = guienv->addButton(irr::core::rect<irr::s32>(800,470,980,520), 0, GUI_HOW_TO_PLAY, L"");
     scoreboard = guienv->addButton(irr::core::rect<irr::s32>(1150,30,1250, 70), 0, GUI_SCOREBOARD, L"Scoreboard");
-    quit = guienv->addButton(irr::core::rect<irr::s32>(560,640,700,680), 0, GUI_QUIT, L"Quit");
+    quit = guienv->addButton(irr::core::rect<irr::s32>(560,630,700,680), 0, GUI_QUIT, L"");
     return (true);
 }
 
 void Menu::setSkin()
 {
     texture = this->_driver->getTexture("./assets/textures/button.png");
-    pressed = this->_driver->getTexture("./assets/textures/pressed.png");    
-    play->setImage(texture);
+    pressed = this->_driver->getTexture("./assets/textures/pressed.png");
+    but_play = this->_driver->getTexture("./assets/meshs/Menu/Button/Play.png");    
+    but_load = this->_driver->getTexture("./assets/meshs/Menu/Button/Load.png");    
+    but_settings = this->_driver->getTexture("./assets/meshs/Menu/Button/Settings.png");
+    but_how = this->_driver->getTexture("./assets/meshs/Menu/Button/How.png");
+    but_quit = this->_driver->getTexture("./assets/meshs/Menu/Button/Quit.png");
+
+    play->setImage(but_play);
     play->setScaleImage(true);
-    play->setPressedImage(pressed);
-    load->setImage(texture);
+    play->setUseAlphaChannel(true);
+    play->setDrawBorder(0);
+    // play->setPressedImage(pressed);
+    load->setImage(but_load);
     load->setScaleImage(true);
-    load->setPressedImage(pressed);
-    settings->setImage(texture);
+    // load->setPressedImage(pressed);
+    load->setUseAlphaChannel(true);
+    load->setDrawBorder(0);
+    settings->setImage(but_settings);
     settings->setScaleImage(true);
-    settings->setPressedImage(pressed);
-    how_play->setImage(texture);
+    settings->setUseAlphaChannel(true);
+    settings->setDrawBorder(0);
+    // settings->setPressedImage(pressed);
+    how_play->setImage(but_how);
     how_play->setScaleImage(true);
-    how_play->setPressedImage(pressed);
+    how_play->setUseAlphaChannel(true);
+    how_play->setDrawBorder(0);
+    // how_play->setPressedImage(pressed);
     scoreboard->setImage(texture);
     scoreboard->setScaleImage(true);
-    scoreboard->setPressedImage(pressed);
-    quit->setImage(texture);
+    // scoreboard->setPressedImage(pressed);
+    quit->setImage(but_quit);
     quit->setScaleImage(true);
-
-    // skin = guienv->getSkin();
-	// font = guienv->getFont("./assets/myfont.xml");
-	// if (font)
-	// 	skin->setFont(font);
-
-	// skin->setFont(guienv->getBuiltInFont(), irr::gui::EGDF_TOOLTIP);
+    quit->setUseAlphaChannel(true);
+    quit->setDrawBorder(0);
 }

@@ -24,11 +24,12 @@ class Settings : public AScene
 private:
     IScene *_background;
     irr::gui::IGUIEnvironment *guienv;
-    irr::video::ITexture *texture;
+    irr::video::ITexture *return_texture;
     irr::gui::IGUIButton *return_menu;
     irr::gui::IGUIButton *but_sound;
     irr::gui::IGUIButton *music;
     irr::gui::IGUIImage *cadre_menu;
+    irr::gui::IGUIImage *title;
     irr::gui::IGUIEditBox *edit_sound;
     const wchar_t *print_box;
 

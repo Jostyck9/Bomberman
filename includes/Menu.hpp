@@ -13,6 +13,7 @@
 #include "Camera.hpp"
 #include "AScene.hpp"
 #include "background.hpp"
+#include "Sound.hpp"
 
 enum
 {
@@ -31,6 +32,11 @@ private:
     irr::gui::IGUIStaticText *texte;
     irr::video::ITexture *texture;
     irr::video::ITexture *pressed;
+    irr::video::ITexture *but_play;
+    irr::video::ITexture *but_load;
+    irr::video::ITexture *but_settings;
+    irr::video::ITexture *but_how;
+    irr::video::ITexture *but_quit;
     irr::gui::IGUIImage *title;
     irr::gui::IGUIButton *play;
     irr::gui::IGUIButton *load;

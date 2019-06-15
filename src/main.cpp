@@ -11,6 +11,7 @@
 #include "Menu.hpp"
 #include "background.hpp"
 #include "settings.hpp"
+#include "Sound.hpp"
 
 int main(void)
 {

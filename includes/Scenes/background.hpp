@@ -10,6 +10,7 @@
 
 #include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
+#include "Sound.hpp"
 
 class Background : public AScene
 {
@@ -25,6 +26,7 @@ class Background : public AScene
     scene::ISceneNode* camera;
     scene::IAnimatedMeshSceneNode * menu_map;
     scene::IAnimatedMeshSceneNode* anms;
+    Sound sound;
 };
 
 #endif

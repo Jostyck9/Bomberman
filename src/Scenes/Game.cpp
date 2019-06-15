@@ -23,9 +23,12 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     irr::s16 valy = 12.5;
 
     device->setResizable(true);
+    //sound.playGameMusic();
     std::shared_ptr<Player> p1(new Player(device, textures, path, valx, valy));
-    p1->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
-    _map.addToMap(1, 1, p1);
+    if (p1) {
+        p1->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+        _map.addToMap(1, 1, p1);
+    }
     // _map.updateColision();
     this->setCamera(camera);
 }

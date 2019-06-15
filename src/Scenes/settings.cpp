@@ -21,10 +21,11 @@ Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScen
 Settings::~Settings()
 {
     return_menu->remove();
-    // but_sound->remove();
+    but_sound->remove();
     // music->remove();
     cadre_menu->remove();
     edit_sound->remove();
+    title->remove();
 }
 
 IScene* Settings::update()
@@ -71,11 +72,13 @@ void Settings::display()
 
 bool Settings::button()
 {
-    return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_MENU, L"Return");
-    texture = this->_driver->getTexture("./assets/textures/button.png");
-    return_menu->setImage(texture);
+    return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_MENU, L"");
+    return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
+    return_menu->setImage(return_texture);
     return_menu->setScaleImage(true);
-    but_sound = guienv->addButton(irr::core::rect<irr::s32>(280,70,370,90), 0, GUI_SOUND, L"Enter");
+    return_menu->setUseAlphaChannel(true);
+    return_menu->setDrawBorder(0);
+    but_sound = guienv->addButton(irr::core::rect<irr::s32>(950,300,1050,320), 0, GUI_SOUND, L"Validate");
     // music = guienv->addButton(irr::core::rect<irr::s32>(280,110,370,130), 0, GUI_MUSIC, L"Settings");
     return (true);
 }
@@ -84,14 +87,16 @@ void Settings::print_image()
 {
     cadre_menu = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/cadre_settings.png"),
             irr::core::position2d<int>(180,110));
+    title = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/Text_settings.png"),
+            irr::core::position2d<int>(680,160));
 }
 
 void Settings::sound()
 {
-    edit_sound = guienv->addEditBox(L"Editable Text", irr::core::rect<s32>(550, 300, 600, 320));
+    edit_sound = guienv->addEditBox(L"Editable Text", irr::core::rect<s32>(900, 300, 940, 320));
     edit_sound->setDrawBorder(false);
-    edit_sound->setText(L"100");
-    edit_sound->setMax(3);
+    edit_sound->setText(L"5");
+    edit_sound->setMax(1);
     // irr::gui::IGUISkin* skin = guienv->getSkin();
     // irr::gui::IGUIFont *test = guienv->getFont("./assets/haetten.ttf");
     // if (test)

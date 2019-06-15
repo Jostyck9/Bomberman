@@ -57,10 +57,12 @@ void How_Play::display()
 
 bool How_Play::button()
 {
-    return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_HOW, L"Return");
-    texture = this->_driver->getTexture("./assets/textures/button.png");
-    return_menu->setImage(texture);
+    return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_HOW, L"");
+    return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
+    return_menu->setImage(return_texture);
     return_menu->setScaleImage(true);
+    return_menu->setUseAlphaChannel(true);
+    return_menu->setDrawBorder(0);
     return (true);
 }
 

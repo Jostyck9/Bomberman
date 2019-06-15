@@ -23,7 +23,7 @@ class How_Play : public AScene
     IScene *_background;
     irr::gui::IGUIButton *return_menu;
     irr::gui::IGUIEnvironment *guienv;
-    irr::video::ITexture *texture;
+    irr::video::ITexture *return_texture;
     irr::gui::IGUIImage *cadre;
 
     public:

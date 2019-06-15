@@ -8,9 +8,10 @@
 #include <iostream>
 #include "background.hpp"
 
-Background::Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver)
+Background::Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), sound()
 {
     createBackGround();
+    //sound.playMenuMusic();
 }
 
 Background::~Background()
@@ -18,12 +19,13 @@ Background::~Background()
     menu_map->remove();
     anms->remove();
     camera->remove();
+    //sound.
 }
 
 void Background::createBackGround()
 {
     camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(0, 3, -5), irr::core::vector3df(0,0,0));
-    menu_map = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine Room/room.obj"));
+    menu_map = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine_Room/room.obj"));
     anms = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Bomb-omb/bomb.b3d"));
     anms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     anms->setPosition(core::vector3df(0,-0.2,0));
