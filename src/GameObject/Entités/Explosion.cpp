@@ -7,7 +7,7 @@
 
 #include "Explosion.hpp"
 
-Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device)
+Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device), _index(1)
 {
     std::string path_mesh = "./assets/meshs/Strong_block/Strong_Block.b3d";
     std::vector<std::string> path_text;
@@ -25,4 +25,21 @@ Explosion::~Explosion()
 GameObject::objecType_t Explosion::getType()
 {
     return (GameObject::objectType_s::EXPLOSION);
+}
+
+void Explosion::update(Map &map, std::vector<irr::s32> &idToDel)
+{
+    double limit_max = 1;
+    irr::core::vector3df scale = getDisplayInfo().getScale();
+
+    if (scale.Z > 0.01)
+        scale.Z -= 0.01;
+    if (!_myTimer.isTimeElapsed(limit_max)) {
+        if (_myTimer.isTimeElapsed(limit_max - (limit_max / _index))) {
+            getDisplayInfo().setScale(scale);
+            _index++;
+        }
+    } else {
+        idToDel.push_back(getID());
+    }
 }

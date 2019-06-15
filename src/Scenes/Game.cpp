@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "Explosion.hpp"
 #include "Game.hpp"
 #include "Bomb.hpp"
 #include "Save.hpp"
@@ -32,6 +33,7 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
 {
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<Bomb> currentBomb = nullptr;
+    std::shared_ptr<Explosion> currentExplosion = nullptr;
 
     if (!obj)
         return;
@@ -42,6 +44,9 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
         currentBomb->update(_map, idToDel);
+    } else if (obj->getType() == GameObject::EXPLOSION) {
+        currentExplosion = std::dynamic_pointer_cast<Explosion>(obj);
+        currentExplosion->update(_map, idToDel);
     }
 }
 
