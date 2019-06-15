@@ -12,7 +12,7 @@
 
 Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device)
 {
-    // _device = device;
+    _device = device;
     irr::core::vector3df pos(pos_x * 10 - 1, pos_y * 10 - 1, -1);
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
