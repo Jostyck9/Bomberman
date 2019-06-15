@@ -17,6 +17,10 @@ class Explosion : public PrintableObject
 private:
     Timer _myTimer;
     irr::s16 _index;
+    irr::u16 _x;
+    irr::u16 _y;
+
+    void updateDammage(Map &map, std::vector<irr::s32> &idToDel);
 
 public:
     Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y);

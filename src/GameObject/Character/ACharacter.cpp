@@ -42,6 +42,6 @@ void ACharacter::applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage)
     getLife().setLife(getLife().getLife() - dammage);
 
     if (getLife().getLife() <= 0) {
-        std::cout << "YOU HAVE DIED" << std::endl;
+        idToDel.push_back(getID());
     }
 }

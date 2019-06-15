@@ -366,7 +366,7 @@ irr::core::vector2df Map::getPosition(irr::s32 id)
     return (pos);
 }
 
-const std::vector<std::shared_ptr<GameObject>> &Map::getCellObject(irr::u16 x, irr::u16 y) const
+std::vector<std::shared_ptr<GameObject>> &Map::getCellObject(irr::u16 x, irr::u16 y)
 {
     if (x >= _size || y >= _size)
         throw bomberException("Invalid position", "Map");

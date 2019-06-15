@@ -5,9 +5,11 @@
 ** Explosion.cpp
 */
 
+#include <memory>
+#include "ACharacter.hpp"
 #include "Explosion.hpp"
 
-Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device), _index(1)
+Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device), _index(1), _x(x), _y(y)
 {
     std::string path_mesh = "./assets/meshs/Wall/Wall.b3d";
     std::vector<std::string> path_text;
@@ -27,11 +29,25 @@ GameObject::objecType_t Explosion::getType()
     return (GameObject::objectType_s::EXPLOSION);
 }
 
+void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
+{
+    std::shared_ptr<ACharacter> character = nullptr;
+    std::vector<std::shared_ptr<GameObject>> &cell = map.getCellObject(_x, _y);
+
+    for (auto &it : cell) {
+        if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PLAYER) {
+            character = std::dynamic_pointer_cast<ACharacter>(it);
+            character->applyDammage(idToDel, 1);
+        }
+    }
+}
+
 void Explosion::update(Map &map, std::vector<irr::s32> &idToDel)
 {
     double limit_max = 1;
     irr::core::vector3df scale = getDisplayInfo().getScale();
 
+    updateDammage(map, idToDel);
     if (scale.Z > 1)
         scale.Z -= 1;
     if (!_myTimer.isTimeElapsed(limit_max)) {
