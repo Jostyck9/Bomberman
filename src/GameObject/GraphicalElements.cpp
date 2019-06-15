@@ -70,13 +70,11 @@ void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &m
     smgr = _device->getSceneManager();
     driver = _device->getVideoDriver();
     _mesh = smgr->getMesh(meshPath.data());
-    _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
+    _node = smgr->addAnimatedMeshSceneNode(this->_mesh, 0, id, _position, _rotation, _scale);
     if (_node) {
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        _node->setID(id);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].c_str()));
-        _node->setPosition(irr::core::vector3df(_position.X, _position.Y, _position.Z));
     }
 }
 
@@ -244,15 +242,24 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
         return (nullptr);
     ray.start = _node->getPosition();
     // TODO remove the start.X and start.Y modification when the mesh is at the right position
-    ray.start.X += 2.5;
-    ray.start.Y += 2.5;
+    // ray.start.X += 2.5;
+    // ray.start.Y += 2.5;
     ray.end = ray.start + (positionEnd).normalize() * distance;
-    // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
     res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
     if (res)
         return (res);
-    ray.start.Z += 0.5;
-    ray.end.Z += 0.5;
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
     res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
     if (res)
         return (res);

@@ -23,7 +23,7 @@ Wall::Wall(irr::IrrlichtDevice *device, std::string mesh, std::vector<std::strin
     if (isBreakable)
         this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.04));
     else
-        this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.1));
+        this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.09));
 }
 
 Wall::~Wall()
