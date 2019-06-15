@@ -16,6 +16,7 @@ Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : Prin
     std::vector<std::string> path_text;
     irr::core::vector3df pos_world_tmp(x * 10, y * 10, 0);
 
+    path_text.push_back("./assets/meshs/Wall/Lava.png");
     this->getDisplayInfo().setPosition(pos_world_tmp);
     this->getDisplayInfo().setMesh(path_text, path_mesh, GameObject::objecType_t::EXPLOSION);
     this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 7));
