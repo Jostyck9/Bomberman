@@ -242,15 +242,24 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
         return (nullptr);
     ray.start = _node->getPosition();
     // TODO remove the start.X and start.Y modification when the mesh is at the right position
-    ray.start.X += 2.5;
-    ray.start.Y += 2.5;
+    // ray.start.X += 2.5;
+    // ray.start.Y += 2.5;
     ray.end = ray.start + (positionEnd).normalize() * distance;
-    // std::cout << "x: " << ray.start.X << " y: " << ray.start.Y << " x: " << ray.end.X << " y: " << ray.end.Y << std::endl;
     res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
     if (res)
         return (res);
-    ray.start.Z += 0.5;
-    ray.end.Z += 0.5;
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
+    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    if (res)
+        return (res);
+    ray.start.Z -= 0.5;
+    ray.end.Z -= 0.5;
     res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
     if (res)
         return (res);

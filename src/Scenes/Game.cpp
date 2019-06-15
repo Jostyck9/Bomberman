@@ -20,7 +20,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
     // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
 
-    std::shared_ptr<Player> p1(new Player(device, textures, path, 9, 1));
+    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, 1));
     if (p1) {
         _map.addToMap(1, 1, p1);
     }
