@@ -14,6 +14,7 @@
 #include "AScene.hpp"
 #include "Decor.hpp"
 #include "Sound.hpp"
+#include "Play.hpp"
 
 class Game : public AScene
 {
@@ -28,6 +29,7 @@ private:
     irr::core::vector2df worldToMap(irr::s16 x, irr::s16 y, irr::u16 size);
 
 public:
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character = {1, 1, 1, 1});
     Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save = "");
     IScene* update() override;
     void display() override;
