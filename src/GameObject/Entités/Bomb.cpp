@@ -14,7 +14,7 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 {
     irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;
-    std::string path_mesh = "./assets/meshs/Bomb-omb_Animated/Untitled.b3d";
+    std::string path_mesh = "./assets/meshs/Bomb-omb/BombAnimated.b3d";
 
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
