@@ -9,55 +9,66 @@
 
 Sound::Sound() : _loop(false), _sound(nullptr)
 {
-    _engine = createIrrKlangDevice();
+    this->_engine = createIrrKlangDevice();
 
     this->_sounds.push_back("./assets/Sounds/Musics/Bianco Hills - Super Mario Sunshine.wav");
     this->_sounds.push_back("./assets/Sounds/Musics/Super Bell Hill - Super Mario 3D World.wav");
     this->_sounds.push_back("./assets/Sounds/SoundEffects/Coin.wav");
     this->_sounds.push_back("./assets/Sounds/SoundEffects/Defeat.wav");
     this->_sounds.push_back("./assets/Sounds/SoundEffects/Victory.wav");
-    this->_sounds.push_back("");
-    this->_sounds.push_back("");
-    this->_sounds.push_back("");
+    this->_sounds.push_back("./assets/Sounds/SoundEffects/Poup.wav");
+    this->_sounds.push_back("./assets/Sounds/SoundEffects/Explosion.wav");
 }
 
 void Sound::playMenuMusic()
 {
-    _sound = _engine->play3D(_sounds[1].c_str(), vec3df(0,0,0), true, false, true);
+    this->_sound = this->_engine->play3D(this->_sounds[1].c_str(), vec3df(0,0,0), true, false, true);
 }
 
 void Sound::playGameMusic()
 {
-    _sound = _engine->play3D(_sounds[0].c_str(), vec3df(0,0,0), true, false, true);
+    this->_sound = this->_engine->play3D(this->_sounds[0].c_str(), vec3df(0,0,0), true, false, true);
 }
 
 void Sound::playPutBomb()
 {
-
+    this->_sound = this->_engine->play3D(this->_sounds[5].c_str(), vec3df(0,0,0), true, false, true);
 }
 
 void Sound::playExplosionBomb()
 {
-
+    this->_sound = this->_engine->play3D(this->_sounds[6].c_str(), vec3df(0,0,0), true, false, true);
 }
 
 void Sound::playSoundWin()
 {
-    _sound = _engine->play3D(_sounds[4].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound = this->_engine->play3D(this->_sounds[4].c_str(), vec3df(0,0,0), false, false, true);
 }
 
 void Sound::playSoundDefeat()
 {
-    _sound = _engine->play3D(_sounds[3].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound = this->_engine->play3D(this->_sounds[3].c_str(), vec3df(0,0,0), false, false, true);
 }
 
 void Sound::playPowerUpEffet()
 {
-    _sound = _engine->play3D(_sounds[2].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound = this->_engine->play3D(this->_sounds[2].c_str(), vec3df(0,0,0), false, false, true);
+}
+
+void Sound::stopMe()
+{
+    this->_sound->stop();
 }
 
 void Sound::destroyMe()
 {
-    if (_sound)
-        _sound->drop();
+    if (this->_sound)
+        this->_sound->drop();
+}
+
+void Sound::setVol(wchar_t vol)
+{
+    irr::u16 n = boost::lexical_cast<irr::u16>(vol);
+    n = n * 10;
+    this->_sound->setVolume(n);
 }

@@ -8,6 +8,13 @@
 #ifndef __SOUND_HPP__
 #define __SOUND_HPP__
 
+#ifdef _WIN64
+    #include <IrrlichtDevice.h>
+#else
+    #include <irrlicht/IrrlichtDevice.h>
+#endif
+
+#include <boost/lexical_cast.hpp>
 #include <irrKlang.h>
 #include <string>
 #include <vector>
@@ -31,6 +38,8 @@ class Sound
         void playSoundDefeat();
         void playPowerUpEffet();
         void destroyMe();
+        void setVol(wchar_t);
+        void stopMe();
 };
 
 #endif //__SOUND_HPP__
