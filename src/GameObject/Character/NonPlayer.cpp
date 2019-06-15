@@ -44,13 +44,42 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
             idToDel.push_back(obj->getID());
         }
     }
-    std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     _ia.getAction(event);
-    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;
+
+    std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
+    irr::core::vector3df pos = getDisplayInfo().getPosition();
+    if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z)) {
+        if ((int)pos.X % 10 > 5)
+            pos.X = (int)pos.X / 10 * 10 + 10;
+        else if ((int)pos.X % 10 < 5)
+            pos.X = (int)pos.X / 10 * 10;
+    }
+    if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Q)) {
+        if ((int)pos.Y % 10 > 5)
+            pos.Y = (int)pos.Y / 10 * 10 + 10;
+        else if ((int)pos.Y % 10 < 5)
+            pos.Y = (int)pos.Y / 10 * 10;
+    }
+    if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S)) {
+        if ((int)pos.X % 10 > 5)
+            pos.X = (int)pos.X / 10 * 10 + 10;
+        else if ((int)pos.X % 10 < 5)
+            pos.X = (int)pos.X / 10 * 10;
+    }
+    if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D)) {
+        if ((int)pos.Y % 10 > 5)
+            pos.Y = (int)pos.Y / 10 * 10 + 10;
+        else if ((int)pos.Y % 10 < 5)
+            pos.Y = (int)pos.Y / 10 * 10;
+    }
+//    std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
+    getDisplayInfo().setPosition(pos);
+
+/*    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;
     std::cout << "q1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Q) << std::endl;
     std::cout << "s1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S) << std::endl;
     std::cout << "d1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D) << std::endl;
-    std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;
+    std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;*/
     this->getPlayerController().action(_device, event, map, getStats().getSpeed());
 }
 

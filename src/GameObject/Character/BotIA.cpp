@@ -21,15 +21,15 @@ BotIA::~BotIA()
 void BotIA::getAction(MyEventReceiver &event)
 {
     if (escapeBomb(event, checkBomb())) {
-        std::cout << "ESCAPE BOMB" << std::endl;
+        //std::cout << "ESCAPE BOMB" << std::endl;
         return;
     }
     if (findBestWay(event)) {
-        std::cout << "FIND BEST WAY" << std::endl;
+        //std::cout << "FIND BEST WAY" << std::endl;
         return;
     }
     if (breakWall(event)) {
-        std::cout << "BREAK WALL" << std::endl;
+        //std::cout << "BREAK WALL" << std::endl;
         return;
     }
     irr::u16 move = std::rand() % 4;
@@ -41,7 +41,7 @@ void BotIA::getAction(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
     if (move == 3)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
-    std::cout << "RANDOM MOVE" << std::endl;
+//    std::cout << "RANDOM MOVE" << std::endl;
 }
 
 bool BotIA::findBestWay(MyEventReceiver &event)
@@ -56,7 +56,7 @@ bool BotIA::findBestWay(MyEventReceiver &event)
 
     std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
     if (up < 5 && down < 5 && right < 5 && left < 5) {
-        std::cout << "RECURSIF NICE" << std::endl;
+ //       std::cout << "RECURSIF NICE" << std::endl;
         return false;
     }
     if (up >= left && up >= right && up >= down)
@@ -78,7 +78,7 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
     irr::s16 left = -1;
     irr::s16 right = -1;
 
-    if (range >= 4 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
+    if (range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
         return 0;
     if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
         return (getPosValue(x, y) / range);
