@@ -28,6 +28,7 @@ private:
 
     ACharacter& _parentCharacter;
 
+    void createExplosion(Map &map, irr::core::vector2di position);
     void detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core::vector2di dir);
 
 public:

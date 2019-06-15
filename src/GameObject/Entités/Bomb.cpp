@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "Explosion.hpp"
 #include "Bomb.hpp"
 #include "Wall.hpp"
 
@@ -38,11 +39,24 @@ void Bomb::setRadius(irr::u16 radius)
     _radius = radius;
 }
 
+void Bomb::createExplosion(Map &map, irr::core::vector2di position)
+{
+    std::shared_ptr<Explosion> current = nullptr;
+
+    if (position.X < 0 || position.X >= map.getSize() || position.Y < 0 || position.Y >= map.getSize())
+        return;
+    current.reset(new Explosion(_device, position.X, position.Y));
+    if (current != nullptr) {
+        map.addToMap(position.X, position.Y, current);
+    }
+}
+
 void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core::vector2di dir)
 {
     irr::s16 size = map.getSize();
     boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &cellMap = map.getMap();
 
+    createExplosion(map, irr::core::vector2di(_posMap.X, _posMap.Y));
     for (irr::u16 i = 1; i <= _radius; i++) {
         if (_posMap.X + (dir.X * i) <= 0 || _posMap.X + (dir.X * i) >= size - 1)
             return;
@@ -54,10 +68,12 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
                 if (currentWall->isBreakable()) {
                     idToDel.push_back(currentWall->getID());
                     currentWall->createPowerUp(_device, map, _posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i));
+                    createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
                 }
                 return;
             }
         }
+        createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
     }
 }
 

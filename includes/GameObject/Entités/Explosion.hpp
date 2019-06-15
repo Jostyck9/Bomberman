@@ -14,7 +14,7 @@ class Explosion : public PrintableObject
 {
 private:
 public:
-    Explosion(irr::IrrlichtDevice *device);
+    Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y);
     ~Explosion();
 
     GameObject::objecType_t getType() override;
