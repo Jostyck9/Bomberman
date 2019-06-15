@@ -58,6 +58,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
         }
     }
     this->getPlayerController().action(_device, event, map, getStats().getSpeed());
+    std::cout << map.getPosition(getID()).X << " " << map.getPosition(getID()).Y << std::endl;
 }
 
 GameObject::objecType_t Player::getType()

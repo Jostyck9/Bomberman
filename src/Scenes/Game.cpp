@@ -20,7 +20,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
     // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
 
-    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, 1));
+    std::shared_ptr<Player> p1(new Player(device, textures, path, 9, 1));
     if (p1) {
         _map.addToMap(1, 1, p1);
     }
@@ -88,8 +88,28 @@ void Game::updatePosition(std::vector<irr::s32> &idToMove)
     }
 }
 
+irr::core::vector2df Game::worldToMap(irr::s16 x, irr::s16 y, irr::u16 size)
+{
+    irr::core::vector2df res(0, -1);
+    irr::s16 bornX = -5;
+    irr::s16 bornY = -5;
+
+    for (;res.X < size; res.X++) {
+        if (x > bornX + (10 * res.X) && x <= bornX + (10 * (res.X + 1))) {
+            break;
+        }
+    }
+    for (;res.Y < size; res.Y++) {
+        if (y > bornX + (10 * res.Y) && y <= bornX + (10 * (res.Y + 1))) {
+            break;
+        }
+    }
+    return (res);
+}
+
 void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
 {
+    irr::core::vector2df newPos;
     irr::u16 x1 = 0;
     irr::u16 y1 = 0;
 
@@ -97,17 +117,19 @@ void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
         for (irr::u16 k = 0; k < this->_map.getSize(); k++) {
             for (irr::u16 x = 0; x < this->_map.getMap()[i][k].size(); x++) {
                 if (current == _map.getMap()[i][k].at(x)) {
-                    x1 = current->getPlayerController().getDisplayInfo().getPosition().X;
-                    y1 = current->getPlayerController().getDisplayInfo().getPosition().Y;
-                    if (x1 != i) {
-                        current->getPlayerController().setPosition(irr::core::vector3df(current->getPlayerController().getPosition().X, y1,0));
-                        _map.addToMap(x1 / 10, k, current);
+                    x1 = current->getDisplayInfo().getPosition().X;
+                    y1 = current->getDisplayInfo().getPosition().Y;
+                    if (!((i * 10) - 5 < x1 && x1 <= (i * 10) + 5)) {
+                        newPos = worldToMap(x1, y1, _map.getSize());
+                        _map.addToMap(newPos.X, newPos.Y, current);
                         _map.delToMap(i, k, current);
+                        return;
                     }
-                    if (y1 != k) {
-                        current->getPlayerController().setPosition(irr::core::vector3df(x1, current->getPlayerController().getPosition().Y, 0));
-                        _map.addToMap(i, y1 / 10, current);
+                    if (!((k * 10) - 5 < y1 && y1 <= (k * 10) + 5)) {
+                        newPos = worldToMap(x1, y1, _map.getSize());
+                        _map.addToMap(newPos.X, newPos.Y, current);
                         _map.delToMap(i, k, current);
+                        return;
                     }
                 }
             }
