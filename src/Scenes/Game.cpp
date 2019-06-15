@@ -26,10 +26,9 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     }
     std::shared_ptr<Player> p2(new Player(device, textures, path, 1, _map.getSize() - 2));
     if (p2) {
-        p2->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
         _map.addToMap(1, _map.getSize() - 2, p2);
     }
-    // _map.updateColision();
+    _map.updateColision();
     this->setCamera(camera);
 }
 
