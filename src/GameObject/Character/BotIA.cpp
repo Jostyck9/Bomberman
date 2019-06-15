@@ -5,6 +5,8 @@
 ** BotIA.cpp
 */
 
+#include <iostream>
+
 #include "BotIA.hpp"
 #include "Wall.hpp"
 
@@ -22,6 +24,7 @@ void BotIA::getAction(MyEventReceiver &event)
         return;
     if (findBestWay(event))
         return;
+    std::cout << "BREAK" << std::endl;
     if (breakWall(event))
         return;
     irr::u16 move = std::rand() / 4;
@@ -35,8 +38,6 @@ void BotIA::getAction(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
 }
 
-#include <iostream>
-
 bool BotIA::findBestWay(MyEventReceiver &event)
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
@@ -47,7 +48,8 @@ bool BotIA::findBestWay(MyEventReceiver &event)
     irr::s16 left = wayValue(pos.X - 1, pos.Y, BotIA::direction_t::left, 1);
 
 
-    if (up < 60 && down < 60 && right < 60 && left < 60) {
+    std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
+    if (up < 5 && down < 5 && right < 5 && left < 5) {
         std::cout << "RECURSIF NICE" << std::endl;
         return false;
     }
@@ -59,12 +61,12 @@ bool BotIA::findBestWay(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
     else if (right >= left && right >= down && right >= up)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
-    std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
     return true;
 }
 
 irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u16 range)
 {
+//    std::cout << "Pos algo X = " << x << " || y = " << y << " || dir = " << dir << std::endl;
     irr::s16 up = -1;
     irr::s16 down = -1;
     irr::s16 left = -1;
@@ -74,18 +76,18 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
         return 0;
     if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
         return (getPosValue(x, y) / range);
-    if (dir != down)
+    if (dir != BotIA::direction_t::down)
         up = wayValue(x, y + 1, BotIA::direction_t::up, range + 1);
-    if (dir != up)
+    if (dir != BotIA::direction_t::up)
         down = wayValue(x, y - 1, BotIA::direction_t::down, range + 1);
-    if (dir != left)
+    if (dir != BotIA::direction_t::left)
         right = wayValue(x + 1, y, BotIA::direction_t::right, range + 1);
-    if (dir != right)
+    if (dir != BotIA::direction_t::right)
         left = wayValue(x - 1, y, BotIA::direction_t::left, range + 1);
 
     if (up != -1 && up >= left && up >= right && up >= down)
         return up + (getPosValue(x, y) / range);
-//    std::cout << "RECURSIF UP" << std::endl;
+    //std::cout << "RECURSIF UP" << std::endl;
     if (left != -1 && left >= down && left >= right && left >= up)
         return left + (getPosValue(x, y) / range);
     //std::cout << "RECURSIF LEFT" << std::endl;
