@@ -21,7 +21,7 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
-void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
+void Player::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event)
 {
     bool update = true;
     irr::scene::ISceneNode *node = NULL;
@@ -52,7 +52,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
         }
     }
     if (update)
-        this->getPlayerController().action(_device, event, map, getStats().getSpeed());
+        this->getPlayerController().action(_device, event, map, objToAdd, getStats().getSpeed());
 }
 
 GameObject::objecType_t Player::getType()

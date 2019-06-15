@@ -38,20 +38,24 @@ void Wall::createPowerUp(irr::IrrlichtDevice *device, Map &map, irr::u16 x, irr:
     irr::u16 nb = std::rand() % 10;
 
     if (nb == 0) {
-        std::shared_ptr<GameObject> newSpeedUp(new SpeedUp(device, x, y));
-        map.addToMap(x, y, newSpeedUp);
+        std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(device, x, y));
+        if (newSpeedUp)
+            map.addToMap(x, y, newSpeedUp);
     }
     if (nb == 1) {
-        std::shared_ptr<GameObject> newFireUp(new FireUp(device, x, y));
-        map.addToMap(x, y, newFireUp);
+        std::shared_ptr<FireUp> newFireUp(new FireUp(device, x, y));
+        if (newFireUp)
+            map.addToMap(x, y, newFireUp);
     }
     if (nb == 2) {
-        std::shared_ptr<GameObject> newBombUp(new BombUp(device, x, y));
-        map.addToMap(x, y, newBombUp);
+        std::shared_ptr<BombUp> newBombUp(new BombUp(device, x, y));
+        if (newBombUp)
+            map.addToMap(x, y, newBombUp);
     }
     if (nb == 3) {
-        std::shared_ptr<GameObject> newSpeedUp(new WallPass(device, x, y));
-        map.addToMap(x, y, newSpeedUp);
+        std::shared_ptr<WallPass> newSpeedUp(new WallPass(device, x, y));
+        if (newSpeedUp)
+            map.addToMap(x, y, newSpeedUp);
     }
 }
 
