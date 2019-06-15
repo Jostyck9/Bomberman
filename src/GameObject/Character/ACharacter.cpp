@@ -5,6 +5,7 @@
 ** ACharacter.cpp
 */
 
+#include <iostream>
 #include "ACharacter.hpp"
 
 ACharacter::ACharacter(irr::IrrlichtDevice* device) : PrintableObject(device), _stats(), _score(), _life(), _controller(this->getDisplayInfo(), *this)
@@ -34,4 +35,13 @@ PlayerController &ACharacter::getPlayerController()
 GameObject::objecType_t ACharacter::getType()
 {
     return (GameObject::ACHARACTER);
+}
+
+void ACharacter::applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage)
+{
+    getLife().setLife(getLife().getLife() - dammage);
+
+    if (getLife().getLife() <= 0) {
+        idToDel.push_back(getID());
+    }
 }

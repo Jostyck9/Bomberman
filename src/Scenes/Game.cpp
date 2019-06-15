@@ -6,32 +6,39 @@
 */
 
 #include <iostream>
+#include "Explosion.hpp"
 #include "Game.hpp"
 #include "Bomb.hpp"
 #include "Save.hpp"
+#include "NonPlayer.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver),
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
-                                                                    _map(device, 21)
+                                                                    _map(device, save, 21)
 {
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
     std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
     // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
-
-    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, 1));
+    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, _map.getSize() - 2));
     if (p1) {
-        _map.addToMap(1, 1, p1);
+        _map.addToMap(1, _map.getSize() - 2, p1);
     }
-    // _map.updateColision();
+    std::shared_ptr<NonPlayer> p2(new NonPlayer(device, _map, textures, path, 1, 1));
+    if (p2) {
+        _map.addToMap(1, 1, p2);
+    }
+    _map.updateColision();
     this->setCamera(camera);
 }
 
 void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 {
     std::shared_ptr<Player> current = nullptr;
+    std::shared_ptr<NonPlayer> currentIA = nullptr;
     std::shared_ptr<Bomb> currentBomb = nullptr;
+    std::shared_ptr<Explosion> currentExplosion = nullptr;
 
     if (!obj)
         return;
@@ -39,9 +46,16 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
         current = std::dynamic_pointer_cast<Player>(obj);
         current->update(_map, idToDel, _events);
         idToMove.push_back(obj->getID());
+    } else if (obj->getType() == GameObject::NONPLAYER) {
+        currentIA = std::dynamic_pointer_cast<NonPlayer>(obj);
+        currentIA->update(_map, idToDel);
+        idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
         currentBomb->update(_map, idToDel);
+    } else if (obj->getType() == GameObject::EXPLOSION) {
+        currentExplosion = std::dynamic_pointer_cast<Explosion>(obj);
+        currentExplosion->update(_map, idToDel);
     }
 }
 
@@ -84,7 +98,7 @@ void Game::updatePosition(std::vector<irr::s32> &idToMove)
     for (auto &it : idToMove) {
         current = _map.getObject(it);
         if (current && (current->getType() == GameObject::objectType_s::PLAYER || current->getType() == GameObject::objectType_s::NONPLAYER))
-            updateMapFromPlayer(std::dynamic_pointer_cast<Player>(current));
+            updateMapFromPlayer(std::dynamic_pointer_cast<ACharacter>(current));
     }
 }
 
@@ -107,7 +121,7 @@ irr::core::vector2df Game::worldToMap(irr::s16 x, irr::s16 y, irr::u16 size)
     return (res);
 }
 
-void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
+void Game::updateMapFromPlayer(std::shared_ptr<ACharacter> current)
 {
     irr::core::vector2df newPos;
     irr::u16 x1 = 0;
