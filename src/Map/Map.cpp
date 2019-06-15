@@ -207,6 +207,7 @@ bool Map::save()
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
                 if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
@@ -215,6 +216,7 @@ bool Map::save()
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
                     file << "\t\t</nonplayer>" << std::endl;
                 }
             }
@@ -257,26 +259,25 @@ bool Map::load(const std::string &filename)
                     }
                 }
                 if (cell.first == "speedup") {
-                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i * 10, j * 10));
+                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i, j));
                     addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i * 10, j * 10));
+                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i, j));
                     addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i * 10, j * 10));
+                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i, j));
                     addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i * 10, j * 10));
+                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i, j));
                     addToMap(i, j, newWallPass);
                 }
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10));
-                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+                    std::string path = cell.second.get<std::string>("mesh");
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
@@ -285,9 +286,8 @@ bool Map::load(const std::string &filename)
                 }
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10));
-                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+                    std::string path = cell.second.get<std::string>("mesh");
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i, j));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
