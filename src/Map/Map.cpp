@@ -96,11 +96,11 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
                 addToMap(i, j, newWall);
             }
         }
@@ -240,11 +240,11 @@ bool Map::load(const std::string &filename)
             BOOST_FOREACH(ptree::value_type const& cell, v.second.get_child( "" )) {
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
                         addToMap(i, j, newWall);
                     }
                     else {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
                         addToMap(i, j, newWall);
                     }
                 }

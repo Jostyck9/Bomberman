@@ -19,10 +19,10 @@ class PlayerController
 {
 public:
     enum rotation_e {
-        UP = 0,
-        DOWN = -180,
-        LEFT = 90,
-        RIGHT = -90
+        UP = -180,
+        DOWN = 0,
+        LEFT = -90,
+        RIGHT = 90
     };
 
 private:

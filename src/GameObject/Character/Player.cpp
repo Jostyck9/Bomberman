@@ -13,14 +13,15 @@
 Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device)
 {
     _device = device;
-    irr::core::vector3df pos(pos_x, pos_y, 0);
-    irr::core::vector3df pos_r(pos_x / 10, pos_y / 10, 0);
+    irr::core::vector3df pos(pos_x * 10, pos_y * 10, 0);
+    // irr::core::vector3df pos_r(pos_x / 10, pos_y / 10, 0);
     this->getDisplayInfo().setPosition(pos);
-    this->getPlayerController().setPosition(pos_r);
+    this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+    // this->getPlayerController().setPosition(pos_r);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
-    this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,0));
-    this->getDisplayInfo().setScale(irr::core::vector3df(1.5,1.5,1.5));
+    this->getDisplayInfo().setRotation(irr::core::vector3df(0,0,0));
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
+    std::cerr << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << " " << getDisplayInfo().getPosition().Z << std::endl;
 }
 
 void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
@@ -33,6 +34,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
     // irr::u16 valx = dynamic_cast<irr::u16>(pos.X) / 10;
     // irr::u16 valy = dynamic_cast<irr::u16>(pos.Y) / 10;
 //    this->getDisplayInfo().setFrame(0, 60);
+    std::cerr << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << " " << getDisplayInfo().getPosition().Z << std::endl;
     node = getDisplayInfo().getFrontObj(4, GameObject::ITEM);
     if (node != nullptr) {
         obj = map.getObject(node);

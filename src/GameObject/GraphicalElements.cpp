@@ -70,13 +70,11 @@ void GraphicalElements::setMesh(std::vector<std::string> texture, std::string &m
     smgr = _device->getSceneManager();
     driver = _device->getVideoDriver();
     _mesh = smgr->getMesh(meshPath.data());
-    _node = smgr->addAnimatedMeshSceneNode(this->_mesh);
+    _node = smgr->addAnimatedMeshSceneNode(this->_mesh, 0, id, _position, _rotation, _scale);
     if (_node) {
         _node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        _node->setID(id);
         for (irr::u16 i = 0; i < texture.size(); i++)
             _node->setMaterialTexture(i, driver->getTexture(texture[i].c_str()));
-        _node->setPosition(irr::core::vector3df(_position.X, _position.Y, _position.Z));
     }
 }
 
