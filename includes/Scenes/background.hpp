@@ -11,6 +11,7 @@
 #include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "Sound.hpp"
+#include "Decor.hpp"
 
 class Background : public AScene
 {

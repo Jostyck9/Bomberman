@@ -59,7 +59,7 @@ IScene* Menu::update()
             break;
 
         case GUI_LOAD:
-            //next = new Game(this->_device, this->_events, "save.txt");
+            next = new Game(this->_device, this->_events, "save.txt");
             delete this;
             delete _background;
             return (next);
@@ -120,32 +120,37 @@ void Menu::setSkin()
 {
     texture = this->_driver->getTexture("./assets/textures/button.png");
     pressed = this->_driver->getTexture("./assets/textures/pressed.png");
-    but_play = this->_driver->getTexture("./assets/meshs/Menu/Button/Play.png");    
-    but_load = this->_driver->getTexture("./assets/meshs/Menu/Button/Load.png");    
+    but_play = this->_driver->getTexture("./assets/meshs/Menu/Button/Play.png");
+    but_play_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Play_pressed.png");
+    but_load = this->_driver->getTexture("./assets/meshs/Menu/Button/Load.png");
+    but_load_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Load_pressed.png");
     but_settings = this->_driver->getTexture("./assets/meshs/Menu/Button/Settings.png");
+    but_settings_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Settings_pressed.png");
     but_how = this->_driver->getTexture("./assets/meshs/Menu/Button/How.png");
+    but_how_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/How_pressed.png");
     but_quit = this->_driver->getTexture("./assets/meshs/Menu/Button/Quit.png");
+    but_quit_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Quit_pressed.png");
 
     play->setImage(but_play);
     play->setScaleImage(true);
     play->setUseAlphaChannel(true);
     play->setDrawBorder(0);
-    // play->setPressedImage(pressed);
+    play->setPressedImage(but_play_pressed);
     load->setImage(but_load);
     load->setScaleImage(true);
-    // load->setPressedImage(pressed);
+    load->setPressedImage(but_load_pressed);
     load->setUseAlphaChannel(true);
     load->setDrawBorder(0);
     settings->setImage(but_settings);
     settings->setScaleImage(true);
     settings->setUseAlphaChannel(true);
     settings->setDrawBorder(0);
-    // settings->setPressedImage(pressed);
+    settings->setPressedImage(but_settings_pressed);
     how_play->setImage(but_how);
     how_play->setScaleImage(true);
     how_play->setUseAlphaChannel(true);
     how_play->setDrawBorder(0);
-    // how_play->setPressedImage(pressed);
+    how_play->setPressedImage(but_how_pressed);
     scoreboard->setImage(texture);
     scoreboard->setScaleImage(true);
     // scoreboard->setPressedImage(pressed);
@@ -153,4 +158,6 @@ void Menu::setSkin()
     quit->setScaleImage(true);
     quit->setUseAlphaChannel(true);
     quit->setDrawBorder(0);
+    quit->setPressedImage(but_quit_pressed);
+
 }

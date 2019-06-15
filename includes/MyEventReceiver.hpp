@@ -30,9 +30,7 @@ public:
     bool IsKeyReleased(irr::EKEY_CODE keyCode) const;
     void setKeyPressed(irr::EKEY_CODE key);
     void setKeyReleased(irr::EKEY_CODE key);
-    
     irr::s32 getButtonPressed();
-
 
     MyEventReceiver();
 

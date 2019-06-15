@@ -24,6 +24,7 @@ class How_Play : public AScene
     irr::gui::IGUIButton *return_menu;
     irr::gui::IGUIEnvironment *guienv;
     irr::video::ITexture *return_texture;
+    irr::video::ITexture *return_texture_pressed;
     irr::gui::IGUIImage *cadre;
 
     public:

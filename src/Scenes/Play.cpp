@@ -5,6 +5,7 @@
 ** Play.cpp
 */
 
+#include <iostream>
 #include "Play.hpp"
 #include "Game.hpp"
 
@@ -15,7 +16,6 @@ Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     menu_play = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine_Room/room.obj"));
     menu_play->setRotation(core::vector3df(0,-34,0));
     menu_play->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    //background_play();
     button();
     Mesh();
 }
@@ -28,6 +28,18 @@ Play::~Play()
     Toad->remove();
     Peach->remove();
     menu_play->remove();
+    // Mario_IA_but->remove();
+    // Mario_Player1_but->remove();
+    // Mario_Player2_but->remove();
+    // Luigi_IA_but->remove();
+    // Luigi_Player1_but->remove();
+    // Luigi_Player2_but->remove();
+    // Toad_IA_but->remove();
+    // Toad_Player1_but->remove();
+    // Toad_Player2_but->remove();
+    // Peach_IA_but->remove();
+    // Peach_Player1_but->remove();
+    // Peach_Player2_but->remove();
     // camera_play->remove();
 }
 
@@ -49,23 +61,68 @@ IScene* Play::update()
         //     return (next);
 
         case GUI_START_GAME:
-            next = new Game(this->_device, this->_events);
+            next = new Game(this->_device, this->_events, _character);
             delete this;
             return (next);
 
-        case GUI_IA:
-            IA_but->remove();
-            Player1();
+        case GUI_Mario_IA:
+            Mario_IA_but->remove();
+            Mario_Player1();
             break;
 
-        case GUI_Player1:
-            Player1_but->remove();
-            Player2();
+        case GUI_Mario_Player1:
+            Mario_Player1_but->remove();
+            Mario_Player2();
             break;
 
-        case GUI_Player2:
-            Player2_but->remove();
-            IA();
+        case GUI_Mario_Player2:
+            Mario_Player2_but->remove();
+            Mario_IA();
+            break;
+        
+        case GUI_Luigi_IA:
+            Luigi_IA_but->remove();
+            Luigi_Player1();
+            break;
+
+        case GUI_Luigi_Player1:
+            Luigi_Player1_but->remove();
+            Luigi_Player2();
+            break;
+
+        case GUI_Luigi_Player2:
+            Luigi_Player2_but->remove();
+            Luigi_IA();
+            break;
+
+        case GUI_Toad_IA:
+            Toad_IA_but->remove();
+            Toad_Player1();
+            break;
+
+        case GUI_Toad_Player1:
+            Toad_Player1_but->remove();
+            Toad_Player2();
+            break;
+
+        case GUI_Toad_Player2:
+            Toad_Player2_but->remove();
+            Toad_IA();
+            break;
+        
+        case GUI_Peach_IA:
+            Peach_IA_but->remove();
+            Peach_Player1();
+            break;
+
+        case GUI_Peach_Player1:
+            Peach_Player1_but->remove();
+            Peach_Player2();
+            break;
+
+        case GUI_Peach_Player2:
+            Peach_Player2_but->remove();
+            Peach_IA();
             break;
 
         default:
@@ -84,36 +141,6 @@ void Play::display()
     _sceneManager->drawAll();
     guienv->drawAll();
     _driver->endScene();
-}
-
-void Play::IA()
-{
-    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/IA.png");
-    IA_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_IA, L"");
-    IA_but->setImage(IA_text);
-    IA_but->setScaleImage(true);
-    IA_but->setUseAlphaChannel(true);
-    IA_but->setDrawBorder(0);
-}
-
-void Play::Player1()
-{
-    Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Player1.png");
-    Player1_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Player1, L"");
-    Player1_but->setImage(Player1_text);
-    Player1_but->setScaleImage(true);
-    Player1_but->setUseAlphaChannel(true);
-    Player1_but->setDrawBorder(0);
-}
-
-void Play::Player2()
-{
-    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Player2.png");
-    Player2_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Player2, L"");
-    Player2_but->setImage(Player2_text);
-    Player2_but->setScaleImage(true);
-    Player2_but->setUseAlphaChannel(true);
-    Player2_but->setDrawBorder(0);
 }
 
 void Play::Mesh()
@@ -146,12 +173,29 @@ void Play::Mesh()
 bool Play::button()
 {
     Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Player1.png");
-    Player1_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Player1, L"");
-    Player1_but->setImage(Player1_text);
-    Player1_but->setScaleImage(true);
-    Player1_but->setUseAlphaChannel(true);
-    Player1_but->setDrawBorder(0);
-    return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
+    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Player2.png");
+    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/IA.png");
+    Mario_Player1_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Mario_Player1, L"");
+    Mario_Player1_but->setImage(Player1_text);
+    Mario_Player1_but->setScaleImage(true);
+    Mario_Player1_but->setUseAlphaChannel(true);
+    Mario_Player1_but->setDrawBorder(0);
+    Luigi_Player2_but = guienv->addButton(irr::core::rect<irr::s32>(480,500,620,540), 0, GUI_Luigi_Player2, L"");
+    Luigi_Player2_but->setImage(Player2_text);
+    Luigi_Player2_but->setScaleImage(true);
+    Luigi_Player2_but->setUseAlphaChannel(true);
+    Luigi_Player2_but->setDrawBorder(0);
+    Toad_IA_but = guienv->addButton(irr::core::rect<irr::s32>(740,500,840,560), 0, GUI_Toad_IA, L"");
+    Toad_IA_but->setImage(IA_text);
+    Toad_IA_but->setScaleImage(true);
+    Toad_IA_but->setUseAlphaChannel(true);
+    Toad_IA_but->setDrawBorder(0);
+    Peach_IA_but = guienv->addButton(irr::core::rect<irr::s32>(1000,500,1100,560), 0, GUI_Peach_IA, L"");
+    Peach_IA_but->setImage(IA_text);
+    Peach_IA_but->setScaleImage(true);
+    Peach_IA_but->setUseAlphaChannel(true);
+    Peach_IA_but->setDrawBorder(0);
+    // return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
     but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/Start.png");
     // return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_PLAY, L"");
     // return_menu->setImage(return_texture);
@@ -163,11 +207,142 @@ bool Play::button()
     start_game->setScaleImage(true);
     start_game->setUseAlphaChannel(true);
     start_game->setDrawBorder(0);
+    _character.Mario = _character.Player1;
+    _character.Luigi = _character.Player2;
+    _character.Toad = _character.IA;
+    _character.Peach = _character.IA;
     return (true);
 }
 
-// void Play::background_play()
-// {
-//     camera_play = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(0, 3, -5), irr::core::vector3df(0,0,0));
-    
-// }
+void Play::Mario_IA()
+{
+    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Mario_IA.png");
+    Mario_IA_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,250,560), 0, GUI_Mario_IA, L"");
+    Mario_IA_but->setImage(IA_text);
+    Mario_IA_but->setScaleImage(true);
+    Mario_IA_but->setUseAlphaChannel(true);
+    Mario_IA_but->setDrawBorder(0);
+    _character.Mario = _character.IA;
+}
+
+void Play::Mario_Player1()
+{
+    Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Mario_Player1.png");
+    Mario_Player1_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Mario_Player1, L"");
+    Mario_Player1_but->setImage(Player1_text);
+    Mario_Player1_but->setScaleImage(true);
+    Mario_Player1_but->setUseAlphaChannel(true);
+    Mario_Player1_but->setDrawBorder(0);
+    _character.Mario = _character.Player1;
+}
+
+void Play::Mario_Player2()
+{
+    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Mario_Player2.png");
+    Mario_Player2_but = guienv->addButton(irr::core::rect<irr::s32>(150,500,290,540), 0, GUI_Mario_Player2, L"");
+    Mario_Player2_but->setImage(Player2_text);
+    Mario_Player2_but->setScaleImage(true);
+    Mario_Player2_but->setUseAlphaChannel(true);
+    Mario_Player2_but->setDrawBorder(0);
+    _character.Mario = _character.Player2;
+}
+
+void Play::Luigi_IA()
+{
+    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Luigi_IA.png");
+    Luigi_IA_but = guienv->addButton(irr::core::rect<irr::s32>(480,500,580,560), 0, GUI_Luigi_IA, L"");
+    Luigi_IA_but->setImage(IA_text);
+    Luigi_IA_but->setScaleImage(true);
+    Luigi_IA_but->setUseAlphaChannel(true);
+    Luigi_IA_but->setDrawBorder(0);
+    _character.Luigi = _character.IA;
+}
+
+void Play::Luigi_Player1()
+{
+    Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Luigi_Player1.png");
+    Luigi_Player1_but = guienv->addButton(irr::core::rect<irr::s32>(480,500,620,540), 0, GUI_Luigi_Player1, L"");
+    Luigi_Player1_but->setImage(Player1_text);
+    Luigi_Player1_but->setScaleImage(true);
+    Luigi_Player1_but->setUseAlphaChannel(true);
+    Luigi_Player1_but->setDrawBorder(0);
+    _character.Luigi = _character.Player1;
+}
+
+void Play::Luigi_Player2()
+{
+    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Luigi_Player2.png");
+    Luigi_Player2_but = guienv->addButton(irr::core::rect<irr::s32>(480,500,620,540), 0, GUI_Luigi_Player2, L"");
+    Luigi_Player2_but->setImage(Player2_text);
+    Luigi_Player2_but->setScaleImage(true);
+    Luigi_Player2_but->setUseAlphaChannel(true);
+    Luigi_Player2_but->setDrawBorder(0);
+    _character.Luigi = _character.Player2;
+}
+
+void Play::Toad_IA()
+{
+    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Toad_IA.png");
+    Toad_IA_but = guienv->addButton(irr::core::rect<irr::s32>(740,500,840,560), 0, GUI_Toad_IA, L"");
+    Toad_IA_but->setImage(IA_text);
+    Toad_IA_but->setScaleImage(true);
+    Toad_IA_but->setUseAlphaChannel(true);
+    Toad_IA_but->setDrawBorder(0);
+    _character.Toad = _character.IA;
+}
+
+void Play::Toad_Player1()
+{
+    Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Toad_Player1.png");
+    Toad_Player1_but = guienv->addButton(irr::core::rect<irr::s32>(740,500,880,540), 0, GUI_Toad_Player1, L"");
+    Toad_Player1_but->setImage(Player1_text);
+    Toad_Player1_but->setScaleImage(true);
+    Toad_Player1_but->setUseAlphaChannel(true);
+    Toad_Player1_but->setDrawBorder(0);
+    _character.Toad = _character.Player1;
+}
+
+void Play::Toad_Player2()
+{
+    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Toad_Player2.png");
+    Toad_Player2_but = guienv->addButton(irr::core::rect<irr::s32>(740,500,880,540), 0, GUI_Toad_Player2, L"");
+    Toad_Player2_but->setImage(Player2_text);
+    Toad_Player2_but->setScaleImage(true);
+    Toad_Player2_but->setUseAlphaChannel(true);
+    Toad_Player2_but->setDrawBorder(0);
+    _character.Toad = _character.Player2;
+}
+
+
+void Play::Peach_IA()
+{
+    IA_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Peach_IA.png");
+    Peach_IA_but = guienv->addButton(irr::core::rect<irr::s32>(1000,500,1100,560), 0, GUI_Peach_IA, L"");
+    Peach_IA_but->setImage(IA_text);
+    Peach_IA_but->setScaleImage(true);
+    Peach_IA_but->setUseAlphaChannel(true);
+    Peach_IA_but->setDrawBorder(0);
+    _character.Peach = _character.IA;
+}
+
+void Play::Peach_Player1()
+{
+    Player1_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Peach_Player1.png");
+    Peach_Player1_but = guienv->addButton(irr::core::rect<irr::s32>(1000,500,1140,540), 0, GUI_Peach_Player1, L"");
+    Peach_Player1_but->setImage(Player1_text);
+    Peach_Player1_but->setScaleImage(true);
+    Peach_Player1_but->setUseAlphaChannel(true);
+    Peach_Player1_but->setDrawBorder(0);
+    _character.Peach = _character.Player1;
+}
+
+void Play::Peach_Player2()
+{
+    Player2_text = this->_driver->getTexture("./assets/meshs/Menu/Button/Peach_Player2.png");
+    Peach_Player2_but = guienv->addButton(irr::core::rect<irr::s32>(1000,500,1140,540), 0, GUI_Peach_Player2, L"");
+    Peach_Player2_but->setImage(Player2_text);
+    Peach_Player2_but->setScaleImage(true);
+    Peach_Player2_but->setUseAlphaChannel(true);
+    Peach_Player2_but->setDrawBorder(0);
+    _character.Peach = _character.Player2;
+}

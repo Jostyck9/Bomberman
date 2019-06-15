@@ -44,7 +44,7 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
 {
     bool checker = false;
 
-    if (!myTimer.isTimeElapsedRestart(0.01))
+    if (!myTimer.isTimeElapsedRestart(1 / 60))
         return;
     if (events.IsKeyDown(_keyMap.getBackward())) {
         setRotation(irr::EKA_MOVE_BACKWARD);
@@ -106,10 +106,13 @@ void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
         return;
     player.getStats().setNbrBomb(player.getStats().getNbrBomb() - 1);
 
-    std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius(), posMap));
-    map.addToMap(posMap.X, posMap.Y, bomb);
-
-    map.updateColision();
+    try {
+        std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius(), posMap));
+        map.addToMap(posMap.X, posMap.Y, bomb);
+        map.updateColision();
+    } catch (bomberException &e){
+        player.getStats().setNbrBomb(player.getStats().getNbrBomb() + 1);
+    }
 }
 
 void PlayerController::setRotation(irr::EKEY_ACTION action)
@@ -164,7 +167,6 @@ void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
     default:
         return;
     }
-    // std::cout << "x: " << position.X << "Y: " << position.Y << std::endl;
     _displayInfo.setPosition(position);
 }
 

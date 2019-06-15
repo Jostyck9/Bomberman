@@ -11,6 +11,7 @@
 Background::Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver), sound()
 {
     createBackGround();
+    //Decor(device, "./assets/meshs/Bomb-omb/bomb.b3d", irr::core::vector3df(0,-0.2,0), irr::core::vector3df(0,145,0), irr::core::vector3df(1,1,1));
     //sound.playMenuMusic();
 }
 
@@ -18,7 +19,7 @@ Background::~Background()
 {
     menu_map->remove();
     anms->remove();
-    camera->remove();
+    // camera->remove();
     //sound.
 }
 

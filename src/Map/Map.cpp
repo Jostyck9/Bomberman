@@ -24,17 +24,17 @@
 #include "WallPass.hpp"
 #include "Wall.hpp"
 #include "Player.hpp"
-
-Map::Map(irr::IrrlichtDevice *device, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _size(size)
-{
-    srand(time(NULL));
-    genMap(_size);
-    setMap();
-}
+#include "NonPlayer.hpp"
 
 Map::Map(irr::IrrlichtDevice *device, const std::string &save, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _size(size)
 {
-    load(save);
+    srand(time(NULL));
+    if (save == "") {
+        genMap(_size);
+        setMap();
+    }
+    else
+        load(save);
 }
 
 Map::~Map()
@@ -96,11 +96,11 @@ void Map::setMap()
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
                 addToMap(i, j, newWall);
             }
         }
@@ -209,6 +209,14 @@ bool Map::save()
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
+                if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
+                    file << "\t\t<nonplayer>" << std::endl;
+                    file << "\t\t\t<nbrbomb>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getNbrBomb() << "</nbrbomb>" <<std::endl;
+                    file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
+                    file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
+                    file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t</nonplayer>" << std::endl;
+                }
             }
             file << "\t</cell>" << std::endl;
         }
@@ -240,11 +248,11 @@ bool Map::load(const std::string &filename)
             BOOST_FOREACH(ptree::value_type const& cell, v.second.get_child( "" )) {
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Block.obj", wall, i, j, false));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
                         addToMap(i, j, newWall);
                     }
                     else {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.obj", brkwall, i, j, true));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
                         addToMap(i, j, newWall);
                     }
                 }
@@ -264,10 +272,22 @@ bool Map::load(const std::string &filename)
                     std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i * 10, j * 10));
                     addToMap(i, j, newWallPass);
                 }
-                if (cell.first == "Player") {
+                if (cell.first == "player") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Bomb/ItmBombhei.obj";
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j));
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10));
+                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
+                    player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
+                    player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
+                    player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
+                    player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
+                    addToMap(i, j, player);
+                }
+                if (cell.first == "nonplayer") {
+                    std::vector<std::string> textures;
+                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10));
+                    player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                     player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                     player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                     player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
@@ -290,7 +310,7 @@ void Map::updateColision()
     for (irr::u16 x = 0; x < getSize(); x++) {
         for (irr::u16 y = 0; y < getSize(); y++) {
             for (auto it : _map[x][y]) {
-                if (it->getType() == GameObject::PLAYER) {
+                if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::NONPLAYER) {
                     current = std::dynamic_pointer_cast<PrintableObject>(it);
                     if (current)
                         current->updateColision();

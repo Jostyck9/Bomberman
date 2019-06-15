@@ -26,7 +26,6 @@ private:
     irr::u16 _size;
 
 public:
-    Map(irr::IrrlichtDevice *device, irr::u16 size);
     Map(irr::IrrlichtDevice *device, const std::string &save, irr::u16 size);
     ~Map();
 

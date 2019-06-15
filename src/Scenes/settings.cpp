@@ -74,10 +74,12 @@ bool Settings::button()
 {
     return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_MENU, L"");
     return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
+    return_texture_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Return_pressed.png");
     return_menu->setImage(return_texture);
     return_menu->setScaleImage(true);
     return_menu->setUseAlphaChannel(true);
     return_menu->setDrawBorder(0);
+    return_menu->setPressedImage(return_texture_pressed);
     but_sound = guienv->addButton(irr::core::rect<irr::s32>(950,300,1050,320), 0, GUI_SOUND, L"Validate");
     // music = guienv->addButton(irr::core::rect<irr::s32>(280,110,370,130), 0, GUI_MUSIC, L"Settings");
     return (true);

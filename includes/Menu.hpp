@@ -33,10 +33,15 @@ private:
     irr::video::ITexture *texture;
     irr::video::ITexture *pressed;
     irr::video::ITexture *but_play;
+    irr::video::ITexture *but_play_pressed;
     irr::video::ITexture *but_load;
+    irr::video::ITexture *but_load_pressed;
     irr::video::ITexture *but_settings;
+    irr::video::ITexture *but_settings_pressed;
     irr::video::ITexture *but_how;
+    irr::video::ITexture *but_how_pressed;
     irr::video::ITexture *but_quit;
+    irr::video::ITexture *but_quit_pressed;
     irr::gui::IGUIImage *title;
     irr::gui::IGUIButton *play;
     irr::gui::IGUIButton *load;
