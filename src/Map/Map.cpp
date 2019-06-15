@@ -91,16 +91,16 @@ void Map::setMap()
     std::vector<std::string> brkwall;
     std::vector<std::string> wall;
 
-    brkwall.push_back("./assets/meshs/Brick_block/brick.png");
-    wall.push_back("./assets/meshs/Strong_block/block.png");
+    brkwall.push_back("./assets/meshs/Wall/Breakable_Block.png");
+    wall.push_back("./assets/meshs/Wall/Unbreakable_Block.png");
     for (irr::u16 i = 0; i < _mapGen.size(); i++) {
         for (irr::u16 j = 0; j < _mapGen.size(); j++) {
             if (_mapGen.at(i).at(j) == 'X') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", wall, i, j, false));
                 addToMap(i, j, newWall);
             }
             if (_mapGen.at(i).at(j) == 'O') {
-                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
+                std::shared_ptr<GameObject> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", brkwall, i, j, true));
                 addToMap(i, j, newWall);
             }
         }
@@ -222,8 +222,8 @@ bool Map::load(const std::string &filename)
     std::vector<std::string> brkwall;
     std::vector<std::string> wall;
 
-    brkwall.push_back("./assets/meshs/Brick_block/brick.png");
-    wall.push_back("./assets/meshs/Strong_block/block.png");
+    brkwall.push_back("./assets/meshs/Wall/Breakable_Block.png");
+    wall.push_back("./assets/meshs/Wall/Unbreakable_Block.png");
     std::ifstream file(filename);
     if (!file.is_open())
         return false;
@@ -240,11 +240,11 @@ bool Map::load(const std::string &filename)
             BOOST_FOREACH(ptree::value_type const& cell, v.second.get_child( "" )) {
                 if (cell.first == "wall") {
                     if (!v.second.get<bool>("wall")) {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Strong_block/Strong_Block.b3d", wall, i, j, false));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", wall, i, j, false));
                         addToMap(i, j, newWall);
                     }
                     else {
-                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Brick_block/Brick_Block.b3d", brkwall, i, j, true));
+                        std::shared_ptr<Wall> newWall(new Wall(_device, "./assets/meshs/Wall/Wall.b3d", brkwall, i, j, true));
                         addToMap(i, j, newWall);
                     }
                 }
