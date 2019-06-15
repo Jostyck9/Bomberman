@@ -236,7 +236,7 @@ bool Map::load(const std::string &filename)
     wall.push_back("./assets/meshs/Wall/Unbreakable_Block.png");
     std::ifstream file(filename);
     if (!file.is_open())
-        return false;
+        throw bomberException("Save file doesn't exist", "LoadMap");
     using boost::property_tree::ptree;
     ptree pt;
     read_xml(file, pt);
