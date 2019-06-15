@@ -76,7 +76,7 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
 
 Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel, bool forcedExplosion)
 {
-    if (!myTimer.isTimeElapsed(10) && !forcedExplosion)
+    if (!myTimer.isTimeElapsed(2) && !forcedExplosion)
         return (Action_e::NOTHING);
     idToDel.push_back(getID());
 
