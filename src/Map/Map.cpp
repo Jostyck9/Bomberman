@@ -209,6 +209,7 @@ bool Map::save()
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
                 if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
@@ -217,6 +218,7 @@ bool Map::save()
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
+                    file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
                     file << "\t\t</nonplayer>" << std::endl;
                 }
             }
@@ -236,7 +238,7 @@ bool Map::load(const std::string &filename)
     wall.push_back("./assets/meshs/Wall/Unbreakable_Block.png");
     std::ifstream file(filename);
     if (!file.is_open())
-        return false;
+        throw bomberException("Save file doesn't exist", "LoadMap");
     using boost::property_tree::ptree;
     ptree pt;
     read_xml(file, pt);

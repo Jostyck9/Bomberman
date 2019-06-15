@@ -20,7 +20,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string s
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
+    std::string path = "./assets/meshs/Luigi/luigi.b3d";
     // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
     std::shared_ptr<Player> p1(new Player(device, textures, path, 1, _map.getSize() - 2));
     if (p1) {

@@ -23,7 +23,7 @@ int main(void)
         device->drop();
         return (84);
     }
-    device->setWindowCaption(L"MarioBomber");
+    device->setWindowCaption(L"BomberMario");
     while (scene) {
         scene->display();
         scene = scene->handleEvent();
