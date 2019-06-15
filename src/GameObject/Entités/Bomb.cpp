@@ -11,15 +11,16 @@
 
 Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character)
 {
-    irr::core::vector3df pos((posMap.X * 10) - 1, (posMap.Y * 10) + 4, 0);
+    irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;
-    std::string path_mesh = "./assets/meshs/Bomb-omb/Bomb.b3d";
+    std::string path_mesh = "./assets/meshs/Bomb-omb_Animated/Untitled.b3d";
 
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setScale(irr::core::vector3df(5,5,5));
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,180));
     this->getDisplayInfo().addColision();
+    this->getDisplayInfo().setAnimation(true);
 }
 
 Bomb::~Bomb()
