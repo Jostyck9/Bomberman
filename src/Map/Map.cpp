@@ -311,7 +311,7 @@ void Map::updateColision()
     for (irr::u16 x = 0; x < getSize(); x++) {
         for (irr::u16 y = 0; y < getSize(); y++) {
             for (auto it : _map[x][y]) {
-                if (it->getType() == GameObject::PLAYER) {
+                if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::NONPLAYER) {
                     current = std::dynamic_pointer_cast<PrintableObject>(it);
                     if (current)
                         current->updateColision();

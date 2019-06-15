@@ -25,7 +25,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(devi
     if (p1) {
         _map.addToMap(1, 1, p1);
     }
-    std::shared_ptr<Player> p2(new Player(device, textures, path, 1, _map.getSize() - 2));
+    std::shared_ptr<NonPlayer> p2(new NonPlayer(device, _map, textures, path, 1, _map.getSize() - 2));
     if (p2) {
         _map.addToMap(1, _map.getSize() - 2, p2);
     }
@@ -98,7 +98,7 @@ void Game::updatePosition(std::vector<irr::s32> &idToMove)
     for (auto &it : idToMove) {
         current = _map.getObject(it);
         if (current && (current->getType() == GameObject::objectType_s::PLAYER || current->getType() == GameObject::objectType_s::NONPLAYER))
-            updateMapFromPlayer(std::dynamic_pointer_cast<Player>(current));
+            updateMapFromPlayer(std::dynamic_pointer_cast<ACharacter>(current));
     }
 }
 
@@ -121,7 +121,7 @@ irr::core::vector2df Game::worldToMap(irr::s16 x, irr::s16 y, irr::u16 size)
     return (res);
 }
 
-void Game::updateMapFromPlayer(std::shared_ptr<Player> current)
+void Game::updateMapFromPlayer(std::shared_ptr<ACharacter> current)
 {
     irr::core::vector2df newPos;
     irr::u16 x1 = 0;
