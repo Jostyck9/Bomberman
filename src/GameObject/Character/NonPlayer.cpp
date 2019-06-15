@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include "NonPlayer.hpp"
+#include "Wall.hpp"
+#include "AItem.hpp"
 
 NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device), _ia(map, *this)
 {
@@ -15,7 +17,7 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::str
     this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(0,0,0));
-    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
 void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
@@ -30,6 +32,18 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
         pos.Y = (int)pos.Y / 10 * 10;
         getDisplayInfo().setPosition(pos);
     }*/
+    irr::scene::ISceneNode *node = NULL;
+    std::shared_ptr<GameObject> obj = nullptr;
+    irr::core::vector3df newPos;
+
+    node = getDisplayInfo().getFrontObj(4, GameObject::ITEM);
+    if (node != nullptr) {
+        obj = map.getObject(node);
+        if (obj) {
+            std::dynamic_pointer_cast<AItem>(obj)->applyEffect(*this);
+            idToDel.push_back(obj->getID());
+        }
+    }
     std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     _ia.getAction(event);
     std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;

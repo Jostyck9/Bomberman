@@ -20,14 +20,19 @@ BotIA::~BotIA()
 
 void BotIA::getAction(MyEventReceiver &event)
 {
-    if (escapeBomb(event, checkBomb()))
+    if (escapeBomb(event, checkBomb())) {
+        std::cout << "ESCAPE BOMB" << std::endl;
         return;
-    if (findBestWay(event))
+    }
+    if (findBestWay(event)) {
+        std::cout << "FIND BEST WAY" << std::endl;
         return;
-    std::cout << "BREAK" << std::endl;
-    if (breakWall(event))
+    }
+    if (breakWall(event)) {
+        std::cout << "BREAK WALL" << std::endl;
         return;
-    irr::u16 move = std::rand() / 4;
+    }
+    irr::u16 move = std::rand() % 4;
     if (move == 0)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
     if (move == 1)
@@ -36,6 +41,7 @@ void BotIA::getAction(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
     if (move == 3)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+    std::cout << "RANDOM MOVE" << std::endl;
 }
 
 bool BotIA::findBestWay(MyEventReceiver &event)
