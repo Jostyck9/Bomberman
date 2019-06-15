@@ -54,7 +54,7 @@ bool BotIA::findBestWay(MyEventReceiver &event)
     irr::s16 left = wayValue(pos.X - 1, pos.Y, BotIA::direction_t::left, 1);
 
 
-    std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
+    // std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
     if (up < 5 && down < 5 && right < 5 && left < 5) {
  //       std::cout << "RECURSIF NICE" << std::endl;
         return false;
@@ -190,7 +190,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
 
-    std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
+    // std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
     if (direction == UNKNOWN)
         return false;
     if (direction == left) {

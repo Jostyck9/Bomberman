@@ -46,7 +46,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
     }
     _ia.getAction(event);
 
-    std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
+    // std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     irr::core::vector3df pos = getDisplayInfo().getPosition();
     irr::core::vector2df posMap = map.getPosition(getID());
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z)) {
@@ -61,7 +61,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D)) {
         pos.Y = posMap.Y * 10;
     }
-    std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
+    // std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     getDisplayInfo().setPosition(pos);
 
 /*    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;

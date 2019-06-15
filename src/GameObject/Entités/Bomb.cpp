@@ -26,7 +26,7 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 
 Bomb::~Bomb()
 {
-    std::cout << "BOOOUUUMMM" << std::endl;
+    // std::cout << "BOOOUUUMMM" << std::endl;
 }
 
 irr::u16 Bomb::getRadius()
@@ -41,14 +41,11 @@ void Bomb::setRadius(irr::u16 radius)
 
 void Bomb::createExplosion(Map &map, irr::core::vector2di position)
 {
-    std::shared_ptr<Explosion> current = nullptr;
-
     if (position.X < 0 || position.X >= map.getSize() || position.Y < 0 || position.Y >= map.getSize())
         return;
-    current.reset(new Explosion(_device, position.X, position.Y));
-    if (current != nullptr) {
+    std::shared_ptr<GameObject> current(new Explosion(_device, position.X, position.Y));
+    if (current)
         map.addToMap(position.X, position.Y, current);
-    }
 }
 
 void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core::vector2di dir)
@@ -79,7 +76,7 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
 
 Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel, bool forcedExplosion)
 {
-    if (!myTimer.isTimeElapsed(3) && !forcedExplosion)
+    if (!myTimer.isTimeElapsed(10) && !forcedExplosion)
         return (Action_e::NOTHING);
     idToDel.push_back(getID());
 
