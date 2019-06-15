@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "MapWrapper.hpp"
 #include "Explosion.hpp"
 #include "Game.hpp"
 #include "Bomb.hpp"
@@ -33,7 +34,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string s
     this->setCamera(camera);
 }
 
-void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
+void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd)
 {
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<NonPlayer> currentIA = nullptr;
@@ -44,19 +45,28 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
         return;
     if (obj->getType() == GameObject::PLAYER) {
         current = std::dynamic_pointer_cast<Player>(obj);
-        current->update(_map, idToDel, _events);
+        current->update(_map, idToDel, objToAdd,_events);
         idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::NONPLAYER) {
         currentIA = std::dynamic_pointer_cast<NonPlayer>(obj);
-        currentIA->update(_map, idToDel);
+        currentIA->update(_map, idToDel, objToAdd);
         idToMove.push_back(obj->getID());
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
-        currentBomb->update(_map, idToDel);
+        currentBomb->update(_map, idToDel, objToAdd);
     } else if (obj->getType() == GameObject::EXPLOSION) {
         currentExplosion = std::dynamic_pointer_cast<Explosion>(obj);
-        currentExplosion->update(_map, idToDel);
+        currentExplosion->update(_map, idToDel, objToAdd);
     }
+}
+
+void Game::addObj(std::vector<MapWrapper> &objToAdd)
+{
+    for (auto &it : objToAdd) {
+        _map.addToMap(it.getPos().X, it.getPos().Y, it.getObj());
+    }
+    if (!objToAdd.empty())
+        _map.updateColision();
 }
 
 void Game::deleteObj(std::vector<irr::s32> &idToDel)
@@ -72,6 +82,7 @@ IScene* Game::update()
 {
     std::vector<irr::s32> idToDel;
     std::vector<irr::s32> idToMove;
+    std::vector<MapWrapper> objToAdd;
 
     if (!_device->run()) {
         delete this;
@@ -80,12 +91,13 @@ IScene* Game::update()
     for (irr::u16 x = 0; x < _map.getSize(); x++) {
         for (irr::u16 y = 0; y < _map.getSize(); y++) {
             for (auto &it : _map.getMap()[x][y]) {
-                updateObj(it, idToDel, idToMove);
+                updateObj(it, idToDel, idToMove, objToAdd);
             }
         }
     }
     updatePosition(idToMove);
     deleteObj(idToDel);
+    addObj(objToAdd);
 
     _events.resetKeys();
     return (this);

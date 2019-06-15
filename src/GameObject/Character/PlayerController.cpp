@@ -40,7 +40,7 @@ GraphicalElements &PlayerController::getDisplayInfo()
     return (_displayInfo);
 }
 
-void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, irr::u16 speed)
+void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, std::vector<MapWrapper> &objToAdd, irr::u16 speed)
 {
     bool checker = false;
 
@@ -74,11 +74,11 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
         this->getDisplayInfo().setAnimation(false);
     }
     if (events.IsKeyReleased(_keyMap.getAction())) {
-        createBomb(device, map);
+        createBomb(device, map, objToAdd);
     }
 }
 
-void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
+void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map, std::vector<MapWrapper> &objToAdd)
 {
     ACharacter &player = reinterpret_cast<ACharacter&>(_player);
     irr::f32 rotation = player.getDisplayInfo().getRotation().Z;
@@ -107,9 +107,12 @@ void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map)
     player.getStats().setNbrBomb(player.getStats().getNbrBomb() - 1);
 
     try {
-        std::shared_ptr<Bomb> bomb(new Bomb(device, player, player.getStats().getBombRadius(), posMap));
-        map.addToMap(posMap.X, posMap.Y, bomb);
-        map.updateColision();
+        MapWrapper bomb(posMap.X, posMap.Y, std::shared_ptr<GameObject>(new Bomb(device, player, player.getStats().getBombRadius(), posMap)));
+        if (bomb.getObj()) {
+            objToAdd.push_back(bomb);
+            // map.addToMap(posMap.X, posMap.Y, bomb);
+            // map.updateColision();
+        }
     } catch (bomberException &e){
         player.getStats().setNbrBomb(player.getStats().getNbrBomb() + 1);
     }
