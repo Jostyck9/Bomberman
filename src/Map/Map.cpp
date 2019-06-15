@@ -26,16 +26,15 @@
 #include "Player.hpp"
 #include "NonPlayer.hpp"
 
-Map::Map(irr::IrrlichtDevice *device, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _size(size)
-{
-    srand(time(NULL));
-    genMap(_size);
-    setMap();
-}
-
 Map::Map(irr::IrrlichtDevice *device, const std::string &save, irr::u16 size) : _device(device), _map(boost::extents[size][size]), _size(size)
 {
-    load(save);
+    srand(time(NULL));
+    if (save == "") {
+        genMap(_size);
+        setMap();
+    }
+    else
+        load(save);
 }
 
 Map::~Map()

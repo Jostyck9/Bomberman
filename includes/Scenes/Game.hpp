@@ -26,7 +26,7 @@ private:
     irr::core::vector2df worldToMap(irr::s16 x, irr::s16 y, irr::u16 size);
 
 public:
-    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save = "");
     IScene* update() override;
     IScene* handleEvent() override;
     void display() override;
