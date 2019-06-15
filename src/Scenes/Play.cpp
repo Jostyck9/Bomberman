@@ -24,9 +24,9 @@ Play::~Play()
 {
     start_game->remove();
     Mario->remove();
-    // Luigi->remove();
-    // Toad->remove();
-    // Peach->remove();
+    Luigi->remove();
+    Toad->remove();
+    Peach->remove();
     menu_play->remove();
     // camera_play->remove();
 }
