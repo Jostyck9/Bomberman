@@ -12,9 +12,9 @@
 #include "Save.hpp"
 #include "NonPlayer.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver),
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
-                                                                    _map(device, 21)
+                                                                    _map(device, save, 21)
 {
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
