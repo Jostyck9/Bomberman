@@ -13,14 +13,12 @@
 Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device)
 {
     _device = device;
-    irr::core::vector3df pos(pos_x * 10, pos_y * 10, 0);
-    // irr::core::vector3df pos_r(pos_x / 10, pos_y / 10, 0);
+    irr::core::vector3df pos(pos_x * 10 - 1, pos_y * 10 - 1, -1);
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
-    // this->getPlayerController().setPosition(pos_r);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(0,0,0));
-    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
 void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
@@ -44,8 +42,6 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
             obj = map.getObject(node);
             if (obj && std::dynamic_pointer_cast<Wall>(obj)->isBreakable()) {
                 newPos = std::dynamic_pointer_cast<Wall>(obj)->getDisplayInfo().getPosition();
-                // std::cout << newPos.X << " " << newPos.Y << std::endl;
-                // std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
                 newPos.Z = -16;
                 getDisplayInfo().setPosition(newPos);
                 std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
@@ -57,8 +53,6 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
     }
     if (update)
         this->getPlayerController().action(_device, event, map, getStats().getSpeed());
-    // std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
-    // std::cout << map.getPosition(getID()).X << " " << map.getPosition(getID()).Y << std::endl;
 }
 
 GameObject::objecType_t Player::getType()
