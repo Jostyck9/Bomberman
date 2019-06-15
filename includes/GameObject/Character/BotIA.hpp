@@ -23,12 +23,24 @@ public:
     };
     typedef direction_s direction_t;
 
+    enum objValue_s {
+        BOMB = -100,
+        POWERUP = 50,
+        PLAYER = 100,
+        OTHER = 0
+    };
+    typedef objValue_s objValue_t;
+
     BotIA(Map &map, ACharacter &character);
     void getAction(MyEventReceiver &event);
     direction_t checkBomb();
     bool checkWallAround(irr::u16 x, irr::u16 y);
     bool escapeBomb(MyEventReceiver &event, direction_t direction);
     bool breakWall(MyEventReceiver &event);
+    bool findBestWay(MyEventReceiver &event);
+    irr::s16 wayValue(irr::u16 x, irr::u16 y, direction_t dir, irr::u16 range);
+    bool isInteresting(irr::u16 x, irr::u16 y);
+    irr::s16 getPosValue(irr::u16 x, irr::u16 y);
     ~BotIA();
 
 private:

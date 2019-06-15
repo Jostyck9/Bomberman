@@ -20,17 +20,110 @@ void BotIA::getAction(MyEventReceiver &event)
 {
     if (escapeBomb(event, checkBomb()))
         return;
+    if (findBestWay(event))
+        return;
     if (breakWall(event))
         return;
     irr::u16 move = std::rand() / 4;
     if (move == 0)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-        if (move == 1)
+    if (move == 1)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
     if (move == 2)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
     if (move == 3)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+}
+
+#include <iostream>
+
+bool BotIA::findBestWay(MyEventReceiver &event)
+{
+    irr::core::vector2df pos = _map.getPosition(_character.getID());
+
+    irr::s16 up = wayValue(pos.X, pos.Y + 1, BotIA::direction_t::up, 1);
+    irr::s16 down = wayValue(pos.X, pos.Y - 1, BotIA::direction_t::down, 1);
+    irr::s16 right = wayValue(pos.X + 1, pos.Y, BotIA::direction_t::right, 1);
+    irr::s16 left = wayValue(pos.X - 1, pos.Y, BotIA::direction_t::left, 1);
+
+
+    if (up < 5 && down < 5 && right < 5 && left < 5) {
+        std::cout << "RECURSIF NICE" << std::endl;
+        return false;
+    }
+    if (up >= left && up >= right && up >= down)
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
+    if (left >= down && left >= right && left >= up)
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
+    if (down >= left && down >= right && down >= up)
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
+    if (right >= left && right >= down && right >= up)
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+    std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
+    return true;
+}
+
+irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u16 range)
+{
+    irr::s16 up = -1;
+    irr::s16 down = -1;
+    irr::s16 left = -1;
+    irr::s16 right = -1;
+
+    if (range >= 4 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
+        return 0;
+    if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
+        return (getPosValue(x, y) / range);
+    if (dir != down)
+        up = wayValue(x, y + 1, BotIA::direction_t::up, range + 1);
+    if (dir != up)
+        down = wayValue(x, y - 1, BotIA::direction_t::down, range + 1);
+    if (dir != left)
+        right = wayValue(x + 1, y, BotIA::direction_t::right, range + 1);
+    if (dir != right)
+        left = wayValue(x - 1, y, BotIA::direction_t::left, range + 1);
+
+    if (up != -1 && up >= left && up >= right && up >= down)
+        return up + (getPosValue(x, y) / range);
+//    std::cout << "RECURSIF UP" << std::endl;
+    if (left != -1 && left >= down && left >= right && left >= up)
+        return left + (getPosValue(x, y) / range);
+    //std::cout << "RECURSIF LEFT" << std::endl;
+    if (down != -1 && down >= left && down >= right && down >= up)
+        return down + (getPosValue(x, y) / range);
+    //std::cout << "RECURSIF DOWN" << std::endl;
+    if (right != -1 && right >= left && right >= down && right >= up)
+        return right + (getPosValue(x, y) / range);
+    //std::cout << "RECURSIF RIGHT" << std::endl;
+    return getPosValue(x, y) / range;
+}
+
+irr::s16 BotIA::getPosValue(irr::u16 x, irr::u16 y)
+{
+    if (!_map.getMap()[x][y].empty() &&
+        (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMBUP ||
+         _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::FIREUP ||
+         _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALLPASS ||
+         _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::SPEEDUP))
+        return BotIA::objValue_t::POWERUP;
+    if (!_map.getMap()[x][y].empty() &&
+        (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::PLAYER ||
+         _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::NONPLAYER))
+        return BotIA::objValue_t::PLAYER;
+    if (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMB)
+        return BotIA::objValue_t::BOMB;
+    return BotIA::objValue_t::OTHER;
+}
+
+bool BotIA::isInteresting(irr::u16 x, irr::u16 y)
+{
+    return (!_map.getMap()[x][y].empty() &&
+            (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMBUP ||
+             _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::FIREUP ||
+             _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALLPASS ||
+             _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::SPEEDUP ||
+             _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::PLAYER ||
+             _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::NONPLAYER));
 }
 
 bool BotIA::breakWall(MyEventReceiver &event)
