@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "Explosion.hpp"
 #include "Bomb.hpp"
 #include "Wall.hpp"
 
@@ -13,7 +14,7 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 {
     irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;
-    std::string path_mesh = "./assets/meshs/Bomb-omb_Animated/Untitled.b3d";
+    std::string path_mesh = "./assets/meshs/Bomb-omb/BombAnimated.b3d";
 
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
@@ -25,7 +26,7 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 
 Bomb::~Bomb()
 {
-    std::cout << "BOOOUUUMMM" << std::endl;
+    // std::cout << "BOOOUUUMMM" << std::endl;
 }
 
 irr::u16 Bomb::getRadius()
@@ -38,11 +39,21 @@ void Bomb::setRadius(irr::u16 radius)
     _radius = radius;
 }
 
+void Bomb::createExplosion(Map &map, irr::core::vector2di position)
+{
+    if (position.X < 0 || position.X >= map.getSize() || position.Y < 0 || position.Y >= map.getSize())
+        return;
+    std::shared_ptr<GameObject> current(new Explosion(_device, position.X, position.Y));
+    if (current)
+        map.addToMap(position.X, position.Y, current);
+}
+
 void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core::vector2di dir)
 {
     irr::s16 size = map.getSize();
     boost::multi_array<std::vector<std::shared_ptr<GameObject>>, 2> &cellMap = map.getMap();
 
+    createExplosion(map, irr::core::vector2di(_posMap.X, _posMap.Y));
     for (irr::u16 i = 1; i <= _radius; i++) {
         if (_posMap.X + (dir.X * i) <= 0 || _posMap.X + (dir.X * i) >= size - 1)
             return;
@@ -54,16 +65,18 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
                 if (currentWall->isBreakable()) {
                     idToDel.push_back(currentWall->getID());
                     currentWall->createPowerUp(_device, map, _posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i));
+                    // createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
                 }
                 return;
             }
         }
+        createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
     }
 }
 
-Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel)
+Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel, bool forcedExplosion)
 {
-    if (!myTimer.isTimeElapsed(3))
+    if (!myTimer.isTimeElapsed(2) && !forcedExplosion)
         return (Action_e::NOTHING);
     idToDel.push_back(getID());
 

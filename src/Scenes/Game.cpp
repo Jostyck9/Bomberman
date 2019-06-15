@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "Explosion.hpp"
 #include "Game.hpp"
 #include "Bomb.hpp"
 #include "Save.hpp"
@@ -17,20 +18,17 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string s
 {
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
-    if (save == "") {
-        std::vector<std::string> textures;
-        std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
-        // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
-        std::shared_ptr<Player> p1(new Player(device, textures, path, 1, 1));
-        if (p1) {
-            _map.addToMap(1, 1, p1);
-        }
-        std::shared_ptr<NonPlayer> p2(new NonPlayer(device, _map, textures, path, 1, _map.getSize() - 2));
-        if (p2) {
-            _map.addToMap(1, _map.getSize() - 2, p2);
-        }
+    std::vector<std::string> textures;
+    std::string path = "./assets/meshs/Luigi/luigiV3.b3d";
+    // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
+    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, _map.getSize() - 2));
+    if (p1) {
+        _map.addToMap(1, _map.getSize() - 2, p1);
     }
-    _map.save();
+    std::shared_ptr<NonPlayer> p2(new NonPlayer(device, _map, textures, path, 1, 1));
+    if (p2) {
+        _map.addToMap(1, 1, p2);
+    }
     _map.updateColision();
     this->setCamera(camera);
 }
@@ -40,6 +38,7 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<NonPlayer> currentIA = nullptr;
     std::shared_ptr<Bomb> currentBomb = nullptr;
+    std::shared_ptr<Explosion> currentExplosion = nullptr;
 
     if (!obj)
         return;
@@ -54,6 +53,9 @@ void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idT
     } else if (obj->getType() == GameObject::BOMB) {
         currentBomb = std::dynamic_pointer_cast<Bomb>(obj);
         currentBomb->update(_map, idToDel);
+    } else if (obj->getType() == GameObject::EXPLOSION) {
+        currentExplosion = std::dynamic_pointer_cast<Explosion>(obj);
+        currentExplosion->update(_map, idToDel);
     }
 }
 

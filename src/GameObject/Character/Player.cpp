@@ -18,7 +18,7 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setRotation(irr::core::vector3df(0,0,0));
-    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(3, 3, 4));
+    this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
 void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
@@ -44,10 +44,10 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver ev
                 newPos = std::dynamic_pointer_cast<Wall>(obj)->getDisplayInfo().getPosition();
                 newPos.Z = -16;
                 getDisplayInfo().setPosition(newPos);
-                std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
+                // std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
                 getStats().setPassThrough(false);
                 update = false;
-                std::cout << "WALLPASS" << std::endl;
+                // std::cout << "WALLPASS" << std::endl;
             }
         }
     }

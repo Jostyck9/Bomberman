@@ -36,7 +36,7 @@ public:
     void delToMap(std::shared_ptr<GameObject> obj);
     void delToMap(irr::s32 id);
     void updateColision();
-    const std::vector<std::shared_ptr<GameObject>> &getCellObject(irr::u16 x, irr::u16 y) const;
+    std::vector<std::shared_ptr<GameObject>> &getCellObject(irr::u16 x, irr::u16 y);
     std::shared_ptr<GameObject> getObject(irr::s32 id);
     std::shared_ptr<GameObject> getObject(irr::scene::ISceneNode *node);
 

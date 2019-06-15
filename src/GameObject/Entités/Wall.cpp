@@ -20,10 +20,13 @@ Wall::Wall(irr::IrrlichtDevice *device, std::string mesh, std::vector<std::strin
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(texture, mesh, GameObject::WALL);
     this->getDisplayInfo().addColision();
-    if (isBreakable)
-        this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.04));
-    else
-        this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.09));
+    if (isBreakable) {
+        // this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.04));
+        this->getDisplayInfo().setScale(irr::core::vector3df(5,5,5));
+    } else {
+        // this->getDisplayInfo().setScale(irr::core::vector3df(0.068,0.068,0.09));
+        this->getDisplayInfo().setScale(irr::core::vector3df(5,5,10));
+    }
 }
 
 Wall::~Wall()

@@ -20,14 +20,19 @@ BotIA::~BotIA()
 
 void BotIA::getAction(MyEventReceiver &event)
 {
-    if (escapeBomb(event, checkBomb()))
+    if (escapeBomb(event, checkBomb())) {
+        //std::cout << "ESCAPE BOMB" << std::endl;
         return;
-    if (findBestWay(event))
+    }
+    if (findBestWay(event)) {
+        //std::cout << "FIND BEST WAY" << std::endl;
         return;
-    std::cout << "BREAK" << std::endl;
-    if (breakWall(event))
+    }
+    if (breakWall(event)) {
+        //std::cout << "BREAK WALL" << std::endl;
         return;
-    irr::u16 move = std::rand() / 4;
+    }
+    irr::u16 move = std::rand() % 4;
     if (move == 0)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
     if (move == 1)
@@ -36,6 +41,7 @@ void BotIA::getAction(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
     if (move == 3)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+//    std::cout << "RANDOM MOVE" << std::endl;
 }
 
 bool BotIA::findBestWay(MyEventReceiver &event)
@@ -50,7 +56,7 @@ bool BotIA::findBestWay(MyEventReceiver &event)
 
     std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
     if (up < 5 && down < 5 && right < 5 && left < 5) {
-        std::cout << "RECURSIF NICE" << std::endl;
+ //       std::cout << "RECURSIF NICE" << std::endl;
         return false;
     }
     if (up >= left && up >= right && up >= down)
@@ -72,7 +78,7 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
     irr::s16 left = -1;
     irr::s16 right = -1;
 
-    if (range >= 4 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
+    if (range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
         return 0;
     if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
         return (getPosValue(x, y) / range);
@@ -112,7 +118,7 @@ irr::s16 BotIA::getPosValue(irr::u16 x, irr::u16 y)
         (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::PLAYER ||
          _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::NONPLAYER))
         return BotIA::objValue_t::PLAYER;
-    if (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMB)
+    if (!_map.getMap()[x][y].empty() && (_map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
         return BotIA::objValue_t::BOMB;
     return BotIA::objValue_t::OTHER;
 }
@@ -184,7 +190,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
 
-    std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
+    // std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
     if (direction == UNKNOWN)
         return false;
     if (direction == left) {
@@ -226,13 +232,13 @@ BotIA::direction_t BotIA::checkBomb()
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
     for (irr::u16 i = 0; i < 3; i++) {
-        if (pos.X - i >= 0 && _map.getMap()[pos.X - i][pos.Y].size() > 0 && _map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.X - i >= 0 && _map.getMap()[pos.X - i][pos.Y].size() > 0 && (_map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X - i][pos.Y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return left;
-        if (pos.X + i < _map.getSize() && _map.getMap()[pos.X + i][pos.Y].size() > 0 && _map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.X + i < _map.getSize() && _map.getMap()[pos.X + i][pos.Y].size() > 0 && (_map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X + i][pos.Y].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return right;
-        if (pos.Y - i >= 0 && _map.getMap()[pos.X][pos.Y - i].size() > 0 && _map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.Y - i >= 0 && _map.getMap()[pos.X][pos.Y - i].size() > 0 && (_map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X][pos.Y - i].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return up;
-        if (pos.Y + i < _map.getSize() && _map.getMap()[pos.X][pos.Y + i].size() > 0 && _map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::BOMB)
+        if (pos.Y + i < _map.getSize() && _map.getMap()[pos.X][pos.Y + i].size() > 0 && (_map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::BOMB || _map.getMap()[pos.X][pos.Y + i].at(0)->getType() == GameObject::objecType_t::EXPLOSION))
                 return down;
     }
     return UNKNOWN;
