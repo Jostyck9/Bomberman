@@ -68,7 +68,7 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
                 if (currentWall->isBreakable()) {
                     idToDel.push_back(currentWall->getID());
                     currentWall->createPowerUp(_device, map, _posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i));
-                    createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
+                    // createExplosion(map, irr::core::vector2di(_posMap.X + (dir.X * i), _posMap.Y + (dir.Y * i)));
                 }
                 return;
             }
@@ -77,9 +77,9 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, irr::core
     }
 }
 
-Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel)
+Bomb::Action_e Bomb::update(Map &map, std::vector<irr::s32> &idToDel, bool forcedExplosion)
 {
-    if (!myTimer.isTimeElapsed(3))
+    if (!myTimer.isTimeElapsed(3) && !forcedExplosion)
         return (Action_e::NOTHING);
     idToDel.push_back(getID());
 

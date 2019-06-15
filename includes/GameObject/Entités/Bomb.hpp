@@ -37,7 +37,7 @@ public:
 
     irr::u16 getRadius();
     void setRadius(irr::u16 _radius);
-    Action_e update(Map &map, std::vector<irr::s32> &idToDel);
+    Action_e update(Map &map, std::vector<irr::s32> &idToDel, bool forcedExplosion = false);
     objecType_t getType() override;
     ACharacter& getParentCharacter();
 };

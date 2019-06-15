@@ -7,6 +7,7 @@
 
 #include <memory>
 #include "ACharacter.hpp"
+#include "Bomb.hpp"
 #include "Explosion.hpp"
 
 Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device), _index(1), _x(x), _y(y)
@@ -32,12 +33,21 @@ GameObject::objecType_t Explosion::getType()
 void Explosion::updateDammage(Map &map, std::vector<irr::s32> &idToDel)
 {
     std::shared_ptr<ACharacter> character = nullptr;
+    std::shared_ptr<Bomb> bomb = nullptr;
     std::vector<std::shared_ptr<GameObject>> &cell = map.getCellObject(_x, _y);
 
     for (auto &it : cell) {
         if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::PLAYER) {
             character = std::dynamic_pointer_cast<ACharacter>(it);
             character->applyDammage(idToDel, 1);
+        } else if (it->getType() == GameObject::BOMB) {
+            bomb = std::dynamic_pointer_cast<Bomb>(it);
+            bomb->update(map, idToDel, true);
+        } else if (it->getType() == GameObject::SPEEDUP || 
+                    it->getType() == GameObject::BOMBUP || 
+                    it->getType() == GameObject::FIREUP || 
+                    it->getType() == GameObject::WALLPASS) {
+            idToDel.push_back(it->getID());
         }
     }
 }
