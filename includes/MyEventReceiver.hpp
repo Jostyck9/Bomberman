@@ -16,6 +16,7 @@
 
 using namespace irr;
 
+
 class MyEventReceiver : public IEventReceiver
 {
 public:

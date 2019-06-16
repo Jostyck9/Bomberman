@@ -14,7 +14,6 @@ public:
     virtual ~IScene() = default;
 
     virtual IScene* update() = 0;
-    virtual IScene* handleEvent() = 0;
     virtual void display() = 0;
 };
 

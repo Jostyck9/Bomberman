@@ -57,7 +57,8 @@ void Sound::playPowerUpEffet()
 
 void Sound::stopMe()
 {
-    this->_sound->stop();
+    if (this->_sound)
+        this->_sound->stop();
 }
 
 void Sound::destroyMe()

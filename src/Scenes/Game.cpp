@@ -13,28 +13,85 @@
 #include "Save.hpp"
 #include "NonPlayer.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save) : AScene(device, receiver),
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
-                                                                    _map(device, save, 21)
+                                                                    _map(device, "", 21),
+                                                                    _sound()
 {
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
-    std::string path = "./assets/meshs/Luigi/luigi.b3d";
-    // std::string path = "./assets/meshs/Peach/pitchv3.b3d";
-    std::shared_ptr<Player> p1(new Player(device, textures, path, 1, _map.getSize() - 2));
-    if (p1) {
-        _map.addToMap(1, _map.getSize() - 2, p1);
+    _sound.playGameMusic();
+    std::string pathLuigi = "./assets/meshs/Luigi/luigi.b3d";
+    std::string pathMario = "./assets/meshs/Mario/mario.b3d";
+    std::string pathPeach = "./assets/meshs/Peach/peach.b3d";
+    std::string pathToad = "./assets/meshs/Toad/toad.b3d";
+    if (character.Luigi == character::Player1 || character.Luigi == character::Player2) {
+        std::shared_ptr<Player> p1(new Player(device, textures, pathLuigi, 1, _map.getSize() - 2));
+        if (p1)
+            _map.addToMap(1, _map.getSize() - 2, p1);
     }
-    std::shared_ptr<NonPlayer> p2(new NonPlayer(device, _map, textures, path, 1, 1));
-    if (p2) {
-        _map.addToMap(1, 1, p2);
+    if (character.Luigi == character::IA) {
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathLuigi, 1, _map.getSize() - 2));
+        if (p1)
+            _map.addToMap(1, _map.getSize() - 2, p1);
+    }
+    if (character.Mario == character::Player1 || character.Mario == character::Player2) {
+        std::shared_ptr<Player> p1(new Player(device, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2));
+        if (p1)
+            _map.addToMap(_map.getSize() - 2, _map.getSize() - 2, p1);
+    }
+    if (character.Mario == character::IA) {
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2));
+        if (p1)
+            _map.addToMap(_map.getSize() - 2, _map.getSize() - 2, p1);
+    }
+    if (character.Peach == character::Player1 || character.Peach == character::Player2) {
+        std::shared_ptr<Player> p1(new Player(device, textures, pathPeach, _map.getSize() - 2, 1));
+        if (p1)
+            _map.addToMap(_map.getSize() - 2, 1, p1);
+    }
+    if (character.Peach == character::IA) {
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathPeach, _map.getSize() - 2, 1));
+        if (p1)
+            _map.addToMap(_map.getSize() - 2, 1, p1);
+    }
+    if (character.Toad == character::Player1 || character.Toad == character::Player2) {
+        std::shared_ptr<Player> p1(new Player(device, textures, pathToad, 1, 1));
+        if (p1)
+            _map.addToMap(1, 1, p1);
+    }
+    if (character.Toad == character::IA) {
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathToad, 1, 1));
+        if (p1)
+            _map.addToMap(1, 1, p1);
     }
     _map.updateColision();
     this->setCamera(camera);
 }
 
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save) : AScene(device, receiver),
+                                                                                       _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
+                                                                                       _map(device, save, 21),
+                                                                                       _sound()
+{
+    _ground.addColision();
+    _sound.playGameMusic();
+    Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
+    _map.updateColision();
+    this->setCamera(camera);
+}
+
+<<<<<<< HEAD
+Game::~Game()
+{
+    _sound.stopMe();
+}
+
+void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
+=======
 void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd)
+>>>>>>> master
 {
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<NonPlayer> currentIA = nullptr;
@@ -161,11 +218,6 @@ void Game::updateMapFromPlayer(std::shared_ptr<ACharacter> current)
             }
         }
     }
-}
-
-IScene* Game::handleEvent()
-{
-    return (this);
 }
 
 void Game::display()
