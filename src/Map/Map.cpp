@@ -299,11 +299,11 @@ bool Map::load(const std::string &filename)
                         player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                         player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
                         player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
-                        player->getPlayerController().getKeyMap().setAction((irr::EKEY_CODE)(cell.second.get<irr::u16>("action")));
+                        player->getPlayerController().getKeyMap().setForward((irr::EKEY_CODE)(cell.second.get<irr::u16>("up")));
+                        player->getPlayerController().getKeyMap().setBackward((irr::EKEY_CODE)(cell.second.get<irr::u16>("down")));
                         player->getPlayerController().getKeyMap().setLeft((irr::EKEY_CODE)(cell.second.get<irr::u16>("left")));
                         player->getPlayerController().getKeyMap().setRight((irr::EKEY_CODE)(cell.second.get<irr::u16>("right")));
-                        player->getPlayerController().getKeyMap().setForward((irr::EKEY_CODE)(cell.second.get<irr::u16>("forward")));
-                        player->getPlayerController().getKeyMap().setBackward((irr::EKEY_CODE)(cell.second.get<irr::u16>("backward")));
+                        player->getPlayerController().getKeyMap().setAction((irr::EKEY_CODE)(cell.second.get<irr::u16>("action")));
                         addToMap(i, j, player);
                     }
                 }
