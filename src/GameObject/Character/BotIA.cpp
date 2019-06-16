@@ -80,7 +80,7 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
     irr::s16 left = -1;
     irr::s16 right = -1;
 
-    if (range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
+    if (x <= 0 || y >= _map.getSize() || range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL))
         return 0;
     if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
         return (getPosValue(x, y) / range);

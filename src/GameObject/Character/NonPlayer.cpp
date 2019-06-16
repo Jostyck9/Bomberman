@@ -36,7 +36,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
     std::shared_ptr<GameObject> obj = nullptr;
     irr::core::vector3df newPos;
 
-    node = getDisplayInfo().getFrontObj(4, GameObject::ITEM);
+    node = getDisplayInfo().getFrontObj(5, GameObject::ITEM);
     if (node != nullptr) {
         obj = map.getObject(node);
         if (obj) {

@@ -12,7 +12,7 @@ BombUp::BombUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AI
 {
     std::string path_mesh = "./assets/meshs/Bullet_Bill/model.obj";
     std::vector<std::string> path_text;
-    irr::core::vector3df pos_world_tmp(pos_x * 10, pos_y * 10, 0);
+    irr::core::vector3df pos_world_tmp(pos_x * 10, pos_y * 10, 1);
     irr::core::vector3df pos_map_tmp(pos_x, pos_y, 0);
     this->setPosWorld(pos_world_tmp);
     this->setPosMap(pos_map_tmp);
