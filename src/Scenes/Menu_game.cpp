@@ -36,6 +36,7 @@ IScene* Settings::update()
         case GUI_RESUME:
 
         case GUI_SAVE;
+            _map.save();
             break;
 
         case GUI_QUIT_GAME:

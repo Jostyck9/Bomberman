@@ -11,6 +11,7 @@
 #include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "Game.hpp"
+#include "Map.hpp"
 
 enum
 {
