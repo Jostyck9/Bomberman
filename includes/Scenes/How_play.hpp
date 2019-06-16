@@ -8,7 +8,6 @@
 #ifndef HOW_PLAY_HPP
 #define HOW_PLAY_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "background.hpp"
 

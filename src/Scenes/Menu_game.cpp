@@ -17,11 +17,16 @@ Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map
 
 Menu_game::~Menu_game()
 {
-    resume->remove();
-    save->remove();
-    quit->remove();
-    cadre_pause->remove();
-    pause->remove();
+    if (resume)
+        resume->remove();
+    if (save)
+        save->remove();
+    if (quit)
+        quit->remove();
+    if (cadre_pause)
+        cadre_pause->remove();
+    if (pause)
+        pause->remove();
 }
 
 IScene* Menu_game::update()
@@ -45,8 +50,6 @@ IScene* Menu_game::update()
 
         case GUI_SAVE:
             _map.save();
-            // _device->getGUIEnvironment()->addMessageBox(
-            //     Load_error.c_str(), L"Game Saved");
             break;
 
         case GUI_QUIT_GAME:
@@ -79,7 +82,8 @@ void Menu_game::print_image()
             irr::core::position2d<int>(400,200));
     pause_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/pause.png");
     pause = guienv->addButton(irr::core::rect<irr::s32>(450,230,640,320), 0, 0, L"");
-    pause->setImage(pause_texture);
+    if (pause_texture)
+        pause->setImage(pause_texture);
     pause->setScaleImage(true);
     pause->setUseAlphaChannel(true);
     pause->setDrawBorder(0);
@@ -101,20 +105,25 @@ void Menu_game::setSkinButton()
     save_texture_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/save_pressed.png");
     quit_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/quit.png");
     quit_texture_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/quit_pressed.png");
-    resume->setImage(resume_texture);
+    if (resume_texture)
+        resume->setImage(resume_texture);
     resume->setScaleImage(true);
     resume->setUseAlphaChannel(true);
     resume->setDrawBorder(0);
-    resume->setPressedImage(resume_texture_pressed);
+    if (resume_texture_pressed)
+        resume->setPressedImage(resume_texture_pressed);
     save->setImage(save_texture);
     save->setScaleImage(true);
     save->setUseAlphaChannel(true);
     save->setDrawBorder(0);
-    save->setPressedImage(save_texture_pressed);
-    quit->setImage(quit_texture);
+    if (save_texture_pressed)
+        save->setPressedImage(save_texture_pressed);
+    if (quit_texture)
+        quit->setImage(quit_texture);
     quit->setScaleImage(true);
     quit->setUseAlphaChannel(true);
     quit->setDrawBorder(0);
-    quit->setPressedImage(quit_texture_pressed);
+    if (quit_texture_pressed)
+        quit->setPressedImage(quit_texture_pressed);
 
 }

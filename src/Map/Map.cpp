@@ -433,6 +433,8 @@ Map::character_t Map::checkWin()
             }
         }
     }
+    if (nbPlayer == 0)
+        return Map::character_t::NoWinner;
     if (nbPlayer > 1)
         return Map::character_t::UNKNOWN;
     return character;

@@ -22,12 +22,18 @@ Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound sound) 
 
 Play::~Play()
 {
-    start_game->remove();
-    Mario->remove();
-    Luigi->remove();
-    Toad->remove();
-    Peach->remove();
-    menu_play->remove();
+    if (start_game)
+        start_game->remove();
+    if (Mario)
+        Mario->remove();
+    if (Luigi)
+        Luigi->remove();
+    if (Toad)
+        Toad->remove();
+    if (Peach)
+        Peach->remove();
+    if (menu_play)
+        menu_play->remove();
     _sound.stopMe();
     if (_character.Mario == 0)
         Mario_Player1_but->remove();
@@ -73,7 +79,7 @@ IScene* Play::update()
         //     return (next);
 
         case GUI_START_GAME:
-            next = new Game(this->_device, this->_events, _character);
+            next = new Game(this->_device, this->_events, _sound, _character);
             delete this;
             return (next);
 
@@ -158,28 +164,36 @@ void Play::display()
 void Play::Mesh()
 {
     Mario = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Mario/mario.b3d"));
-    Mario->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    Mario->setPosition(core::vector3df(1,0,2.2));
-    Mario->setScale(core::vector3df(0.5,0.5,0.5));
-    Mario->setRotation(core::vector3df(90,145,0));
+    if (Mario) {
+        Mario->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        Mario->setPosition(core::vector3df(1,0,2.2));
+        Mario->setScale(core::vector3df(0.5,0.5,0.5));
+        Mario->setRotation(core::vector3df(90,145,0));
+    }
 
     Luigi = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Luigi/luigi.b3d"));
-    Luigi->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    Luigi->setPosition(core::vector3df(-0.5,0,1.5));
-    Luigi->setScale(core::vector3df(0.5,0.5,0.5));
-    Luigi->setRotation(core::vector3df(90,145,0));
+    if (Luigi) {
+        Luigi->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        Luigi->setPosition(core::vector3df(-0.5,0,1.5));
+        Luigi->setScale(core::vector3df(0.5,0.5,0.5));
+        Luigi->setRotation(core::vector3df(90,145,0));
+    }
 
     Toad = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Toad/toad.b3d"));
-    Toad->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    Toad->setPosition(core::vector3df(-1.5,0,1));
-    Toad->setScale(core::vector3df(0.3,0.3,0.3));
-    Toad->setRotation(core::vector3df(90,145,0));
+    if (Toad) {
+        Toad->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        Toad->setPosition(core::vector3df(-1.5,0,1));
+        Toad->setScale(core::vector3df(0.3,0.3,0.3));
+        Toad->setRotation(core::vector3df(90,145,0));
+    }
 
     Peach = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Peach/peach.b3d"));
-    Peach->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    Peach->setPosition(core::vector3df(-2.4,0,0.4));
-    Peach->setScale(core::vector3df(0.8,0.8,0.8));
-    Peach->setRotation(core::vector3df(90,145,0));
+    if (Peach) {
+        Peach->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        Peach->setPosition(core::vector3df(-2.4,0,0.4));
+        Peach->setScale(core::vector3df(0.8,0.8,0.8));
+        Peach->setRotation(core::vector3df(90,145,0));
+    }
 }
 
 bool Play::button()

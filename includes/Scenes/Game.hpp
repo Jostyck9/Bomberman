@@ -23,6 +23,7 @@ private:
     Decor _ground;
     Map _map;
     Sound _sound;
+    Sound &_menu;
     std::vector<std::shared_ptr<Decor>> _allDecors;
 
     void deleteObj(std::vector<irr::s32> &idToDel);
@@ -34,8 +35,8 @@ private:
     void creationOfDecor();
 
 public:
-    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character = {1, 1, 1, 1});
-    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save = "");
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, character character = {1, 1, 1, 1});
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, std::string save = "");
     ~Game();
     IScene* update() override;
     void display() override;
