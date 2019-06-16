@@ -34,7 +34,7 @@ void Background::createBackGround()
         anms->setScale(core::vector3df(1,1,1));
         anms->setRotation(core::vector3df(0,145,0));
     }
-    if (!menu_map) {
+    if (menu_map) {
         menu_map->setRotation(core::vector3df(0,-34,0));
         menu_map->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     }

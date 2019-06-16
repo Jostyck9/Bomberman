@@ -17,8 +17,10 @@ How_Play::How_Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScen
 
 How_Play::~How_Play()
 {
-    return_menu->remove();
-    cadre->remove();
+    if (return_menu)
+        return_menu->remove();
+    if (cadre)
+        cadre->remove();
 }
 
 IScene* How_Play::update()
@@ -60,11 +62,13 @@ bool How_Play::button()
     return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_HOW, L"");
     return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
     return_texture_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/Return_pressed.png");
-    return_menu->setImage(return_texture);
+    if (return_texture)
+        return_menu->setImage(return_texture);
     return_menu->setScaleImage(true);
     return_menu->setUseAlphaChannel(true);
     return_menu->setDrawBorder(0);
-    return_menu->setPressedImage(return_texture_pressed);
+    if (return_texture_pressed)
+        return_menu->setPressedImage(return_texture_pressed);
     return (true);
 }
 
