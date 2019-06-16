@@ -211,6 +211,11 @@ bool Map::save()
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
                     file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
+                    file << "\t\t\t<up>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getForward() << "</up>" <<std::endl;
+                    file << "\t\t\t<down>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getBackward() << "</down>" <<std::endl;
+                    file << "\t\t\t<left>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getLeft() << "</left>" <<std::endl;
+                    file << "\t\t\t<right>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getRight() << "</right>" <<std::endl;
+                    file << "\t\t\t<action>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getAction() << "</action>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
                 if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
@@ -294,6 +299,11 @@ bool Map::load(const std::string &filename)
                         player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                         player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
                         player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
+                        player->getPlayerController().getKeyMap().setForward((irr::EKEY_CODE)(cell.second.get<irr::u16>("up")));
+                        player->getPlayerController().getKeyMap().setBackward((irr::EKEY_CODE)(cell.second.get<irr::u16>("down")));
+                        player->getPlayerController().getKeyMap().setLeft((irr::EKEY_CODE)(cell.second.get<irr::u16>("left")));
+                        player->getPlayerController().getKeyMap().setRight((irr::EKEY_CODE)(cell.second.get<irr::u16>("right")));
+                        player->getPlayerController().getKeyMap().setAction((irr::EKEY_CODE)(cell.second.get<irr::u16>("action")));
                         addToMap(i, j, player);
                     }
                 }
