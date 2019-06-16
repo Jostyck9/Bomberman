@@ -89,6 +89,7 @@ class Play : public AScene
     irr::gui::IGUIEnvironment *guienv;
     irr::video::ITexture *return_texture;
     irr::video::ITexture *but_start_game;
+    irr::video::ITexture *but_start_game_pressed;
     irr::video::ITexture *IA_text;
     irr::video::ITexture *Player1_text;
     irr::video::ITexture *Player2_text;

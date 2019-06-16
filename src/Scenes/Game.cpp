@@ -13,6 +13,7 @@
 #include "Bomb.hpp"
 #include "Save.hpp"
 #include "NonPlayer.hpp"
+#include "Menu_game.hpp"
 
 Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
@@ -166,6 +167,7 @@ IScene* Game::update()
     std::vector<irr::s32> idToDel;
     std::vector<irr::s32> idToMove;
     std::vector<MapWrapper> objToAdd;
+    IScene *next = NULL;
 
     if (!_device->run()) {
         delete this;
@@ -188,6 +190,10 @@ IScene* Game::update()
         return (nullptr);
     }
 
+    if (_events.IsKeyReleased(irr::KEY_ESCAPE)) {
+        next = new Menu_game(_device, _events, _map, this, _sound);
+        return (next);
+    }
     _events.resetKeys();
     return (this);
 }

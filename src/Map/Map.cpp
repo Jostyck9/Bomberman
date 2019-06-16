@@ -211,6 +211,11 @@ bool Map::save()
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
                     file << "\t\t\t<speed>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getSpeed() << "</speed>" <<std::endl;
                     file << "\t\t\t<mesh>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getDisplayInfo().getMeshPath() << "</mesh>" <<std::endl;
+                    file << "\t\t\t<up>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getForward() << "</up>" <<std::endl;
+                    file << "\t\t\t<down>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getBackward() << "</down>" <<std::endl;
+                    file << "\t\t\t<left>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getLeft() << "</left>" <<std::endl;
+                    file << "\t\t\t<right>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getRight() << "</right>" <<std::endl;
+                    file << "\t\t\t<action>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getPlayerController().getKeyMap().getAction() << "</action>" <<std::endl;
                     file << "\t\t</player>" << std::endl;
                 }
                 if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
@@ -265,42 +270,47 @@ bool Map::load(const std::string &filename)
                     }
                 }
                 if (cell.first == "speedup") {
-                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i * 10, j * 10));
+                    std::shared_ptr<SpeedUp> newSpeedUp(new SpeedUp(_device, i, j));
                     if (newSpeedUp)
                         addToMap(i, j, newSpeedUp);
                 }
                 if (cell.first == "fireup") {
-                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i * 10, j * 10));
+                    std::shared_ptr<FireUp> newFireUp(new FireUp(_device, i, j));
                     if (newFireUp)
                         addToMap(i, j, newFireUp);
                 }
                 if (cell.first == "bombup") {
-                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i * 10, j * 10));
+                    std::shared_ptr<BombUp> newBombUp(new BombUp(_device, i, j));
                     if (newBombUp)
                         addToMap(i, j, newBombUp);
                 }
                 if (cell.first == "wallpass") {
-                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i * 10, j * 10));
+                    std::shared_ptr<WallPass> newWallPass(new WallPass(_device, i, j));
                     if (newWallPass)
                         addToMap(i, j, newWallPass);
                 }
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, (Map::character_t)cell.second.get<irr::u16>("character")));
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i, j, (Map::character_t)cell.second.get<irr::u16>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
                         player->getStats().setNbrBomb(cell.second.get<irr::u16>("nbrbomb"));
                         player->getStats().setBombRadius(cell.second.get<irr::u16>("bombradius"));
                         player->getStats().setSpeed(cell.second.get<irr::u16>("speed"));
+                        player->getPlayerController().getKeyMap().setForward((irr::EKEY_CODE)(cell.second.get<irr::u16>("up")));
+                        player->getPlayerController().getKeyMap().setBackward((irr::EKEY_CODE)(cell.second.get<irr::u16>("down")));
+                        player->getPlayerController().getKeyMap().setLeft((irr::EKEY_CODE)(cell.second.get<irr::u16>("left")));
+                        player->getPlayerController().getKeyMap().setRight((irr::EKEY_CODE)(cell.second.get<irr::u16>("right")));
+                        player->getPlayerController().getKeyMap().setAction((irr::EKEY_CODE)(cell.second.get<irr::u16>("action")));
                         addToMap(i, j, player);
                     }
                 }
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, (Map::character_t)cell.second.get<irr::u16>("character")));
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i, j, (Map::character_t)cell.second.get<irr::u16>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));

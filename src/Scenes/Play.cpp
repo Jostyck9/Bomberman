@@ -29,19 +29,30 @@ Play::~Play()
     Peach->remove();
     menu_play->remove();
     _sound.stopMe();
-    // Mario_IA_but->remove();
-    // Mario_Player1_but->remove();
-    // Mario_Player2_but->remove();
-    // Luigi_IA_but->remove();
-    // Luigi_Player1_but->remove();
-    // Luigi_Player2_but->remove();
-    // Toad_IA_but->remove();
-    // Toad_Player1_but->remove();
-    // Toad_Player2_but->remove();
-    // Peach_IA_but->remove();
-    // Peach_Player1_but->remove();
-    // Peach_Player2_but->remove();
-    // camera_play->remove();
+    if (_character.Mario == 0)
+        Mario_Player1_but->remove();
+    if (_character.Mario == 1)
+        Mario_Player2_but->remove();
+    if (_character.Mario == 2)
+        Mario_IA_but->remove();
+    if (_character.Luigi == 0)
+        Luigi_Player1_but->remove();
+    if (_character.Luigi == 1)
+        Luigi_Player2_but->remove();
+    if (_character.Luigi == 2)
+        Luigi_IA_but->remove();
+    if (_character.Toad == 0)
+        Toad_Player1_but->remove();
+    if (_character.Toad == 1)
+        Toad_Player2_but->remove();
+    if (_character.Toad == 2)
+        Toad_IA_but->remove();
+    if (_character.Peach == 0)
+        Peach_Player1_but->remove();
+    if (_character.Peach == 1)
+        Peach_Player2_but->remove();
+    if (_character.Peach == 2)
+        Peach_IA_but->remove();
 }
 
 IScene* Play::update()
@@ -162,7 +173,7 @@ void Play::Mesh()
     Toad->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     Toad->setPosition(core::vector3df(-1.5,0,1));
     Toad->setScale(core::vector3df(0.3,0.3,0.3));
-    Toad->setRotation(core::vector3df(0,145,0));
+    Toad->setRotation(core::vector3df(90,145,0));
 
     Peach = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Peach/peach.b3d"));
     Peach->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -196,18 +207,14 @@ bool Play::button()
     Peach_IA_but->setScaleImage(true);
     Peach_IA_but->setUseAlphaChannel(true);
     Peach_IA_but->setDrawBorder(0);
-    // return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
-    but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/Start.png");
-    // return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_PLAY, L"");
-    // return_menu->setImage(return_texture);
-    // return_menu->setScaleImage(true);
-    // return_menu->setUseAlphaChannel(true);
-    // return_menu->setDrawBorder(0);
-    start_game = guienv->addButton(irr::core::rect<irr::s32>(550,650,730,710), 0, GUI_START_GAME, L"");
+    but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/start_game.png");
+    but_start_game_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/start_game_pressed.png");
+    start_game = guienv->addButton(irr::core::rect<irr::s32>(500,650,730,710), 0, GUI_START_GAME, L"");
     start_game->setImage(but_start_game);
     start_game->setScaleImage(true);
     start_game->setUseAlphaChannel(true);
     start_game->setDrawBorder(0);
+    start_game->setPressedImage(but_start_game_pressed);
     _character.Mario = _character.Player1;
     _character.Luigi = _character.Player2;
     _character.Toad = _character.IA;

@@ -53,10 +53,10 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-        next = new Play(this->_device, this->_events, this->_sound);
+            next = new Play(this->_device, this->_events, this->_sound);
+            delete _background;
             delete this;
             return (next);
-            break;
 
         case GUI_LOAD:
             try {
@@ -64,14 +64,13 @@ IScene* Menu::update()
             }
             catch (std::exception) {
                 delete _background;
-                IScene *back(new Background(_device, _events));
-                _background = back;
+                _background = new Background(_device, _events);
                 _device->getGUIEnvironment()->addMessageBox(
                 Load_error.c_str(), L"No save can be load");
                 break;
             }
-            delete this;
             delete _background;
+            delete this;
             return (next);
 
         case GUI_SETTINGS:
@@ -110,7 +109,7 @@ void Menu::display()
 void Menu::tittle()
 {
     title = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/BomberMario.png"),
-            irr::core::position2d<int>(300,30));
+            irr::core::position2d<int>(250,30));
     title->setScaleImage(true);
 }
 
