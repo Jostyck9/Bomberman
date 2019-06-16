@@ -8,7 +8,6 @@
 #ifndef MENU_GAME_HPP
 #define MENU_GAME_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "Game.hpp"
 #include "Map.hpp"

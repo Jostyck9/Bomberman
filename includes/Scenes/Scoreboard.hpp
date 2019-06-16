@@ -8,7 +8,6 @@
 #ifndef SCOREBOARD_HPP
 #define SCOREBOARD_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "background.hpp"
 
