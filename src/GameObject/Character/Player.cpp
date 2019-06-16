@@ -10,7 +10,7 @@
 #include "Player.hpp"
 #include "Wall.hpp"
 
-Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y, ACharacter::character_t character) : ACharacter(device, character)
+Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y, Map::character_t character) : ACharacter(device, character)
 {
     _device = device;
     irr::core::vector3df pos(pos_x * 10 - 1, pos_y * 10 - 1, -1);

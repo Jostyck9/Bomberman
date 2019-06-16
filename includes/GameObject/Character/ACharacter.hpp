@@ -21,16 +21,7 @@ class ACharacter : public PrintableObject
 
 public:
 
-    enum character_s {
-        luigi,
-        mario,
-        peach,
-        toad,
-        UNKNOWN
-    };
-    typedef character_s character_t;
-
-    ACharacter(irr::IrrlichtDevice* device, character_t character);
+    ACharacter(irr::IrrlichtDevice* device, Map::character_t character);
     virtual ~ACharacter() = default;
 
     CharacterStats &getStats();
@@ -40,7 +31,7 @@ public:
     PlayerController &getPlayerController();
     void applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage);
     virtual void update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event = MyEventReceiver()) = 0;
-    character_t getCharacter() const;
+    Map::character_t getCharacter() const;
     GameObject::objecType_t getType();
 
 private:
@@ -48,7 +39,7 @@ private:
     Score _score;
     Life _life;
     PlayerController _controller;
-    character_t _character;
+    Map::character_t _character;
     Sound _sound;
 };
 

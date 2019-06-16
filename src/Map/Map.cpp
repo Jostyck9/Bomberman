@@ -287,7 +287,7 @@ bool Map::load(const std::string &filename)
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, cell.second.get<ACharacter::character_t>("character")));
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, cell.second.get<Map::character_t>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
@@ -300,7 +300,7 @@ bool Map::load(const std::string &filename)
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, cell.second.get<ACharacter::character_t>("character")));
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, cell.second.get<Map::character_t>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
@@ -409,10 +409,10 @@ std::vector<std::shared_ptr<GameObject>> &Map::getCellObject(irr::u16 x, irr::u1
     return (_map[x][y]);
 }
 
-ACharacter::character_t Map::checkWin()
+Map::character_t Map::checkWin()
 {
     irr::s16 nbPlayer = 0;
-    ACharacter::character_t character = ACharacter::character_t::UNKNOWN;
+    Map::character_t character = Map::character_t::UNKNOWN;
     for (irr::u16 x = 0; x < _size; x++) {
         for (irr::u16 y = 0; y < _size; y++) {
             for (auto &it : _map[x][y]) {
@@ -424,6 +424,6 @@ ACharacter::character_t Map::checkWin()
         }
     }
     if (nbPlayer > 1)
-        return ACharacter::character_t::UNKNOWN;
+        return Map::character_t::UNKNOWN;
     return character;
 }

@@ -8,7 +8,7 @@
 #include <iostream>
 #include "ACharacter.hpp"
 
-ACharacter::ACharacter(irr::IrrlichtDevice* device, character_t character) : PrintableObject(device), _stats(), _score(), _life(), _controller(_device, this->getDisplayInfo(), *this), _character(character), _sound()
+ACharacter::ACharacter(irr::IrrlichtDevice* device, Map::character_t character) : PrintableObject(device), _stats(), _score(), _life(), _controller(_device, this->getDisplayInfo(), *this), _character(character), _sound()
 {
 }
 
@@ -51,7 +51,7 @@ void ACharacter::applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage)
     }
 }
 
-ACharacter::character_t ACharacter::getCharacter() const
+Map::character_t ACharacter::getCharacter() const
 {
     return _character;
 }
