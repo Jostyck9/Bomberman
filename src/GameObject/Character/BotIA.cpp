@@ -32,15 +32,17 @@ void BotIA::getAction(MyEventReceiver &event)
         //std::cout << "BREAK WALL" << std::endl;
         return;
     }
-    irr::u16 move = std::rand() % 4;
-    if (move == 0)
-        event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
-    if (move == 1)
+
+    irr::core::vector2df pos = _map.getPosition(_character.getID());
+
+    if (pos.X - 1 >= 1 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-    if (move == 2)
-        event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-    if (move == 3)
+    else if (pos.X + 1 >= 1 && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+    else if  (pos.Y - 1 >= 0 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
+    else if  (pos.Y + 1 >= 0 && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
 //    std::cout << "RANDOM MOVE" << std::endl;
 }
 
@@ -162,6 +164,26 @@ bool BotIA::breakWall(MyEventReceiver &event)
             event.setKeyReleased(EKEY_CODE::KEY_SPACE);
             return true;
         }
+    if  (pos.Y - 1 >= 0 && !_map.getMap()[pos.X][pos.Y - 1].empty() && _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() == GameObject::objecType_t::WALL)
+        if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X][pos.Y - 1].at(0))->isBreakable()) {
+            event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
+            return true;
+        }
+    if  (pos.Y + 1 >= 0 && !_map.getMap()[pos.X][pos.Y + 1].empty() && _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() == GameObject::objecType_t::WALL)
+        if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X][pos.Y + 1].at(0))->isBreakable()) {
+            event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
+            return true;
+        }
+    if  (pos.X - 1 >= 0 && !_map.getMap()[pos.X - 1][pos.Y].empty() && _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() == GameObject::objecType_t::WALL)
+        if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X - 1][pos.Y].at(0))->isBreakable()) {
+            event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
+            return true;
+        }
+    if  (pos.X + 1 >= 0 && !_map.getMap()[pos.X + 1][pos.Y].empty() && _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() == GameObject::objecType_t::WALL)
+        if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X + 1][pos.Y].at(0))->isBreakable()) {
+            event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
+            return true;
+        }
     return false;
 }
 
@@ -196,7 +218,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
     if (direction == left) {
         if  (pos.Y - 1 >= 0 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-        if  (pos.Y + 1 < _map.getSize() && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
+        else if  (pos.Y + 1 < _map.getSize() && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
         else
             event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
@@ -204,7 +226,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
     if (direction == right) {
         if  (pos.Y - 1 >= 0 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-        if  (pos.Y + 1 < _map.getSize() && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
+        else if  (pos.Y + 1 < _map.getSize() && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
         else
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
@@ -212,7 +234,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
     if (direction == up) {
         if  (pos.X - 1 >= 0 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-        if  (pos.X + 1 < _map.getSize() && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
+        else if  (pos.X + 1 < _map.getSize() && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
         else
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
@@ -220,7 +242,7 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
     if (direction == down) {
         if  (pos.X - 1 >= 0 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-        if  (pos.X + 1 < _map.getSize() && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
+        else if  (pos.X + 1 < _map.getSize() && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
             event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
         else
             event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
