@@ -48,7 +48,7 @@ IScene* Menu_game::update()
 
         case GUI_QUIT_GAME:
             back = new Background(_device, _events);
-            next = new Menu(this->_device, this->_events, back);
+//            next = new Menu(this->_device, this->_events, back);
             delete this;
             return (next);
 

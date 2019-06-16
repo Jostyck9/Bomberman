@@ -28,7 +28,7 @@ Play::~Play()
     Toad->remove();
     Peach->remove();
     menu_play->remove();
-    sound.stopMe();
+    _sound.stopMe();
     if (_character.Mario == 0)
         Mario_Player1_but->remove();
     if (_character.Mario == 1)
