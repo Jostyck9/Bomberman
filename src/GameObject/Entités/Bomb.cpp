@@ -10,12 +10,13 @@
 #include "Bomb.hpp"
 #include "Wall.hpp"
 
-Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character)
+Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : myTimer(device), PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character), _sound()
 {
     irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;
     std::string path_mesh = "./assets/meshs/Bomb-omb/BombAnimated.b3d";
 
+    _sound.playPutBomb();
     this->getDisplayInfo().setPosition(pos);
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setScale(irr::core::vector3df(5,5,5));
@@ -26,6 +27,7 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
 
 Bomb::~Bomb()
 {
+    _sound.playExplosionBomb();
     // std::cout << "BOOOUUUMMM" << std::endl;
 }
 

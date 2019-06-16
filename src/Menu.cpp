@@ -14,12 +14,11 @@
 #include "Play.hpp"
 
 
-Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background), sound()
+Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound sound) : AScene(device, receiver, false), _background(background), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
     sizescreen = this->_driver->getScreenSize();
     device->setResizable(false);
-    sound.playMenuMusic();
     button();
     tittle();
     setSkin();
@@ -54,7 +53,7 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-        next = new Play(this->_device, this->_events, this->sound);
+        next = new Play(this->_device, this->_events, this->_sound);
             delete this;
             delete _background;
             return (next);
@@ -77,17 +76,17 @@ IScene* Menu::update()
             return (next);
 
         case GUI_SETTINGS:
-            next = new Settings(this->_device, this->_events, this->_background);
+            next = new Settings(this->_device, this->_events, this->_background, this->_sound);
             delete this;
             return (next);
 
         case GUI_HOW_TO_PLAY:
-            next = new How_Play(this->_device, this->_events, this->_background);
+            next = new How_Play(this->_device, this->_events, this->_background, this->_sound);
             delete this;
             return (next);
 
         case GUI_SCOREBOARD:
-            next = new Scoreboard(this->_device, this->_events, this->_background);
+            next = new Scoreboard(this->_device, this->_events, this->_background, this->_sound);
             delete this;
             return (next);
             break;

@@ -9,7 +9,7 @@
 #include "Play.hpp"
 #include "Game.hpp"
 
-Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound snd) : AScene(device, receiver), sound(snd)
+Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound sound) : AScene(device, receiver), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
     Camera camera(device->getSceneManager(), irr::core::vector3df(-2.1, 1, 3.2), irr::core::vector3df(0, 0, 0));

@@ -33,9 +33,10 @@ private:
     irr::gui::IGUIImage *title;
     irr::gui::IGUIEditBox *edit_sound;
     const wchar_t *print_box;
+    Sound _sound;
 
 public:
-    Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);
+    Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound);
     ~Settings();
     IScene* update() override;
     void display() override;

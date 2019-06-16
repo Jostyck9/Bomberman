@@ -26,9 +26,10 @@ class How_Play : public AScene
     irr::video::ITexture *return_texture;
     irr::video::ITexture *return_texture_pressed;
     irr::gui::IGUIImage *cadre;
+    Sound _sound;
 
     public:
-    How_Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);
+    How_Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound);
     ~How_Play();
     IScene* update() override;
     void display() override;

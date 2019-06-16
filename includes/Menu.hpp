@@ -54,10 +54,10 @@ private:
     IScene *_background;
     irr::core::dimension2d<f32> sizescreen;
     irr::core::stringw Load_error;
-    Sound sound;
+    Sound _sound;
 
 public:
-    Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);
+    Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound);
     ~Menu();
     IScene* update() override;
     void display() override;

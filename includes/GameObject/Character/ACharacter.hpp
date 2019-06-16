@@ -14,27 +14,33 @@
 #include "Score.hpp"
 #include "Life.hpp"
 #include "Map.hpp"
+#include "Sound.hpp"
 
 class ACharacter : public PrintableObject
 {
-private:
-    CharacterStats _stats;
-    Score _score;
-    Life _life;
-    PlayerController _controller;
 
 public:
-    ACharacter(irr::IrrlichtDevice* device);
+
+    ACharacter(irr::IrrlichtDevice* device, Map::character_t character);
     virtual ~ACharacter() = default;
 
     CharacterStats &getStats();
+    Sound &getSound();
     Score &getScore();
     Life &getLife();
     PlayerController &getPlayerController();
     void applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage);
     virtual void update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event = MyEventReceiver()) = 0;
-
+    Map::character_t getCharacter() const;
     GameObject::objecType_t getType();
+
+private:
+    CharacterStats _stats;
+    Score _score;
+    Life _life;
+    PlayerController _controller;
+    Map::character_t _character;
+    Sound _sound;
 };
 
 #endif

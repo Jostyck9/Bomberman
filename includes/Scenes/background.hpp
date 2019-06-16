@@ -27,7 +27,6 @@ class Background : public AScene
     scene::ISceneNode* camera;
     scene::IAnimatedMeshSceneNode * menu_map;
     scene::IAnimatedMeshSceneNode* anms;
-    Sound sound;
 };
 
 #endif

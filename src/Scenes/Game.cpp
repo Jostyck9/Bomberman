@@ -29,7 +29,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     std::string pathPeach = "./assets/meshs/Peach/peach.b3d";
     std::string pathToad = "./assets/meshs/Toad/toad.b3d";
     if (character.Luigi == character::Player1 || character.Luigi == character::Player2) {
-        std::shared_ptr<Player> p1(new Player(device, textures, pathLuigi, 1, _map.getSize() - 2));
+        std::shared_ptr<Player> p1(new Player(device, textures, pathLuigi, 1, _map.getSize() - 2, Map::character_t::luigi));
         if (character.Luigi == character::Player2) {
             p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
             p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
@@ -41,12 +41,12 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
             _map.addToMap(1, _map.getSize() - 2, p1);
     }
     if (character.Luigi == character::IA) {
-        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathLuigi, 1, _map.getSize() - 2));
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathLuigi, 1, _map.getSize() - 2, Map::character_t::luigi));
         if (p1)
             _map.addToMap(1, _map.getSize() - 2, p1);
     }
     if (character.Mario == character::Player1 || character.Mario == character::Player2) {
-        std::shared_ptr<Player> p1(new Player(device, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2));
+        std::shared_ptr<Player> p1(new Player(device, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2, Map::character_t::mario));
         if (character.Mario == character::Player2) {
             p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
             p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
@@ -58,12 +58,12 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
             _map.addToMap(_map.getSize() - 2, _map.getSize() - 2, p1);
     }
     if (character.Mario == character::IA) {
-        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2));
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2, Map::character_t::mario));
         if (p1)
             _map.addToMap(_map.getSize() - 2, _map.getSize() - 2, p1);
     }
     if (character.Peach == character::Player1 || character.Peach == character::Player2) {
-        std::shared_ptr<Player> p1(new Player(device, textures, pathPeach, _map.getSize() - 2, 1));
+        std::shared_ptr<Player> p1(new Player(device, textures, pathPeach, _map.getSize() - 2, 1, Map::character_t::peach));
         if (character.Peach == character::Player2) {
             p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
             p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
@@ -75,12 +75,12 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
             _map.addToMap(_map.getSize() - 2, 1, p1);
     }
     if (character.Peach == character::IA) {
-        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathPeach, _map.getSize() - 2, 1));
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathPeach, _map.getSize() - 2, 1, Map::character_t::peach));
         if (p1)
             _map.addToMap(_map.getSize() - 2, 1, p1);
     }
     if (character.Toad == character::Player1 || character.Toad == character::Player2) {
-        std::shared_ptr<Player> p1(new Player(device, textures, pathToad, 1, 1));
+        std::shared_ptr<Player> p1(new Player(device, textures, pathToad, 1, 1, Map::character_t::toad));
         if (character.Toad == character::Player2) {
             p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
             p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
@@ -92,7 +92,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
             _map.addToMap(1, 1, p1);
     }
     if (character.Toad == character::IA) {
-        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathToad, 1, 1));
+        std::shared_ptr<NonPlayer> p1(new NonPlayer(device, _map, textures, pathToad, 1, 1, Map::character_t::toad));
         if (p1)
             _map.addToMap(1, 1, p1);
     }

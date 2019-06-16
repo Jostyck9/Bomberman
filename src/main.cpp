@@ -21,8 +21,10 @@ int main(void)
     IrrlichtDevice *device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(1280, 720), 16, false, false, false, &receiver);
     if (!device)
         return (84);
+    Sound sound;
+    sound.playMenuMusic();
     IScene *back(new Background(device, receiver));
-    IScene *scene(new Menu(device, receiver, back));
+    IScene *scene(new Menu(device, receiver, back, sound));
     if (!scene) {
         device->drop();
         return (84);

@@ -30,16 +30,21 @@ class Sound
         std::vector<std::string> _sounds;
     public:
         Sound();
+        Sound(const Sound&);
         void playMenuMusic();
         void playGameMusic();
         void playPutBomb();
         void playExplosionBomb();
         void playSoundWin();
         void playSoundDefeat();
-        void playPowerUpEffet();
+        void playPowerUpEffect();
         void destroyMe();
         void setVol(wchar_t);
         void stopMe();
+        bool getLoop() const;
+        ISoundEngine* getEngine() const;
+        ISound* getISound() const;
+        std::vector<std::string> getSounds() const;
 };
 
 #endif //__SOUND_HPP__
