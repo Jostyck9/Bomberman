@@ -8,11 +8,11 @@
 #ifndef MENU_GAME_HPP
 #define MENU_GAME_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "Game.hpp"
 #include "Map.hpp"
 #include "background.hpp"
+#include "Sound.hpp"
 
 enum
 {
@@ -24,7 +24,7 @@ enum
 class Menu_game : public AScene
 {
     public:
-    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map, IScene *scene);
+    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map, IScene *scene, Sound);
     ~Menu_game();
     IScene* update() override;
     void display() override;
@@ -33,6 +33,7 @@ class Menu_game : public AScene
     void print_image();
 
     private:
+        Sound _sound;
         Map &_map;
         IScene *_previous;
         irr::gui::IGUIEnvironment *guienv;

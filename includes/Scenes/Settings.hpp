@@ -8,7 +8,6 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "background.hpp"
 

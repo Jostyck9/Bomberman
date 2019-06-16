@@ -22,6 +22,7 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound,
                                                                     _sound(),
                                                                     _menu(sound)
 {
+    creationOfDecor();
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
     std::vector<std::string> textures;
@@ -194,7 +195,7 @@ IScene* Game::update()
     }
 
     if (_events.IsKeyReleased(irr::KEY_ESCAPE)) {
-        next = new Menu_game(_device, _events, _map, this);
+        next = new Menu_game(_device, _events, _map, this, _sound);
         return (next);
     }
     
@@ -276,4 +277,19 @@ void Game::display()
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _sceneManager->drawAll();
     _driver->endScene();
+}
+
+//Decor::Decor(device, mesh, pos, rotation, scale)
+
+void Game::creationOfDecor()
+{
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Cardboar_ Bush/bushboard.obj", irr::core::vector3df(-30, 150, -15), irr::core::vector3df(90, 180, 10), irr::core::vector3df(0.25, 0.25, 0.25))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Cardboar_ Bush/bushboard.obj", irr::core::vector3df(220, 110, -15), irr::core::vector3df(90, 180, -15), irr::core::vector3df(0.20, 0.20, 0.20))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/N64_Tree/n64tree.obj", irr::core::vector3df(-40, 70, -15), irr::core::vector3df(90, 180, 0), irr::core::vector3df(1, 1, 1))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/N64_Tree/n64tree.obj", irr::core::vector3df(220, 30, -15), irr::core::vector3df(90, 180, 0), irr::core::vector3df(1.1, 1.1, 1.1))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Cardboard_Goomba/cardboardgoomba.obj", irr::core::vector3df(-22, 105, -15), irr::core::vector3df(90, 180, 35), irr::core::vector3df(0.2, 0.2, 0.2))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Sling_Star/Sling_Star.b3d", irr::core::vector3df(250, 80, -15), irr::core::vector3df(120, 190, 0), irr::core::vector3df(3, 3, 3))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Sling_Star/Sling_Star.b3d", irr::core::vector3df(-20, 20, -15), irr::core::vector3df(120, 160, 0), irr::core::vector3df(3, 3, 3))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Cardboard_Goomba/cardboardgoomba.obj", irr::core::vector3df(240, 55, -15), irr::core::vector3df(90, 180, -45), irr::core::vector3df(0.2, 0.2, 0.2))));
+    _allDecors.push_back(std::shared_ptr<Decor>(new Decor(_device, "./assets/meshs/Decor/Cardboard_Goomba/cardboardgoomba.obj", irr::core::vector3df(220, 150, -15), irr::core::vector3df(90, 180, -10), irr::core::vector3df(0.2, 0.2, 0.2))));
 }

@@ -7,7 +7,7 @@
 
 #include "Menu_game.hpp"
 
-Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map, IScene *scene) : AScene(device, receiver, false), _map(map), _previous(scene)
+Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map, IScene *scene, Sound sound) : AScene(device, receiver, false), _map(map), _previous(scene), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
     print_image();
@@ -54,6 +54,8 @@ IScene* Menu_game::update()
 
         case GUI_QUIT_GAME:
             back = new Background(_device, _events);
+            next = new Menu(this->_device, this->_events, back, _sound);
+            delete _previous;
             delete this;
             return (next);
 

@@ -15,7 +15,6 @@ Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScen
     print_image();
     button();
     sound();
-    //std::cout << "" << edit_sound << std::endl;
 }
 
 Settings::~Settings()
@@ -81,7 +80,6 @@ bool Settings::button()
     return_menu->setDrawBorder(0);
     return_menu->setPressedImage(return_texture_pressed);
     but_sound = guienv->addButton(irr::core::rect<irr::s32>(950,300,1050,320), 0, GUI_SOUND, L"Validate");
-    // music = guienv->addButton(irr::core::rect<irr::s32>(280,110,370,130), 0, GUI_MUSIC, L"Settings");
     return (true);
 }
 

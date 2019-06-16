@@ -50,10 +50,8 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWra
                 newPos = std::dynamic_pointer_cast<Wall>(obj)->getDisplayInfo().getPosition();
                 newPos.Z = -16;
                 getDisplayInfo().setPosition(newPos);
-                // std::cout << getDisplayInfo().getPosition().X << " " << getDisplayInfo().getPosition().Y << std::endl;
                 getStats().setPassThrough(false);
                 update = false;
-                // std::cout << "WALLPASS" << std::endl;
             }
         }
     }
