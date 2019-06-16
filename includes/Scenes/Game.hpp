@@ -24,7 +24,6 @@ private:
     Map _map;
     Sound _sound;
 
-    void addObj(std::vector<MapWrapper> &objToAdd);
     void deleteObj(std::vector<irr::s32> &idToDel);
     void addObj(std::vector<MapWrapper> &objs);
     void updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd);

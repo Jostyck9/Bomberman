@@ -7,7 +7,7 @@
 
 #include "KeyMap.hpp"
 
-KeyMap::KeyMap(irr::EKEY_CODE forward, irr::EKEY_CODE backward, irr::EKEY_CODE left, irr::EKEY_CODE right, irr::EKEY_CODE action) : _forward(forward), _backward(backward), _left(left), _right(right), _action(action)
+KeyMap::KeyMap(irr::EKEY_CODE forward, irr::EKEY_CODE backward, irr::EKEY_CODE left, irr::EKEY_CODE right, irr::EKEY_CODE action, irr::EKEY_CODE pause) : _forward(forward), _backward(backward), _left(left), _right(right), _action(action), _pause(pause)
 {
 }
 
@@ -63,4 +63,14 @@ irr::EKEY_CODE KeyMap::getAction() const
 void KeyMap::setAction(irr::EKEY_CODE action)
 {
     _action = action;
+}
+
+irr::EKEY_CODE KeyMap::getPause() const
+{
+    return (_pause);
+}
+
+void KeyMap::setPause(irr::EKEY_CODE pause)
+{
+    _pause = pause;
 }

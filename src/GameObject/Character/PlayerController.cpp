@@ -76,6 +76,9 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
     if (events.IsKeyReleased(_keyMap.getAction())) {
         createBomb(device, map, objToAdd);
     }
+    if (events.IsKeyReleased(_keyMap.getPause())) {
+        new Menu_game(device, events);
+    }
 }
 
 void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map, std::vector<MapWrapper> &objToAdd)
