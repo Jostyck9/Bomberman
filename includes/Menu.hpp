@@ -8,7 +8,6 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include "irrlicht/irrlicht.h"
 #include <IGUISkin.h>
 #include "Camera.hpp"
 #include "AScene.hpp"

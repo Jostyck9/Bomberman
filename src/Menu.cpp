@@ -60,6 +60,7 @@ IScene* Menu::update()
 
         case GUI_LOAD:
             try {
+                _sound.stopMe();
                 next = new Game(this->_device, this->_events, "save.txt");
             }
             catch (std::exception) {

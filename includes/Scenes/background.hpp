@@ -8,7 +8,6 @@
 #ifndef BACKGROUND_HPP
 #define BACKGROUND_HPP
 
-#include "irrlicht/irrlicht.h"
 #include "AScene.hpp"
 #include "Sound.hpp"
 #include "Decor.hpp"
