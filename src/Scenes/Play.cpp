@@ -162,7 +162,7 @@ void Play::Mesh()
     Toad->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     Toad->setPosition(core::vector3df(-1.5,0,1));
     Toad->setScale(core::vector3df(0.3,0.3,0.3));
-    Toad->setRotation(core::vector3df(0,145,0));
+    Toad->setRotation(core::vector3df(90,145,0));
 
     Peach = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Peach/peach.b3d"));
     Peach->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -196,13 +196,7 @@ bool Play::button()
     Peach_IA_but->setScaleImage(true);
     Peach_IA_but->setUseAlphaChannel(true);
     Peach_IA_but->setDrawBorder(0);
-    // return_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/Return.png");
     but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/Start.png");
-    // return_menu = guienv->addButton(irr::core::rect<irr::s32>(20,20,160,60), 0, GUI_RETURN_PLAY, L"");
-    // return_menu->setImage(return_texture);
-    // return_menu->setScaleImage(true);
-    // return_menu->setUseAlphaChannel(true);
-    // return_menu->setDrawBorder(0);
     start_game = guienv->addButton(irr::core::rect<irr::s32>(550,650,730,710), 0, GUI_START_GAME, L"");
     start_game->setImage(but_start_game);
     start_game->setScaleImage(true);

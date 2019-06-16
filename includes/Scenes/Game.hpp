@@ -22,11 +22,8 @@ class Game : public AScene
 private:
     Decor _ground;
     Map _map;
-<<<<<<< HEAD
     Sound _sound;
-=======
     void addObj(std::vector<MapWrapper> &objToAdd);
->>>>>>> master
     void deleteObj(std::vector<irr::s32> &idToDel);
     void updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd);
     void updateMapFromPlayer(std::shared_ptr<ACharacter> current);

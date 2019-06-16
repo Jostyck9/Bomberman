@@ -82,16 +82,13 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string s
     this->setCamera(camera);
 }
 
-<<<<<<< HEAD
 Game::~Game()
 {
     _sound.stopMe();
 }
 
-void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
-=======
+//void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd)
->>>>>>> master
 {
     std::shared_ptr<Player> current = nullptr;
     std::shared_ptr<NonPlayer> currentIA = nullptr;
