@@ -23,6 +23,7 @@ private:
     Decor _ground;
     Map _map;
     Sound _sound;
+    std::vector<std::shared_ptr<Decor>> _allDecors;
 
     void deleteObj(std::vector<irr::s32> &idToDel);
     void addObj(std::vector<MapWrapper> &objs);
@@ -30,6 +31,7 @@ private:
     void updateMapFromPlayer(std::shared_ptr<ACharacter> current);
     void updatePosition(std::vector<irr::s32> &idToMove);
     irr::core::vector2df worldToMap(irr::s16 x, irr::s16 y, irr::u16 size);
+    void creationOfDecor();
 
 public:
     Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character = {1, 1, 1, 1});
