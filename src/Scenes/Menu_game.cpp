@@ -10,6 +10,7 @@
 Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map) : AScene(device, receiver, false), _map(map)
 {
     guienv = device->getGUIEnvironment();
+    print_image();
     button();
     setSkinButton();
 }
@@ -19,7 +20,8 @@ Menu_game::~Menu_game()
     resume->remove();
     save->remove();
     quit->remove();
-    //cadre_menu->remove();
+    cadre_pause->remove();
+    pause->remove();
 }
 
 IScene* Menu_game::update()
@@ -67,11 +69,23 @@ void Menu_game::display()
     _driver->endScene();
 }
 
+void Menu_game::print_image()
+{
+    cadre_pause = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/cadre_pause.png"),
+            irr::core::position2d<int>(400,200));
+    pause_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/pause.png");
+    pause = guienv->addButton(irr::core::rect<irr::s32>(450,230,640,320), 0, 0, L"");
+    pause->setImage(pause_texture);
+    pause->setScaleImage(true);
+    pause->setUseAlphaChannel(true);
+    pause->setDrawBorder(0);
+}
+
 bool Menu_game::button()
 {
-    resume = guienv->addButton(irr::core::rect<irr::s32>(550,290,690,340), 0, GUI_RESUME, L"");
-    save = guienv->addButton(irr::core::rect<irr::s32>(550,370,690,420), 0, GUI_SAVE, L"");
-    quit = guienv->addButton(irr::core::rect<irr::s32>(550,450,690,500), 0, GUI_QUIT_GAME, L"");
+    resume = guienv->addButton(irr::core::rect<irr::s32>(670,230,810,280), 0, GUI_RESUME, L"");
+    save = guienv->addButton(irr::core::rect<irr::s32>(670,340,810,390), 0, GUI_SAVE, L"");
+    quit = guienv->addButton(irr::core::rect<irr::s32>(670,450,810,500), 0, GUI_QUIT_GAME, L"");
     return (true);
 }
 

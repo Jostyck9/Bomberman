@@ -207,12 +207,14 @@ bool Play::button()
     Peach_IA_but->setScaleImage(true);
     Peach_IA_but->setUseAlphaChannel(true);
     Peach_IA_but->setDrawBorder(0);
-    but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/Start.png");
-    start_game = guienv->addButton(irr::core::rect<irr::s32>(550,650,730,710), 0, GUI_START_GAME, L"");
+    but_start_game = this->_driver->getTexture("./assets/meshs/Menu/Button/start_game.png");
+    but_start_game_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/start_game_pressed.png");
+    start_game = guienv->addButton(irr::core::rect<irr::s32>(500,650,730,710), 0, GUI_START_GAME, L"");
     start_game->setImage(but_start_game);
     start_game->setScaleImage(true);
     start_game->setUseAlphaChannel(true);
     start_game->setDrawBorder(0);
+    start_game->setPressedImage(but_start_game_pressed);
     _character.Mario = _character.Player1;
     _character.Luigi = _character.Player2;
     _character.Toad = _character.IA;
