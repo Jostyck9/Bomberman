@@ -5,10 +5,11 @@
 ** Menu_game.cpp
 */
 
-#include "Menu_game.cpp"
+#include "Menu_game.hpp"
 
-Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver, false)
+Menu_game::Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map) : AScene(device, receiver, false), _map(map)
 {
+    guienv = device->getGUIEnvironment();
     button();
     setSkinButton();
 }
@@ -18,12 +19,13 @@ Menu_game::~Menu_game()
     resume->remove();
     save->remove();
     quit->remove();
-    cadre_menu->remove();
+    //cadre_menu->remove();
 }
 
-IScene* Settings::update()
+IScene* Menu_game::update()
 {
     IScene *next = NULL;
+    IScene *back = NULL;
     irr::s32 id = -1;
 
     if (!_device->run()) {
@@ -34,16 +36,18 @@ IScene* Settings::update()
     id = _events.getButtonPressed();
     switch(id) {
         case GUI_RESUME:
+            break;
 
-        case GUI_SAVE;
+        case GUI_SAVE:
             _map.save();
+            // _device->getGUIEnvironment()->addMessageBox(
+            //     Load_error.c_str(), L"Game Saved");
             break;
 
         case GUI_QUIT_GAME:
-            IScene *back(new Background(_device, _events));
+            back = new Background(_device, _events);
             next = new Menu(this->_device, this->_events, back);
             delete this;
-            delete _game;
             return (next);
 
         default:
@@ -58,19 +62,20 @@ void Menu_game::display()
     if (!_device->run()) {
         return;
     }
+    
     guienv->drawAll();
     _driver->endScene();
 }
 
-bool button()
+bool Menu_game::button()
 {
-    resume = guienv->addButton(irr::core::rect<irr::s32>(300,390,440,440), 0, GUI_RESUME, L"");
-    save = guienv->addButton(irr::core::rect<irr::s32>(300,470,440,520), 0, GUI_SAVE, L"");
-    quit = guienv->addButton(irr::core::rect<irr::s32>(800,390,980,440), 0, GUI_QUIT_GAME, L"");
+    resume = guienv->addButton(irr::core::rect<irr::s32>(550,290,690,340), 0, GUI_RESUME, L"");
+    save = guienv->addButton(irr::core::rect<irr::s32>(550,370,690,420), 0, GUI_SAVE, L"");
+    quit = guienv->addButton(irr::core::rect<irr::s32>(550,450,690,500), 0, GUI_QUIT_GAME, L"");
     return (true);
 }
 
-void setSkinButton()
+void Menu_game::setSkinButton()
 {
     resume_texture = this->_driver->getTexture("./assets/meshs/Menu/Button/resume.png");
     resume_texture_pressed = this->_driver->getTexture("./assets/meshs/Menu/Button/resume_pressed.png");

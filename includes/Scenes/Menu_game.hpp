@@ -12,6 +12,7 @@
 #include "AScene.hpp"
 #include "Game.hpp"
 #include "Map.hpp"
+#include "background.hpp"
 
 enum
 {
@@ -23,7 +24,7 @@ enum
 class Menu_game : public AScene
 {
     public:
-    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
+    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map);
     ~Menu_game();
     IScene* update() override;
     void display() override;
@@ -31,12 +32,15 @@ class Menu_game : public AScene
     void setSkinButton();
 
     private:
-    Game _game;
+    Map &_map;
     irr::gui::IGUIEnvironment *guienv;
     irr::gui::IGUIImage *cadre_menu;
     irr::video::ITexture *resume_texture;
     irr::video::ITexture *save_texture;
     irr::video::ITexture *quit_texture;
+    irr::video::ITexture *resume_texture_pressed;
+    irr::video::ITexture *save_texture_pressed;
+    irr::video::ITexture *quit_texture_pressed;
     irr::gui::IGUIButton *resume;
     irr::gui::IGUIButton *save;
     irr::gui::IGUIButton *quit;

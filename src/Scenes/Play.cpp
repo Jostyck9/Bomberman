@@ -29,19 +29,30 @@ Play::~Play()
     Peach->remove();
     menu_play->remove();
     sound.stopMe();
-    // Mario_IA_but->remove();
-    // Mario_Player1_but->remove();
-    // Mario_Player2_but->remove();
-    // Luigi_IA_but->remove();
-    // Luigi_Player1_but->remove();
-    // Luigi_Player2_but->remove();
-    // Toad_IA_but->remove();
-    // Toad_Player1_but->remove();
-    // Toad_Player2_but->remove();
-    // Peach_IA_but->remove();
-    // Peach_Player1_but->remove();
-    // Peach_Player2_but->remove();
-    // camera_play->remove();
+    if (_character.Mario == 0)
+        Mario_Player1_but->remove();
+    if (_character.Mario == 1)
+        Mario_Player2_but->remove();
+    if (_character.Mario == 2)
+        Mario_IA_but->remove();
+    if (_character.Luigi == 0)
+        Luigi_Player1_but->remove();
+    if (_character.Luigi == 1)
+        Luigi_Player2_but->remove();
+    if (_character.Luigi == 2)
+        Luigi_IA_but->remove();
+    if (_character.Toad == 0)
+        Toad_Player1_but->remove();
+    if (_character.Toad == 1)
+        Toad_Player2_but->remove();
+    if (_character.Toad == 2)
+        Toad_IA_but->remove();
+    if (_character.Peach == 0)
+        Peach_Player1_but->remove();
+    if (_character.Peach == 1)
+        Peach_Player2_but->remove();
+    if (_character.Peach == 2)
+        Peach_IA_but->remove();
 }
 
 IScene* Play::update()

@@ -56,6 +56,7 @@ IScene* Menu::update()
         case GUI_PLAY:
         next = new Play(this->_device, this->_events, this->sound);
             delete this;
+            delete _background;
             return (next);
             break;
 

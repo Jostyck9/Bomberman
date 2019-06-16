@@ -15,7 +15,6 @@
 #include "Map.hpp"
 #include "Timer.hpp"
 #include "MapWrapper.hpp"
-#include "Menu_game.hpp"
 
 class PlayerController
 {
@@ -42,7 +41,7 @@ public:
     PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player);
     ~PlayerController();
 
-    const KeyMap &getKeyMap() const;
+    KeyMap &getKeyMap();
     void setKeyMap(KeyMap &keyMap);
 
     GraphicalElements &getDisplayInfo();

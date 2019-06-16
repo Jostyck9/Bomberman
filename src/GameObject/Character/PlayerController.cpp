@@ -25,7 +25,7 @@ PlayerController::~PlayerController()
 {
 }
 
-const KeyMap &PlayerController::getKeyMap() const
+KeyMap &PlayerController::getKeyMap()
 {
     return (_keyMap);
 }
@@ -75,9 +75,6 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
     }
     if (events.IsKeyReleased(_keyMap.getAction())) {
         createBomb(device, map, objToAdd);
-    }
-    if (events.IsKeyReleased(_keyMap.getPause())) {
-        new Menu_game(device, events);
     }
 }
 
