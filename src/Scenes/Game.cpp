@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "BomberException.hpp"
 #include "MapWrapper.hpp"
 #include "Explosion.hpp"
 #include "Game.hpp"
@@ -29,6 +30,13 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     std::string pathToad = "./assets/meshs/Toad/toad.b3d";
     if (character.Luigi == character::Player1 || character.Luigi == character::Player2) {
         std::shared_ptr<Player> p1(new Player(device, textures, pathLuigi, 1, _map.getSize() - 2));
+        if (character.Luigi == character::Player2) {
+            p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
+            p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
+            p1->getPlayerController().getKeyMap().setForward(irr::KEY_UP);
+            p1->getPlayerController().getKeyMap().setBackward(irr::KEY_DOWN);
+            p1->getPlayerController().getKeyMap().setAction(irr::KEY_RETURN);
+        }
         if (p1)
             _map.addToMap(1, _map.getSize() - 2, p1);
     }
@@ -39,6 +47,13 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     }
     if (character.Mario == character::Player1 || character.Mario == character::Player2) {
         std::shared_ptr<Player> p1(new Player(device, textures, pathMario, _map.getSize() - 2, _map.getSize() - 2));
+        if (character.Mario == character::Player2) {
+            p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
+            p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
+            p1->getPlayerController().getKeyMap().setForward(irr::KEY_UP);
+            p1->getPlayerController().getKeyMap().setBackward(irr::KEY_DOWN);
+            p1->getPlayerController().getKeyMap().setAction(irr::KEY_RETURN);
+        }
         if (p1)
             _map.addToMap(_map.getSize() - 2, _map.getSize() - 2, p1);
     }
@@ -49,6 +64,13 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     }
     if (character.Peach == character::Player1 || character.Peach == character::Player2) {
         std::shared_ptr<Player> p1(new Player(device, textures, pathPeach, _map.getSize() - 2, 1));
+        if (character.Peach == character::Player2) {
+            p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
+            p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
+            p1->getPlayerController().getKeyMap().setForward(irr::KEY_UP);
+            p1->getPlayerController().getKeyMap().setBackward(irr::KEY_DOWN);
+            p1->getPlayerController().getKeyMap().setAction(irr::KEY_RETURN);
+        }
         if (p1)
             _map.addToMap(_map.getSize() - 2, 1, p1);
     }
@@ -59,6 +81,13 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     }
     if (character.Toad == character::Player1 || character.Toad == character::Player2) {
         std::shared_ptr<Player> p1(new Player(device, textures, pathToad, 1, 1));
+        if (character.Toad == character::Player2) {
+            p1->getPlayerController().getKeyMap().setLeft(irr::KEY_LEFT);
+            p1->getPlayerController().getKeyMap().setRight(irr::KEY_RIGHT);
+            p1->getPlayerController().getKeyMap().setForward(irr::KEY_UP);
+            p1->getPlayerController().getKeyMap().setBackward(irr::KEY_DOWN);
+            p1->getPlayerController().getKeyMap().setAction(irr::KEY_RETURN);
+        }
         if (p1)
             _map.addToMap(1, 1, p1);
     }
@@ -143,16 +172,22 @@ IScene* Game::update()
         delete this;
         return (nullptr);
     }
-    for (irr::u16 x = 0; x < _map.getSize(); x++) {
-        for (irr::u16 y = 0; y < _map.getSize(); y++) {
-            for (auto &it : _map.getMap()[x][y]) {
-                updateObj(it, idToDel, idToMove, objToAdd);
+    try {
+        for (irr::u16 x = 0; x < _map.getSize(); x++) {
+            for (irr::u16 y = 0; y < _map.getSize(); y++) {
+                for (auto &it : _map.getMap()[x][y]) {
+                    updateObj(it, idToDel, idToMove, objToAdd);
+                }
             }
         }
+        updatePosition(idToMove);
+        deleteObj(idToDel);
+        addObj(objToAdd);
+    } catch (bomberException &e) {
+        std::cerr << e.getPart() << " : " << e.what() << std::endl;
+        delete this;
+        return (nullptr);
     }
-    updatePosition(idToMove);
-    deleteObj(idToDel);
-    addObj(objToAdd);
 
     if (_events.IsKeyReleased(irr::KEY_ESCAPE)) {
         next = new Menu_game(_device, _events, _map);

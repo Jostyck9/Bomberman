@@ -36,7 +36,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
     std::shared_ptr<GameObject> obj = nullptr;
     irr::core::vector3df newPos;
 
-    node = getDisplayInfo().getFrontObj(4, GameObject::ITEM);
+    node = getDisplayInfo().getFrontObj(5, GameObject::ITEM);
     if (node != nullptr) {
         obj = map.getObject(node);
         if (obj) {
@@ -64,11 +64,11 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
     // std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     getDisplayInfo().setPosition(pos);
 
-/*    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;
+    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;
     std::cout << "q1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Q) << std::endl;
     std::cout << "s1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S) << std::endl;
     std::cout << "d1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D) << std::endl;
-    std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;*/
+    std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;
     this->getPlayerController().action(_device, event, map, objToAdd, getStats().getSpeed());
 }
 
