@@ -24,7 +24,7 @@ enum
 class Menu_game : public AScene
 {
     public:
-    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map);
+    Menu_game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Map &map, IScene *scene);
     ~Menu_game();
     IScene* update() override;
     void display() override;
@@ -33,20 +33,21 @@ class Menu_game : public AScene
     void print_image();
 
     private:
-    Map &_map;
-    irr::gui::IGUIEnvironment *guienv;
-    irr::gui::IGUIImage *cadre_pause;
-    irr::video::ITexture *resume_texture;
-    irr::video::ITexture *save_texture;
-    irr::video::ITexture *quit_texture;
-    irr::video::ITexture *resume_texture_pressed;
-    irr::video::ITexture *save_texture_pressed;
-    irr::video::ITexture *quit_texture_pressed;
-    irr::video::ITexture *pause_texture;
-    irr::gui::IGUIButton *pause;
-    irr::gui::IGUIButton *resume;
-    irr::gui::IGUIButton *save;
-    irr::gui::IGUIButton *quit;
+        Map &_map;
+        IScene *_previous;
+        irr::gui::IGUIEnvironment *guienv;
+        irr::gui::IGUIImage *cadre_pause;
+        irr::video::ITexture *resume_texture;
+        irr::video::ITexture *save_texture;
+        irr::video::ITexture *quit_texture;
+        irr::video::ITexture *resume_texture_pressed;
+        irr::video::ITexture *save_texture_pressed;
+        irr::video::ITexture *quit_texture_pressed;
+        irr::video::ITexture *pause_texture;
+        irr::gui::IGUIButton *pause;
+        irr::gui::IGUIButton *resume;
+        irr::gui::IGUIButton *save;
+        irr::gui::IGUIButton *quit;
 };
 
 #endif

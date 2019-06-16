@@ -190,8 +190,7 @@ IScene* Game::update()
     }
 
     if (_events.IsKeyReleased(irr::KEY_ESCAPE)) {
-        next = new Menu_game(_device, _events, _map);
-        delete this;
+        next = new Menu_game(_device, _events, _map, this);
         return (next);
     }
     _events.resetKeys();
