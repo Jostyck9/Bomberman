@@ -8,18 +8,23 @@
 #ifndef TIMER_HPP__
 #define TIMER_HPP__
 
-#include <ctime>
+#ifdef _WIN64
+    #include <IrrlichtDevice.h>
+#else
+    #include <irrlicht/IrrlichtDevice.h>
+#endif
 
 class Timer
 {
 private:
-    clock_t _begin;
+    irr::IrrlichtDevice *_device;
+    irr::u32 _start;
 
 public:
-    Timer();
+    Timer(irr::IrrlichtDevice *device);
     ~Timer();
 
-    double getElapsedTime() const;
+    irr::f32 getElapsedTime() const;
     void restartClock();
     bool isTimeElapsed(double time) const;
     bool isTimeElapsedRestart(double time);
