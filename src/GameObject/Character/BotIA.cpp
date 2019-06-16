@@ -172,7 +172,7 @@ bool BotIA::breakWall(MyEventReceiver &event)
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
             return true;
         }
-    if  (pos.Y + 1 >= 0 && !_map.getMap()[pos.X][pos.Y + 1].empty() && _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() == GameObject::objecType_t::WALL)
+    if  (pos.Y + 1 < _map.getSize() && !_map.getMap()[pos.X][pos.Y + 1].empty() && _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() == GameObject::objecType_t::WALL)
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X][pos.Y + 1].at(0))->isBreakable()) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
             return true;
@@ -182,7 +182,7 @@ bool BotIA::breakWall(MyEventReceiver &event)
             event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
             return true;
         }
-    if  (pos.X + 1 >= 0 && !_map.getMap()[pos.X + 1][pos.Y].empty() && _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() == GameObject::objecType_t::WALL)
+    if  (pos.X + 1 < _map.getSize() && !_map.getMap()[pos.X + 1][pos.Y].empty() && _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() == GameObject::objecType_t::WALL)
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[pos.X + 1][pos.Y].at(0))->isBreakable()) {
             event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
             return true;
@@ -196,7 +196,7 @@ bool BotIA::checkWallAround(irr::u16 x, irr::u16 y)
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[x][y - 1].at(0))->isBreakable())
             return true;
     }
-    if  (y + 1 >= 0 && !_map.getMap()[x][y + 1].empty() && _map.getMap()[x][y + 1].at(0)->getType() == GameObject::objecType_t::WALL) {
+    if  (y + 1 < _map.getSize() && !_map.getMap()[x][y + 1].empty() && _map.getMap()[x][y + 1].at(0)->getType() == GameObject::objecType_t::WALL) {
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[x][y + 1].at(0))->isBreakable())
             return true;
     }
@@ -204,7 +204,7 @@ bool BotIA::checkWallAround(irr::u16 x, irr::u16 y)
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[x - 1][y].at(0))->isBreakable())
             return true;
     }
-    if  (x + 1 >= 0 && !_map.getMap()[x + 1][y].empty() && _map.getMap()[x + 1][y].at(0)->getType() == GameObject::objecType_t::WALL) {
+    if  (x + 1 < _map.getSize() && !_map.getMap()[x + 1][y].empty() && _map.getMap()[x + 1][y].at(0)->getType() == GameObject::objecType_t::WALL) {
         if (std::dynamic_pointer_cast<Wall>(_map.getMap()[x + 1][y].at(0))->isBreakable())
             return true;
     }

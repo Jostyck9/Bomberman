@@ -110,7 +110,7 @@ void Menu::display()
 void Menu::tittle()
 {
     title = guienv->addImage(_driver->getTexture("./assets/meshs/Menu/BomberMario.png"),
-            irr::core::position2d<int>(300,30));
+            irr::core::position2d<int>(250,30));
     title->setScaleImage(true);
 }
 
