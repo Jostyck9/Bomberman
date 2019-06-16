@@ -32,7 +32,8 @@ public:
         mario,
         peach,
         toad,
-        UNKNOWN
+        UNKNOWN,
+        NoWinner
     };
     typedef character_s character_t;
 

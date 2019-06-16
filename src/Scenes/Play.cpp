@@ -73,7 +73,7 @@ IScene* Play::update()
         //     return (next);
 
         case GUI_START_GAME:
-            next = new Game(this->_device, this->_events, _character);
+            next = new Game(this->_device, this->_events, _sound, _character);
             delete this;
             return (next);
 

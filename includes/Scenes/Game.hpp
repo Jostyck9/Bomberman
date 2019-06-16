@@ -23,6 +23,7 @@ private:
     Decor _ground;
     Map _map;
     Sound _sound;
+    Sound &_menu;
 
     void deleteObj(std::vector<irr::s32> &idToDel);
     void addObj(std::vector<MapWrapper> &objs);
@@ -32,8 +33,8 @@ private:
     irr::core::vector2df worldToMap(irr::s16 x, irr::s16 y, irr::u16 size);
 
 public:
-    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character = {1, 1, 1, 1});
-    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save = "");
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, character character = {1, 1, 1, 1});
+    Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, std::string save = "");
     ~Game();
     IScene* update() override;
     void display() override;

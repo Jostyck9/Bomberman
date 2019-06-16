@@ -16,8 +16,10 @@ Background::Background(irr::IrrlichtDevice* device, MyEventReceiver &receiver) :
 
 Background::~Background()
 {
-    menu_map->remove();
-    anms->remove();
+    if (menu_map)
+        menu_map->remove();
+    if (anms)
+        anms->remove();
     // camera->remove();
 }
 
@@ -26,12 +28,16 @@ void Background::createBackGround()
     camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(0, 3, -5), irr::core::vector3df(0,0,0));
     menu_map = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Engine_Room/room.obj"));
     anms = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/meshs/Bomb-omb/bomb.b3d"));
-    anms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    anms->setPosition(core::vector3df(0,-0.2,0));
-    anms->setScale(core::vector3df(1,1,1));
-    anms->setRotation(core::vector3df(0,145,0));
-    menu_map->setRotation(core::vector3df(0,-34,0));
-    menu_map->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    if (anms) {
+        anms->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        anms->setPosition(core::vector3df(0,-0.2,0));
+        anms->setScale(core::vector3df(1,1,1));
+        anms->setRotation(core::vector3df(0,145,0));
+    }
+    if (!menu_map) {
+        menu_map->setRotation(core::vector3df(0,-34,0));
+        menu_map->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    }
 
     scene::ISceneNodeAnimator* anim =
             _sceneManager->createFlyCircleAnimator(core::vector3df(0,2,1), 3.2f);

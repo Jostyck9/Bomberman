@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "Win.hpp"
 #include "BomberException.hpp"
 #include "MapWrapper.hpp"
 #include "Explosion.hpp"
@@ -15,10 +16,11 @@
 #include "NonPlayer.hpp"
 #include "Menu_game.hpp"
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character character) : AScene(device, receiver),
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, character character) : AScene(device, receiver),
                                                                     _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
                                                                     _map(device, "", 21),
-                                                                    _sound()
+                                                                    _sound(),
+                                                                    _menu(sound)
 {
     _ground.addColision();
     Camera camera(device->getSceneManager(), irr::core::vector3df(100, 60, -160), irr::core::vector3df(100, 90, 0));
@@ -100,10 +102,11 @@ Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, character cha
     this->setCamera(camera);
 }
 
-Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, std::string save) : AScene(device, receiver),
+Game::Game(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound &sound, std::string save) : AScene(device, receiver),
                                                                                        _ground(device, "./assets/meshs/Stade/stade.b3d", irr::core::vector3df(100, -5, 5), irr::core::vector3df(-90, 0, 0), irr::core::vector3df(1.5, 1.5, 1.5)),
                                                                                        _map(device, save, 21),
-                                                                                       _sound()
+                                                                                       _sound(),
+                                                                                       _menu(sound)
 {
     _ground.addColision();
     _sound.playGameMusic();
@@ -163,6 +166,7 @@ void Game::deleteObj(std::vector<irr::s32> &idToDel)
 
 IScene* Game::update()
 {
+    Map::character_t winner;
     std::vector<irr::s32> idToDel;
     std::vector<irr::s32> idToMove;
     std::vector<MapWrapper> objToAdd;
@@ -191,6 +195,13 @@ IScene* Game::update()
 
     if (_events.IsKeyReleased(irr::KEY_ESCAPE)) {
         next = new Menu_game(_device, _events, _map, this);
+        return (next);
+    }
+    
+    winner = _map.checkWin();
+    if (winner != Map::character_t::UNKNOWN) {
+        next = new Win(_device, _events, winner, _menu);
+        delete this;
         return (next);
     }
     _events.resetKeys();
@@ -264,6 +275,5 @@ void Game::display()
     }
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _sceneManager->drawAll();
-    // guienv->drawAll();
     _driver->endScene();
 }

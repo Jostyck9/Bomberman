@@ -13,7 +13,6 @@
 #include "Scoreboard.hpp"
 #include "Play.hpp"
 
-
 Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound sound) : AScene(device, receiver, false), _background(background), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
@@ -60,7 +59,7 @@ IScene* Menu::update()
 
         case GUI_LOAD:
             try {
-                next = new Game(this->_device, this->_events, "save.txt");
+                next = new Game(this->_device, this->_events, _sound, "save.txt");
             }
             catch (std::exception) {
                 delete _background;
