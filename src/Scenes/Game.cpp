@@ -87,7 +87,6 @@ Game::~Game()
     _sound.stopMe();
 }
 
-//void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove)
 void Game::updateObj(std::shared_ptr<GameObject> obj, std::vector<irr::s32> &idToDel, std::vector<irr::s32> &idToMove, std::vector<MapWrapper> &objToAdd)
 {
     std::shared_ptr<Player> current = nullptr;
