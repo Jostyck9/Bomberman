@@ -53,11 +53,10 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-        next = new Play(this->_device, this->_events, this->_sound);
-            delete this;
+            next = new Play(this->_device, this->_events, this->_sound);
             delete _background;
+            delete this;
             return (next);
-            break;
 
         case GUI_LOAD:
             try {
@@ -71,8 +70,8 @@ IScene* Menu::update()
                 Load_error.c_str(), L"No save can be load");
                 break;
             }
-            delete this;
             delete _background;
+            delete this;
             return (next);
 
         case GUI_SETTINGS:
