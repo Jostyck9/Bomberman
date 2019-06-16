@@ -11,6 +11,7 @@
 #include "ACharacter.hpp"
 #include "PrintableObject.hpp"
 #include "Timer.hpp"
+#include "Sound.hpp"
 
 class Bomb : public PrintableObject
 {
@@ -27,6 +28,7 @@ private:
     irr::core::vector2df _posMap;
 
     ACharacter& _parentCharacter;
+    Sound _sound;
 
     void createExplosion(Map &map, std::vector<MapWrapper> &objToAdd, irr::core::vector2di position);
     void detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, irr::core::vector2di dir);

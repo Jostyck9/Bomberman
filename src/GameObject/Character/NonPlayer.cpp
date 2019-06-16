@@ -20,6 +20,11 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::str
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
+NonPlayer::~NonPlayer()
+{
+    getSound().playSoundDefeat();
+}
+
 void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event)
 {
 /*    if ((int)getDisplayInfo().getPosition().X % 10 != 5) {
@@ -41,6 +46,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
         obj = map.getObject(node);
         if (obj) {
             std::dynamic_pointer_cast<AItem>(obj)->applyEffect(*this);
+            getSound().playPowerUpEffect();
             idToDel.push_back(obj->getID());
         }
     }

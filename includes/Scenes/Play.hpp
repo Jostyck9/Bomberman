@@ -50,7 +50,7 @@ typedef struct character character;
 class Play : public AScene
 {
     public:
-    Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound);
+    Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound sound);
     ~Play();
     IScene* update() override;
     void display() override;
@@ -71,7 +71,6 @@ class Play : public AScene
     bool button();
 
     private:
-    Sound sound;
     IScene *_background;
     irr::gui::IGUIButton *return_menu;
     irr::gui::IGUIButton *start_game;
@@ -101,6 +100,7 @@ class Play : public AScene
     scene::ISceneNode* camera_play;
     scene::IAnimatedMeshSceneNode * menu_play;
     character _character;
+    Sound _sound;
 };
 
 

@@ -8,7 +8,7 @@
 #include <iostream>
 #include "ACharacter.hpp"
 
-ACharacter::ACharacter(irr::IrrlichtDevice* device) : PrintableObject(device), _stats(), _score(), _life(), _controller(this->getDisplayInfo(), *this)
+ACharacter::ACharacter(irr::IrrlichtDevice* device) : PrintableObject(device), _stats(), _score(), _life(), _controller(this->getDisplayInfo(), *this), _sound()
 {
 }
 
@@ -25,6 +25,11 @@ Score &ACharacter::getScore()
 Life &ACharacter::getLife()
 {
     return (_life);
+}
+
+Sound &ACharacter::getSound()
+{
+    return (_sound);
 }
 
 PlayerController &ACharacter::getPlayerController()
