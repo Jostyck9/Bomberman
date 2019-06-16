@@ -10,7 +10,7 @@
 #include "Wall.hpp"
 #include "AItem.hpp"
 
-NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y) : ACharacter(device), _ia(device, map, *this)
+NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::string> path_text, std::string &path_mesh, irr::s16 pos_x, irr::s16 pos_y, ACharacter::character_t character) : ACharacter(device, character), _ia(device, map, *this)
 {
     irr::core::vector3df pos(pos_x * 10, pos_y * 10, 0);
     this->getDisplayInfo().setPosition(pos);
