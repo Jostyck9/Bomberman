@@ -41,7 +41,7 @@ public:
     PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player);
     ~PlayerController();
 
-    const KeyMap &getKeyMap() const;
+    KeyMap &getKeyMap();
     void setKeyMap(KeyMap &keyMap);
 
     GraphicalElements &getDisplayInfo();

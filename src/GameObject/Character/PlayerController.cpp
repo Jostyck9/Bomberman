@@ -25,7 +25,7 @@ PlayerController::~PlayerController()
 {
 }
 
-const KeyMap &PlayerController::getKeyMap() const
+KeyMap &PlayerController::getKeyMap()
 {
     return (_keyMap);
 }
