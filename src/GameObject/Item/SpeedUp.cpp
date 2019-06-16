@@ -6,6 +6,7 @@
 */
 
 #include "SpeedUp.hpp"
+#include <iostream>
 
 SpeedUp::SpeedUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AItem(device)
 {
@@ -25,7 +26,8 @@ SpeedUp::SpeedUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : 
 
 bool SpeedUp::applyEffect(ACharacter &player)
 {
-    player.getStats().setSpeed(player.getStats().getSpeed() + 0.2);
+    if (player.getStats().getSpeed() < 1.8)
+        player.getStats().setSpeed(player.getStats().getSpeed() + 0.2);
     return true;
 }
 
