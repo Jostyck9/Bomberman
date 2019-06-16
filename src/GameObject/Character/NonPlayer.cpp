@@ -20,7 +20,7 @@ NonPlayer::NonPlayer(irr::IrrlichtDevice *device, Map &map, std::vector<std::str
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
-void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event)
+void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event)
 {
 /*    if ((int)getDisplayInfo().getPosition().X % 10 != 5) {
         irr::core::vector3df pos = getDisplayInfo().getPosition();
@@ -69,7 +69,7 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver
     std::cout << "s1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S) << std::endl;
     std::cout << "d1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D) << std::endl;
     std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;*/
-    this->getPlayerController().action(_device, event, map, getStats().getSpeed());
+    this->getPlayerController().action(_device, event, map, objToAdd, getStats().getSpeed());
 }
 
 GameObject::objecType_t NonPlayer::getType()

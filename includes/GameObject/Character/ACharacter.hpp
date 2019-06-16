@@ -32,7 +32,7 @@ public:
     Life &getLife();
     PlayerController &getPlayerController();
     void applyDammage(std::vector<irr::s32> &idToDel, irr::s16 dammage);
-    virtual void update(Map &map, std::vector<irr::s32> &idToDel, MyEventReceiver event = MyEventReceiver()) = 0;
+    virtual void update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event = MyEventReceiver()) = 0;
 
     GameObject::objecType_t getType();
 };

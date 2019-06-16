@@ -14,6 +14,7 @@
 #include "GameObject.hpp"
 #include "Map.hpp"
 #include "Timer.hpp"
+#include "MapWrapper.hpp"
 
 class PlayerController
 {
@@ -45,11 +46,11 @@ public:
 
     GraphicalElements &getDisplayInfo();
 
-    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, irr::u16 speed = 1);
+    void action(irr::IrrlichtDevice *device, MyEventReceiver &events, Map &map, std::vector<MapWrapper> &objToAdd, irr::u16 speed = 1);
     void setPosition(irr::core::vector3df);
     irr::core::vector3df getPosition();
 
-    void createBomb(irr::IrrlichtDevice *device, Map &map);
+    void createBomb(irr::IrrlichtDevice *device, Map &map, std::vector<MapWrapper> &objToAdd);
 };
 
 #endif // !PLAYER_CONTROLLER_HPP

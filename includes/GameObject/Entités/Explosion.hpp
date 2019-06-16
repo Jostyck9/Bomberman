@@ -11,6 +11,7 @@
 #include "Timer.hpp"
 #include "Map.hpp"
 #include "PrintableObject.hpp"
+#include "MapWrapper.hpp"
 
 class Explosion : public PrintableObject
 {
@@ -20,13 +21,13 @@ private:
     irr::u16 _x;
     irr::u16 _y;
 
-    void updateDammage(Map &map, std::vector<irr::s32> &idToDel);
+    void updateDammage(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd);
 
 public:
     Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y);
     ~Explosion();
 
-    void update(Map &map, std::vector<irr::s32> &idToDel);
+    void update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd);
     GameObject::objecType_t getType() override;
 };
 
