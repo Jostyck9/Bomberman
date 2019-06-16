@@ -5,8 +5,6 @@
 ** BotIA.cpp
 */
 
-#include <iostream>
-
 #include "BotIA.hpp"
 #include "Wall.hpp"
 
@@ -23,18 +21,12 @@ void BotIA::getAction(MyEventReceiver &event)
 {
     if (_clock.isTimeElapsedRestart(0.5))
         return;
-    if (escapeBomb(event, checkBomb())) {
-        //std::cout << "ESCAPE BOMB" << std::endl;
+    if (escapeBomb(event, checkBomb()))
         return;
-    }
-    if (findBestWay(event)) {
-        //std::cout << "FIND BEST WAY" << std::endl;
+    if (findBestWay(event))
         return;
-    }
-    if (breakWall(event)) {
-        //std::cout << "BREAK WALL" << std::endl;
+    if (breakWall(event))
         return;
-    }
 
     irr::core::vector2df pos = _map.getPosition(_character.getID());
 
@@ -46,7 +38,6 @@ void BotIA::getAction(MyEventReceiver &event)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
     else if  (pos.Y + 1 < _map.getSize() - 1 && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-//    std::cout << "RANDOM MOVE" << std::endl;
 }
 
 bool BotIA::findBestWay(MyEventReceiver &event)
@@ -59,11 +50,8 @@ bool BotIA::findBestWay(MyEventReceiver &event)
     irr::s16 left = wayValue(pos.X - 1, pos.Y, BotIA::direction_t::left, 1);
 
 
-    std::cout << "up = " << up << " || down = " << down << " || left = " << left << " || right = " << right << std::endl;
-    if (up < 5 && down < 5 && right < 5 && left < 5) {
- //       std::cout << "RECURSIF NICE" << std::endl;
+    if (up < 5 && down < 5 && right < 5 && left < 5)
         return false;
-    }
     if (up >= left && up >= right && up >= down)
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
     else if (left >= down && left >= right && left >= up)
@@ -77,7 +65,6 @@ bool BotIA::findBestWay(MyEventReceiver &event)
 
 irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u16 range)
 {
-//    std::cout << "Pos algo X = " << x << " || y = " << y << " || dir = " << dir << std::endl;
     irr::s16 up = -1;
     irr::s16 down = -1;
     irr::s16 left = -1;
@@ -98,16 +85,12 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
 
     if (up != -1 && up >= left && up >= right && up >= down)
         return up + (getPosValue(x, y) / range);
-    //std::cout << "RECURSIF UP" << std::endl;
     if (left != -1 && left >= down && left >= right && left >= up)
         return left + (getPosValue(x, y) / range);
-    //std::cout << "RECURSIF LEFT" << std::endl;
     if (down != -1 && down >= left && down >= right && down >= up)
         return down + (getPosValue(x, y) / range);
-    //std::cout << "RECURSIF DOWN" << std::endl;
     if (right != -1 && right >= left && right >= down && right >= up)
         return right + (getPosValue(x, y) / range);
-    //std::cout << "RECURSIF RIGHT" << std::endl;
     return getPosValue(x, y) / range;
 }
 
@@ -215,7 +198,6 @@ bool BotIA::escapeBomb(MyEventReceiver &event, BotIA::direction_t direction)
 {
     irr::core::vector2df pos = _map.getPosition(_character.getID());
 
-    // std::cout << "X = " << pos.X << " || Y = " << pos.Y << std::endl;
     if (direction == UNKNOWN)
         return false;
     if (direction == left) {

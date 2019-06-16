@@ -27,16 +27,6 @@ NonPlayer::~NonPlayer()
 
 void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event)
 {
-/*    if ((int)getDisplayInfo().getPosition().X % 10 != 5) {
-        irr::core::vector3df pos = getDisplayInfo().getPosition();
-        pos.X = (int)pos.X / 10 * 10;
-        getDisplayInfo().setPosition(pos);
-    }
-    if ((int)getDisplayInfo().getPosition().Y % 10 != 5) {
-        irr::core::vector3df pos = getDisplayInfo().getPosition();
-        pos.Y = (int)pos.Y / 10 * 10;
-        getDisplayInfo().setPosition(pos);
-    }*/
     irr::scene::ISceneNode *node = NULL;
     std::shared_ptr<GameObject> obj = nullptr;
     irr::core::vector3df newPos;
@@ -52,7 +42,6 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
     }
     _ia.getAction(event);
 
-    // std::cout << "IA POS X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     irr::core::vector3df pos = getDisplayInfo().getPosition();
     irr::core::vector2df posMap = map.getPosition(getID());
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z)) {
@@ -67,14 +56,8 @@ void NonPlayer::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<Map
     if (event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D)) {
         pos.Y = posMap.Y * 10;
     }
-    // std::cout << "IA POS AFTER X = " << getDisplayInfo().getPosition().X << " || Y = " << getDisplayInfo().getPosition().Y << std::endl;
     getDisplayInfo().setPosition(pos);
 
-    std::cout << "z1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Z) << std::endl;
-    std::cout << "q1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_Q) << std::endl;
-    std::cout << "s1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_S) << std::endl;
-    std::cout << "d1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_KEY_D) << std::endl;
-    std::cout << "space1 : " << event.IsKeyDown(irr::EKEY_CODE::KEY_SPACE) << std::endl << std::endl;
     this->getPlayerController().action(_device, event, map, objToAdd, getStats().getSpeed());
 }
 
