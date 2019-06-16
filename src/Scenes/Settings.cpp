@@ -15,7 +15,6 @@ Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScen
     print_image();
     button();
     sound();
-    //std::cout << "" << edit_sound << std::endl;
 }
 
 Settings::~Settings()

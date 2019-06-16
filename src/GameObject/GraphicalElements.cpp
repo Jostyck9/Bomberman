@@ -246,37 +246,39 @@ irr::scene::ISceneNode *GraphicalElements::getFrontObj(irr::f32 distance, irr::s
     //Detection
     ray.start = _node->getPosition();
     ray.end = ray.start + (positionEnd).normalize() * distance;
-    ray.start.Z -= 0.5;
-    ray.end.Z -= 0.5;
 
-    res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
-    if (res)
-        return (res); 
-
-    if (positionEnd.Y == 0) {
-        ray.start.Y -= offset;
-        ray.end.Y -= offset;
-        res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+    for (irr::s16 i = 0; i < 3; i++) {
+            res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
         if (res)
             return (res); 
 
-        ray.start.Y += 2 * offset;
-        ray.end.Y += 2 * offset;
-        res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
-        if (res)
-            return (res); 
-    } else {
-        ray.start.Y -= offset;
-        ray.end.Y -= offset;
-        res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
-        if (res)
-            return (res); 
+        if (positionEnd.Y == 0) {
+            ray.start.Y -= offset;
+            ray.end.Y -= offset;
+            res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+            if (res)
+                return (res); 
 
-        ray.start.Y += 2 * offset;
-        ray.end.Y += 2 * offset;
-        res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
-        if (res)
-            return (res); 
+            ray.start.Y += 2 * offset;
+            ray.end.Y += 2 * offset;
+            res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+            if (res)
+                return (res); 
+        } else {
+            ray.start.Y -= offset;
+            ray.end.Y -= offset;
+            res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+            if (res)
+                return (res); 
+
+            ray.start.Y += 2 * offset;
+            ray.end.Y += 2 * offset;
+            res = collMan->getSceneNodeAndCollisionPointFromRay(ray, intersection, hitTriangle, id);
+            if (res)
+                return (res); 
+        }
+        ray.start.Z -= 1;
+        ray.end.Z -= 1;
     }
     return (NULL);
 }

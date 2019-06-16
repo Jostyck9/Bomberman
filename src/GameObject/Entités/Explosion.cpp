@@ -10,7 +10,7 @@
 #include "Bomb.hpp"
 #include "Explosion.hpp"
 
-Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : PrintableObject(device), _index(1), _x(x), _y(y)
+Explosion::Explosion(irr::IrrlichtDevice *device, irr::u16 x, irr::u16 y) : _myTimer(device), PrintableObject(device), _index(1), _x(x), _y(y)
 {
     std::string path_mesh = "./assets/meshs/Wall/Wall.b3d";
     std::vector<std::string> path_text;

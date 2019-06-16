@@ -26,8 +26,7 @@ SpeedUp::SpeedUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : 
 
 bool SpeedUp::applyEffect(ACharacter &player)
 {
-    if (player.getStats().getSpeed() < 1.8)
-        player.getStats().setSpeed(player.getStats().getSpeed() + 0.2);
+    player.getStats().setSpeed(player.getStats().getSpeed() + 10);
     return true;
 }
 

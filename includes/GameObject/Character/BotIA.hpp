@@ -10,6 +10,7 @@
 
 #include "ACharacter.hpp"
 #include "Map.hpp"
+#include "Timer.hpp"
 
 class BotIA
 {
@@ -31,7 +32,7 @@ public:
     };
     typedef objValue_s objValue_t;
 
-    BotIA(Map &map, ACharacter &character);
+    BotIA(irr::IrrlichtDevice *device, Map &map, ACharacter &character);
     void getAction(MyEventReceiver &event);
     direction_t checkBomb();
     bool checkWallAround(irr::u16 x, irr::u16 y);
@@ -44,6 +45,7 @@ public:
     ~BotIA();
 
 private:
+    Timer _clock;
     Map &_map;
     ACharacter &_character;
 };

@@ -10,7 +10,7 @@
 #include "Bomb.hpp"
 #include "Wall.hpp"
 
-Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character), _sound()
+Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : myTimer(device), PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character), _sound()
 {
     irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;
@@ -21,14 +21,12 @@ Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, 
     this->getDisplayInfo().setMesh(path_text, path_mesh);
     this->getDisplayInfo().setScale(irr::core::vector3df(5,5,5));
     this->getDisplayInfo().setRotation(irr::core::vector3df(90,180,180));
-    this->getDisplayInfo().addColision();
     this->getDisplayInfo().setAnimation(true);
 }
 
 Bomb::~Bomb()
 {
     _sound.playExplosionBomb();
-    // std::cout << "BOOOUUUMMM" << std::endl;
 }
 
 irr::u16 Bomb::getRadius()
@@ -49,7 +47,6 @@ void Bomb::createExplosion(Map &map, std::vector<MapWrapper> &objToAdd, irr::cor
     MapWrapper current(position.X, position.Y, std::shared_ptr<Explosion>(new Explosion(_device, position.X, position.Y)));
     if (current.getObj()) {
         objToAdd.push_back(current);
-        // map.addToMap(position.X, position.Y, current);
     }
 }
 
@@ -73,7 +70,6 @@ void Bomb::detectDestroyWall(Map &map, std::vector<irr::s32> &idToDel, std::vect
                 if (currentWall->isBreakable()) {
                     idToDel.push_back(currentWall->getID());
                     currentWall->createPowerUp(_device, map, posX, posY);
-                    // createExplosion(map, irr::core::vector2di(posX, posY));
                 }
                 return;
             }
@@ -106,8 +102,3 @@ GameObject::objecType_t Bomb::getType()
 {
     return BOMB;
 }
-
-// void Bomb::setParentCharacter(ACharacter& character)
-// {
-//     _parentCharacter = character;
-// }
