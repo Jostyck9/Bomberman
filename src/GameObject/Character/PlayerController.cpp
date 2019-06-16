@@ -12,11 +12,11 @@
 #include "PlayerController.hpp"
 #include "BomberException.hpp"
 
-PlayerController::PlayerController(GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
+PlayerController::PlayerController(irr::IrrlichtDevice *device, GraphicalElements &displayInfos, GameObject &player) : _device(device), _displayInfo(displayInfos), _player(player), myTimer(device)
 {
 }
 
-PlayerController::PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player) : _displayInfo(displayInfos), _player(player)
+PlayerController::PlayerController(irr::IrrlichtDevice *device, KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player) : _device(device), _displayInfo(displayInfos), _player(player), myTimer(device)
 {
     _keyMap = keyMap;
 }
@@ -44,8 +44,6 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
 {
     bool checker = false;
 
-    if (!myTimer.isTimeElapsedRestart(1 / 60))
-        return;
     if (events.IsKeyDown(_keyMap.getBackward())) {
         setRotation(irr::EKA_MOVE_BACKWARD);
         move(irr::EKA_MOVE_BACKWARD, speed);
@@ -76,6 +74,7 @@ void PlayerController::action(irr::IrrlichtDevice *device, MyEventReceiver &even
     if (events.IsKeyReleased(_keyMap.getAction())) {
         createBomb(device, map, objToAdd);
     }
+    myTimer.restartClock();
 }
 
 void PlayerController::createBomb(irr::IrrlichtDevice *device, Map &map, std::vector<MapWrapper> &objToAdd)
@@ -148,24 +147,29 @@ void PlayerController::setRotation(irr::EKEY_ACTION action)
 void PlayerController::move(irr::EKEY_ACTION action, irr::u16 speed)
 {
     irr::core::vector3df position = _displayInfo.getPosition();
-    irr::s16 offset = 1;
+    irr::s16 offset = 20;
+    irr::f32 frameDeltaTime = myTimer.getElapsedTime();
+    irr::f32 toAdd = 0;
 
+    toAdd = (offset + speed) * frameDeltaTime;
+    if (toAdd >= 9)
+        toAdd = 9;
     switch (action)
     {
     case irr::EKA_MOVE_BACKWARD:
-        position.Y -= offset * speed;
+        position.Y -= toAdd;
         break;
     
     case irr::EKA_MOVE_FORWARD:
-        position.Y += offset * speed;
+        position.Y += toAdd;
         break;
     
     case irr::EKA_STRAFE_LEFT:
-        position.X -= offset * speed;
+        position.X -= toAdd;
         break;
 
     case irr::EKA_STRAFE_RIGHT:
-        position.X += offset * speed;
+        position.X += toAdd;
         break;
     default:
         return;

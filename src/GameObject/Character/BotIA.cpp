@@ -10,7 +10,7 @@
 #include "BotIA.hpp"
 #include "Wall.hpp"
 
-BotIA::BotIA(Map &map, ACharacter &character) : _map(map), _character(character)
+BotIA::BotIA(irr::IrrlichtDevice *device, Map &map, ACharacter &character) : _clock(device), _map(map), _character(character)
 {
     _clock.restartClock();
 }

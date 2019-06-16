@@ -27,6 +27,7 @@ public:
     };
 
 private:
+    irr::IrrlichtDevice *_device;
     KeyMap _keyMap;
     GraphicalElements &_displayInfo;
     GameObject &_player;
@@ -37,8 +38,8 @@ private:
     void move(irr::EKEY_ACTION action, irr::u16 speed);
 
 public:
-    PlayerController(GraphicalElements &displayInfos, GameObject &player);
-    PlayerController(KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player);
+    PlayerController(irr::IrrlichtDevice *device, GraphicalElements &displayInfos, GameObject &player);
+    PlayerController(irr::IrrlichtDevice *device, KeyMap keyMap, GraphicalElements &displayInfos, GameObject &player);
     ~PlayerController();
 
     KeyMap &getKeyMap();

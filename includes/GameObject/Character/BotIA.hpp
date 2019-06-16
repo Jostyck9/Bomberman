@@ -32,7 +32,7 @@ public:
     };
     typedef objValue_s objValue_t;
 
-    BotIA(Map &map, ACharacter &character);
+    BotIA(irr::IrrlichtDevice *device, Map &map, ACharacter &character);
     void getAction(MyEventReceiver &event);
     direction_t checkBomb();
     bool checkWallAround(irr::u16 x, irr::u16 y);

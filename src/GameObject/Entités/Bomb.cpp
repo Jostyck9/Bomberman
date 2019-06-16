@@ -10,7 +10,7 @@
 #include "Bomb.hpp"
 #include "Wall.hpp"
 
-Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character), _sound()
+Bomb::Bomb(irr::IrrlichtDevice* device, ACharacter& character, irr::u16 radius, irr::core::vector2df &posMap) : myTimer(device), PrintableObject(device), _radius(radius), _posMap(posMap), _parentCharacter(character), _sound()
 {
     irr::core::vector3df pos((posMap.X * 10), (posMap.Y * 10), 0);
     std::vector<std::string> path_text;

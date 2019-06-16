@@ -7,45 +7,59 @@
 
 #include "Timer.hpp"
 
-Timer::Timer() : _begin(clock())
+Timer::Timer(irr::IrrlichtDevice *device) : _device(device), _start(0)
 {
+    if (_device) {
+        _start = _device->getTimer()->getTime();
+    }
 }
 
 Timer::~Timer()
 {
 }
 
-double Timer::getElapsedTime() const
+irr::f32 Timer::getElapsedTime() const
 {
-    clock_t now = clock();
-    double time_elapsed = 0;
+    irr::f32 timeElapsed = 0;
+    irr::u32 now = 0;
 
-    time_elapsed = double(now - _begin) / CLOCKS_PER_SEC;
-    return (time_elapsed);
+    if (!_device)
+        return (0);
+    now = _device->getTimer()->getTime();
+    timeElapsed = (irr::f32)(now - _start) / 1000.f;
+    return (timeElapsed);
 }
 
 void Timer::restartClock()
 {
-    _begin = clock();
+    if (_device) {
+        _start = _device->getTimer()->getTime();
+    }
 }
 
 bool Timer::isTimeElapsed(double time) const
 {
-    clock_t now = clock();
-    double time_elapsed = 0;
+    irr::u32 now = 0;
+    irr::u32 timeElapsed = 0;
 
-    time_elapsed = double(now - _begin) / CLOCKS_PER_SEC;
-    return (time_elapsed >= time);
+    if (!_device)
+        return (false);
+    now = _device->getTimer()->getTime();
+    timeElapsed = (irr::f32)(now - _start) / 1000.f;
+    return (timeElapsed >= time);
 }
 
 bool Timer::isTimeElapsedRestart(double time)
 {
-    clock_t now = clock();
-    double time_elapsed = 0;
+    irr::u32 now = 0;
+    double timeElapsed = 0;
 
-    time_elapsed = double(now - _begin) / CLOCKS_PER_SEC;
-    if (time_elapsed >= time) {
-        _begin = clock();
+    if (!_device)
+        return (0);
+    now = _device->getTimer()->getTime();
+    timeElapsed = (irr::f32)(now - _start) / 1000.f;
+    if (timeElapsed >= time) {
+        _start = _device->getTimer()->getTime();
         return (true);
     }
     return (false);
