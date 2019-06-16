@@ -6,6 +6,7 @@
 */
 
 #include "SpeedUp.hpp"
+#include <iostream>
 
 SpeedUp::SpeedUp(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) : AItem(device)
 {

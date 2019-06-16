@@ -25,9 +25,10 @@ class Scoreboard : public AScene
     irr::gui::IGUIEnvironment *guienv;
     irr::video::ITexture *texture;
     irr::gui::IGUIImage *cadre;
+    Sound _sound;
 
     public:
-    Scoreboard(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background);
+    Scoreboard(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound);
     ~Scoreboard();
     IScene* update() override;
     void display() override;

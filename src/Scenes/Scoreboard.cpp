@@ -8,7 +8,7 @@
 #include "Scoreboard.hpp"
 #include "Menu.hpp"
 
-Scoreboard::Scoreboard(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
+Scoreboard::Scoreboard(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound sound) : AScene(device, receiver, false), _background(background), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
     button();
@@ -32,7 +32,7 @@ IScene* Scoreboard::update()
     id = _events.getButtonPressed();
     switch(id) {
         case GUI_RETURN_SCORE:
-            next = new Menu(this->_device, this->_events, _background);
+            next = new Menu(this->_device, this->_events, _background, this->_sound);
             delete this;
             return (next);
 

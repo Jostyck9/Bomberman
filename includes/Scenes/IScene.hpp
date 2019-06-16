@@ -8,6 +8,8 @@
 #ifndef ISCENE_HPP
 #define ISCENE_HPP
 
+#include "Sound.hpp"
+
 class IScene
 {
 public:

@@ -8,7 +8,7 @@
 #include "How_play.hpp"
 #include "Menu.hpp"
 
-How_Play::How_Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
+How_Play::How_Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound sound) : AScene(device, receiver, false), _background(background), _sound(sound)
 {
     guienv = device->getGUIEnvironment();
     button();
@@ -34,7 +34,7 @@ IScene* How_Play::update()
     id = _events.getButtonPressed();
     switch(id) {
         case GUI_RETURN_HOW:
-            next = new Menu(this->_device, this->_events, _background);
+            next = new Menu(this->_device, this->_events, _background, this->_sound);
             delete this;
             return (next);
 
