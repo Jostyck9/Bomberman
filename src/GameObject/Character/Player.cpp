@@ -21,6 +21,11 @@ Player::Player(irr::IrrlichtDevice* device, std::vector<std::string> path_text, 
     this->getDisplayInfo().addColisionResponse(irr::core::vector3df(4, 4, 4));
 }
 
+Player::~Player()
+{
+    getSound().playSoundDefeat();
+}
+
 void Player::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event)
 {
     bool update = true;
@@ -33,6 +38,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWra
         obj = map.getObject(node);
         if (obj) {
             std::dynamic_pointer_cast<AItem>(obj)->applyEffect(*this);
+            getSound().playPowerUpEffect();
             idToDel.push_back(obj->getID());
         }
     }

@@ -14,6 +14,7 @@
 #include "Score.hpp"
 #include "Life.hpp"
 #include "Map.hpp"
+#include "Sound.hpp"
 
 class ACharacter : public PrintableObject
 {
@@ -22,12 +23,14 @@ private:
     Score _score;
     Life _life;
     PlayerController _controller;
+    Sound _sound;
 
 public:
     ACharacter(irr::IrrlichtDevice* device);
     virtual ~ACharacter() = default;
 
     CharacterStats &getStats();
+    Sound &getSound();
     Score &getScore();
     Life &getLife();
     PlayerController &getPlayerController();

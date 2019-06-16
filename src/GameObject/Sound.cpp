@@ -20,38 +20,65 @@ Sound::Sound() : _loop(false), _sound(nullptr)
     this->_sounds.push_back("./assets/Sounds/SoundEffects/Explosion.wav");
 }
 
+Sound::Sound(const Sound& sound)
+{
+    this->_loop = sound.getLoop();
+    this->_engine = sound.getEngine();
+    this->_sound = sound.getISound();
+    this->_sounds = sound.getSounds();
+}
+
 void Sound::playMenuMusic()
 {
+    if (_engine->isCurrentlyPlaying(this->_sounds[1].c_str()))
+        return;
     this->_sound = this->_engine->play3D(this->_sounds[1].c_str(), vec3df(0,0,0), true, false, true);
+    this->_sound->setVolume(0.5);
 }
 
 void Sound::playGameMusic()
 {
+    if (_engine->isCurrentlyPlaying(this->_sounds[0].c_str()))
+        return;
     this->_sound = this->_engine->play3D(this->_sounds[0].c_str(), vec3df(0,0,0), true, false, true);
+    this->_sound->setVolume(0.3);
 }
 
 void Sound::playPutBomb()
 {
-    this->_sound = this->_engine->play3D(this->_sounds[5].c_str(), vec3df(0,0,0), true, false, true);
+    if (_engine->isCurrentlyPlaying(this->_sounds[5].c_str()))
+        return;
+    this->_sound = this->_engine->play3D(this->_sounds[5].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound->setVolume(1);
 }
 
 void Sound::playExplosionBomb()
 {
-    this->_sound = this->_engine->play3D(this->_sounds[6].c_str(), vec3df(0,0,0), true, false, true);
+    if (_engine->isCurrentlyPlaying(this->_sounds[6].c_str()))
+        return;
+    this->_sound = this->_engine->play3D(this->_sounds[6].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound->setVolume(0.7);
 }
 
 void Sound::playSoundWin()
 {
+    if (_engine->isCurrentlyPlaying(this->_sounds[4].c_str()))
+        return;
     this->_sound = this->_engine->play3D(this->_sounds[4].c_str(), vec3df(0,0,0), false, false, true);
 }
 
 void Sound::playSoundDefeat()
 {
+    if (_engine->isCurrentlyPlaying(this->_sounds[3].c_str()))
+        return;
     this->_sound = this->_engine->play3D(this->_sounds[3].c_str(), vec3df(0,0,0), false, false, true);
+    this->_sound->setVolume(0.3);
 }
 
-void Sound::playPowerUpEffet()
+void Sound::playPowerUpEffect()
 {
+    if (_engine->isCurrentlyPlaying(this->_sounds[2].c_str()))
+        return;
     this->_sound = this->_engine->play3D(this->_sounds[2].c_str(), vec3df(0,0,0), false, false, true);
 }
 
@@ -69,7 +96,27 @@ void Sound::destroyMe()
 
 void Sound::setVol(wchar_t vol)
 {
-    irr::u16 n = boost::lexical_cast<irr::u16>(vol);
-    n = n * 10;
+    irr::u16 n = boost::lexical_cast<irr::f32>(vol);
+    n = n / 10;
     this->_sound->setVolume(n);
+}
+
+bool Sound::getLoop() const
+{
+    return (this->_loop);
+}
+
+ISoundEngine* Sound::getEngine() const
+{
+    return (this->_engine);
+}
+
+ISound* Sound::getISound() const
+{
+    return (this->_sound);
+}
+
+std::vector<std::string> Sound::getSounds() const
+{
+    return (this->_sounds);
 }

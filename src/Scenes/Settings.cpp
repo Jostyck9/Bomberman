@@ -9,7 +9,7 @@
 #include "Settings.hpp"
 #include "Menu.hpp"
 
-Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
+Settings::Settings(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background, Sound Sendsound) : AScene(device, receiver, false), _background(background), _sound(Sendsound)
 {
     guienv = device->getGUIEnvironment();
     print_image();
@@ -41,7 +41,7 @@ IScene* Settings::update()
     id = _events.getButtonPressed();
     switch(id) {
         case GUI_RETURN_MENU:
-            next = new Menu(this->_device, this->_events, _background);
+            next = new Menu(this->_device, this->_events, _background, this->_sound);
             delete this;
             return (next);
 
