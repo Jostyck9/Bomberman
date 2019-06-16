@@ -14,11 +14,12 @@
 #include "Play.hpp"
 
 
-Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background)
+Menu::Menu(irr::IrrlichtDevice* device, MyEventReceiver &receiver, IScene *background) : AScene(device, receiver, false), _background(background), sound()
 {
     guienv = device->getGUIEnvironment();
     sizescreen = this->_driver->getScreenSize();
     device->setResizable(false);
+    sound.playMenuMusic();
     button();
     tittle();
     setSkin();
@@ -53,23 +54,26 @@ IScene* Menu::update()
             return (nullptr);
 
         case GUI_PLAY:
-        next = new Play(this->_device, this->_events);
+        next = new Play(this->_device, this->_events, this->sound);
             delete this;
             return (next);
             break;
 
         case GUI_LOAD:
             try {
-            next = new Game(this->_device, this->_events, "save.txt");
+                next = new Game(this->_device, this->_events, "save.txt");
             }
             catch (std::exception) {
+                delete _background;
+                IScene *back(new Background(_device, _events));
+                _background = back;
                 _device->getGUIEnvironment()->addMessageBox(
                 Load_error.c_str(), L"No save can be load");
+                break;
             }
             delete this;
             delete _background;
             return (next);
-            break;
 
         case GUI_SETTINGS:
             next = new Settings(this->_device, this->_events, this->_background);

@@ -11,6 +11,7 @@
 #include "AScene.hpp"
 #include "Menu.hpp"
 #include "Camera.hpp"
+#include "Sound.hpp"
 
 enum
 {
@@ -49,7 +50,7 @@ typedef struct character character;
 class Play : public AScene
 {
     public:
-    Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver);
+    Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound);
     ~Play();
     IScene* update() override;
     void display() override;
@@ -70,6 +71,7 @@ class Play : public AScene
     bool button();
 
     private:
+    Sound sound;
     IScene *_background;
     irr::gui::IGUIButton *return_menu;
     irr::gui::IGUIButton *start_game;

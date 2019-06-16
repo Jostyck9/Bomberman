@@ -9,7 +9,7 @@
 #include "Play.hpp"
 #include "Game.hpp"
 
-Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver) : AScene(device, receiver)
+Play::Play(irr::IrrlichtDevice* device, MyEventReceiver &receiver, Sound snd) : AScene(device, receiver), sound(snd)
 {
     guienv = device->getGUIEnvironment();
     Camera camera(device->getSceneManager(), irr::core::vector3df(-2.1, 1, 3.2), irr::core::vector3df(0, 0, 0));
@@ -28,6 +28,7 @@ Play::~Play()
     Toad->remove();
     Peach->remove();
     menu_play->remove();
+    sound.stopMe();
     // Mario_IA_but->remove();
     // Mario_Player1_but->remove();
     // Mario_Player2_but->remove();
