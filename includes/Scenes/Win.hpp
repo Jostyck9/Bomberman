@@ -25,6 +25,13 @@ private:
     Timer _myTimer;
     bool _played;
     Sound &_menuSound;
+    irr::gui::IGUIEnvironment *guienv;
+    irr::video::ITexture *winner_texture;
+    irr::video::ITexture *draw_texture;
+    irr::video::ITexture *quit_texture;
+    irr::gui::IGUIButton *winner_button;
+    irr::gui::IGUIButton *draw;
+    irr::gui::IGUIButton *quit;
 
 public:
     Win(irr::IrrlichtDevice *device, MyEventReceiver &receiver, Map::character_t winner, Sound &menuSound);
