@@ -205,6 +205,7 @@ bool Map::save()
                     file << "\t\t<wallpass>" << "</wallpass>" << std::endl;
                 if (_map[i][j].at(k)->getType() == GameObject::PLAYER) {
                     file << "\t\t<player>" << std::endl;
+                    file << "\t\t\t<character>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getCharacter() << "</character>" <<std::endl;
                     file << "\t\t\t<nbrbomb>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getNbrBomb() << "</nbrbomb>" <<std::endl;
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
@@ -214,6 +215,7 @@ bool Map::save()
                 }
                 if (_map[i][j].at(k)->getType() == GameObject::NONPLAYER) {
                     file << "\t\t<nonplayer>" << std::endl;
+                    file << "\t\t\t<character>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getCharacter() << "</character>" <<std::endl;
                     file << "\t\t\t<nbrbomb>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getNbrBomb() << "</nbrbomb>" <<std::endl;
                     file << "\t\t\t<bombradius>" << std::dynamic_pointer_cast<ACharacter >(_map[i][j].at(k))->getStats().getBombRadius() << "</bombradius>" <<std::endl;
                     file << "\t\t\t<passthrough>" << std::dynamic_pointer_cast<ACharacter>(_map[i][j].at(k))->getStats().getPassThrough() << "</passthrough>" <<std::endl;
@@ -284,8 +286,8 @@ bool Map::load(const std::string &filename)
                 }
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10));
+                    std::string path = cell.second.get<std::string>("mesh");
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, cell.second.get<ACharacter::character_t>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
@@ -297,8 +299,8 @@ bool Map::load(const std::string &filename)
                 }
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
-                    std::string path = "./assets/meshs/Luigi/luigi.b3d";
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10));
+                    std::string path = cell.second.get<std::string>("mesh");
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, cell.second.get<ACharacter::character_t>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
@@ -405,4 +407,23 @@ std::vector<std::shared_ptr<GameObject>> &Map::getCellObject(irr::u16 x, irr::u1
     if (x >= _size || y >= _size)
         throw bomberException("Invalid position", "Map");
     return (_map[x][y]);
+}
+
+ACharacter::character_t Map::checkWin()
+{
+    irr::s16 nbPlayer = 0;
+    ACharacter::character_t character = ACharacter::character_t::UNKNOWN;
+    for (irr::u16 x = 0; x < _size; x++) {
+        for (irr::u16 y = 0; y < _size; y++) {
+            for (auto &it : _map[x][y]) {
+                if (it->getType() == GameObject::PLAYER || it->getType() == GameObject::NONPLAYER) {
+                    nbPlayer++;
+                    character = std::dynamic_pointer_cast<ACharacter>(it)->getCharacter();
+                }
+            }
+        }
+    }
+    if (nbPlayer > 1)
+        return ACharacter::character_t::UNKNOWN;
+    return character;
 }

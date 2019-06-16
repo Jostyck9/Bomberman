@@ -19,7 +19,7 @@ private:
 public:
     void update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWrapper> &objToAdd, MyEventReceiver event = MyEventReceiver()) override;
 
-    Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16);
+    Player(irr::IrrlichtDevice*, std::vector<std::string>, std::string&, irr::s16, irr::s16, ACharacter::character_t character);
 
     GameObject::objecType_t getType() override;
 };

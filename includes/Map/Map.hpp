@@ -15,6 +15,7 @@
 #endif
 
 #include <boost/multi_array.hpp>
+#include <GameObject/Character/ACharacter.hpp>
 #include "GameObject.hpp"
 
 class Map
@@ -46,6 +47,7 @@ public:
     bool load(const std::string &filename);
     void setDevice(irr::IrrlichtDevice *device);
     void setSize(irr::u16 size);
+    ACharacter::character_t checkWin();
 
     irr::core::vector2df getPosition(std::shared_ptr<GameObject>);
     irr::core::vector2df getPosition(irr::s32 id);
