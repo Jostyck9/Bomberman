@@ -64,8 +64,7 @@ IScene* Menu::update()
             }
             catch (std::exception) {
                 delete _background;
-                IScene *back(new Background(_device, _events));
-                _background = back;
+                _background = new Background(_device, _events);
                 _device->getGUIEnvironment()->addMessageBox(
                 Load_error.c_str(), L"No save can be load");
                 break;
