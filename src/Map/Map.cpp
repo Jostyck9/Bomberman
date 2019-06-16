@@ -287,7 +287,7 @@ bool Map::load(const std::string &filename)
                 if (cell.first == "player") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, cell.second.get<Map::character_t>("character")));
+                    std::shared_ptr<Player> player(new Player(_device, textures, path, i * 10, j * 10, (Map::character_t)cell.second.get<irr::u16>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
@@ -300,7 +300,7 @@ bool Map::load(const std::string &filename)
                 if (cell.first == "nonplayer") {
                     std::vector<std::string> textures;
                     std::string path = cell.second.get<std::string>("mesh");
-                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, cell.second.get<Map::character_t>("character")));
+                    std::shared_ptr<NonPlayer> player(new NonPlayer(_device, *this, textures, path, i * 10, j * 10, (Map::character_t)cell.second.get<irr::u16>("character")));
                     if (player) {
                         player->getDisplayInfo().setScale(irr::core::vector3df(5, 5, 5));
                         player->getStats().setPassThrough(cell.second.get<bool>("passthrough"));
