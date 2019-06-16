@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include "BomberException.hpp"
 #include "MapWrapper.hpp"
 #include "Explosion.hpp"
 #include "Game.hpp"
@@ -169,16 +170,22 @@ IScene* Game::update()
         delete this;
         return (nullptr);
     }
-    for (irr::u16 x = 0; x < _map.getSize(); x++) {
-        for (irr::u16 y = 0; y < _map.getSize(); y++) {
-            for (auto &it : _map.getMap()[x][y]) {
-                updateObj(it, idToDel, idToMove, objToAdd);
+    try {
+        for (irr::u16 x = 0; x < _map.getSize(); x++) {
+            for (irr::u16 y = 0; y < _map.getSize(); y++) {
+                for (auto &it : _map.getMap()[x][y]) {
+                    updateObj(it, idToDel, idToMove, objToAdd);
+                }
             }
         }
+        updatePosition(idToMove);
+        deleteObj(idToDel);
+        addObj(objToAdd);
+    } catch (bomberException &e) {
+        std::cerr << e.getPart() << " : " << e.what() << std::endl;
+        delete this;
+        return (nullptr);
     }
-    updatePosition(idToMove);
-    deleteObj(idToDel);
-    addObj(objToAdd);
 
     _events.resetKeys();
     return (this);

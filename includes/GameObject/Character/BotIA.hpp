@@ -10,6 +10,7 @@
 
 #include "ACharacter.hpp"
 #include "Map.hpp"
+#include "Timer.hpp"
 
 class BotIA
 {
@@ -44,6 +45,7 @@ public:
     ~BotIA();
 
 private:
+    Timer _clock;
     Map &_map;
     ACharacter &_character;
 };

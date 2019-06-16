@@ -37,7 +37,7 @@ void Player::update(Map &map, std::vector<irr::s32> &idToDel, std::vector<MapWra
         }
     }
     if (getStats().getPassThrough()) {
-        node = getDisplayInfo().getFrontObj(4, GameObject::WALL);
+        node = getDisplayInfo().getFrontObj(5, GameObject::WALL);
         if (node) {
             obj = map.getObject(node);
             if (obj && std::dynamic_pointer_cast<Wall>(obj)->isBreakable()) {

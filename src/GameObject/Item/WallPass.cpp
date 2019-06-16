@@ -18,7 +18,7 @@ WallPass::WallPass(irr::IrrlichtDevice* device, irr::u16 pos_x, irr::u16 pos_y) 
     this->setPosMap(pos_map_tmp);
     this->getDisplayInfo().setPosition(pos_world_tmp);
     this->getDisplayInfo().setMesh(path_text, path_mesh, GameObject::objecType_t::ITEM);
-    this->getDisplayInfo().setScale(irr::core::vector3df(0.06, 0.06, 0.06));
+    this->getDisplayInfo().setScale(irr::core::vector3df(0.06, 0.06, 0.10));
     this->getDisplayInfo().setRotation(irr::core::vector3df(0,180,0));
     this->getDisplayInfo().addColision();
 }

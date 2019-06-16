@@ -12,6 +12,7 @@
 
 BotIA::BotIA(Map &map, ACharacter &character) : _map(map), _character(character)
 {
+    _clock.restartClock();
 }
 
 BotIA::~BotIA()
@@ -20,6 +21,8 @@ BotIA::~BotIA()
 
 void BotIA::getAction(MyEventReceiver &event)
 {
+    if (_clock.isTimeElapsedRestart(0.5))
+        return;
     if (escapeBomb(event, checkBomb())) {
         //std::cout << "ESCAPE BOMB" << std::endl;
         return;
@@ -37,12 +40,12 @@ void BotIA::getAction(MyEventReceiver &event)
 
     if (pos.X - 1 >= 1 && (_map.getMap()[pos.X - 1][pos.Y].empty() || _map.getMap()[pos.X - 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Q);
-    else if (pos.X + 1 >= 1 && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
+    else if (pos.X + 1 < _map.getSize() - 1 && (_map.getMap()[pos.X + 1][pos.Y].empty() || _map.getMap()[pos.X + 1][pos.Y].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_D);
-    else if  (pos.Y - 1 >= 0 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
-        event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
-    else if  (pos.Y + 1 >= 0 && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
+    else if  (pos.Y - 1 >= 1 && (_map.getMap()[pos.X][pos.Y - 1].empty() || _map.getMap()[pos.X][pos.Y - 1].at(0)->getType() != GameObject::objecType_t::WALL))
         event.setKeyPressed(EKEY_CODE::KEY_KEY_Z);
+    else if  (pos.Y + 1 < _map.getSize() - 1 && (_map.getMap()[pos.X][pos.Y + 1].empty() || _map.getMap()[pos.X][pos.Y + 1].at(0)->getType() != GameObject::objecType_t::WALL))
+        event.setKeyPressed(EKEY_CODE::KEY_KEY_S);
 //    std::cout << "RANDOM MOVE" << std::endl;
 }
 
@@ -80,7 +83,7 @@ irr::s16 BotIA::wayValue(irr::u16 x, irr::u16 y, BotIA::direction_t dir, irr::u1
     irr::s16 left = -1;
     irr::s16 right = -1;
 
-    if (range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL) || x <= 0 || y >= _map.getSize())
+    if (x <= 0 || y >= _map.getSize() || range >= 6 || (!_map.getMap()[x][y].empty() && _map.getMap()[x][y].at(0)->getType() == GameObject::objecType_t::WALL))
         return 0;
     if (!_map.getMap()[x][y].empty() && isInteresting(x, y))
         return (getPosValue(x, y) / range);
